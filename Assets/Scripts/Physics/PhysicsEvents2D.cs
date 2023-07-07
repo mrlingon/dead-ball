@@ -13,15 +13,15 @@ public class PhysicsEvents2D : MonoBehaviour
 
     public Collider2D Collider { get; private set; }
 
-    private void Awake()
+    protected void Awake()
     {
         Collider = GetComponent<Collider2D>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other) => TriggerEnter?.Invoke(other);
-    private void OnTriggerExit2D(Collider2D other) => TriggerExit?.Invoke(other);
+    protected void OnTriggerEnter2D(Collider2D other) => TriggerEnter?.Invoke(other);
+    protected void OnTriggerExit2D(Collider2D other) => TriggerExit?.Invoke(other);
 
-    private void OnCollisionEnter2D(Collision2D other) => CollisionEnter?.Invoke(other);
-    private void OnCollisionExit2D(Collision2D other) => CollisionExit?.Invoke(other);
+    protected void OnCollisionEnter2D(Collision2D other) => CollisionEnter?.Invoke(other);
+    protected void OnCollisionExit2D(Collision2D other) => CollisionExit?.Invoke(other);
 
 }

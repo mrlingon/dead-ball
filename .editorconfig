@@ -111,7 +111,7 @@ dotnet_naming_rule.non_public_static_readonly_fields_should_be_begins_with_k_.st
 
 dotnet_naming_rule.event_should_be_camel_case.severity = suggestion
 dotnet_naming_rule.event_should_be_camel_case.symbols = event
-dotnet_naming_rule.event_should_be_camel_case.style = camel_case
+dotnet_naming_rule.event_should_be_camel_case.style = pascal_case
 
 dotnet_naming_rule.method_parameters_should_be_camel_case.severity = suggestion
 dotnet_naming_rule.method_parameters_should_be_camel_case.symbols = method_parameters
@@ -178,17 +178,17 @@ dotnet_naming_style.begins_with_i.required_suffix =
 dotnet_naming_style.begins_with_i.word_separator =
 dotnet_naming_style.begins_with_i.capitalization = pascal_case
 
-dotnet_naming_style.begins_with_m_.required_prefix = m_
+dotnet_naming_style.begins_with_m_.required_prefix =
 dotnet_naming_style.begins_with_m_.required_suffix =
 dotnet_naming_style.begins_with_m_.word_separator =
 dotnet_naming_style.begins_with_m_.capitalization = pascal_case
 
-dotnet_naming_style.begins_with_s_.required_prefix = s_
+dotnet_naming_style.begins_with_s_.required_prefix =
 dotnet_naming_style.begins_with_s_.required_suffix =
 dotnet_naming_style.begins_with_s_.word_separator =
 dotnet_naming_style.begins_with_s_.capitalization = pascal_case
 
-dotnet_naming_style.begins_with_k_.required_prefix = k_
+dotnet_naming_style.begins_with_k_.required_prefix =
 dotnet_naming_style.begins_with_k_.required_suffix =
 dotnet_naming_style.begins_with_k_.word_separator =
 dotnet_naming_style.begins_with_k_.capitalization = pascal_case

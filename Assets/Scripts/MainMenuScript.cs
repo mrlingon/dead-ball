@@ -5,18 +5,18 @@ using UnityEngine;
 public class MainMenuScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
-        
+
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
-        
+
     }
 
-    public void startButtonOnClick(){
+    public void StartButtonOnClick() {
         //SceneManager.LoadScene(/*GameScene*/);
         Debug.Log("click");
     }
