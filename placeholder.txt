@@ -1,3 +1,0 @@
-Main branch är tom for now.
- 
-Det finns en branch för 2D unity och en branch för 3D unity beroende på hur vi vill göra gibbet
