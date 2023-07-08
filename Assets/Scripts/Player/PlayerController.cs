@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [Header("Refs")]
     public BallPhysicsBody Ball;
     public PlayerHoldDrag PlayerHoldDrag;
-
+    public DragPower DragPower;
     public bool CanControl { get; private set; }
 
     protected void Awake()
@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
 
     protected void Start()
     {
+        DragPower ??= GetComponent<DragPower>();
+        PlayerHoldDrag ??= GetComponent<PlayerHoldDrag>();
+
         PlayerHoldDrag.StartDrag += () =>
         {
         };

@@ -42,16 +42,16 @@ public class DragPower : MonoBehaviour
     void Update()
     {
         if (!active) return;
-        holdDrag.Max = (int)currentPower;
+        holdDrag.Current = (int)currentPower;
 
-        if (currentPower < MaxPower)
+        if (currentPower < MaxPower && !holdDrag.IsDragging)
             currentPower += RechargeRate*Time.deltaTime;
     }
 
     public void Activate() {
         active = true;
         currentPower = MaxPower;
-        holdDrag.Max = (int)currentPower;
+        holdDrag.Current = (int)currentPower;
     }
 
     public void Deactivate() {
