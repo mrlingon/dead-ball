@@ -15,13 +15,12 @@ public class EnemyManager : MonoBehaviour
     {
         if (TryGetComponent<EnemyInstantiator>(out var enemyInstantiator))
         {
-            enemyInstantiator.OnInstantiate += go =>
+            enemyInstantiator.OnInstantiate += (enemy, team) =>
             {
                 // just temp timer to wait for enemy to be initialized
                 Timers.SetTimeout(3000, () =>
                 {
-                    var enemy = go.GetComponent<EnemyController>();
-                    RegisterEnemy(enemy);
+                    RegisterEnemy(enemy, team);
                 });
             };
         }
@@ -51,11 +50,17 @@ public class EnemyManager : MonoBehaviour
         return false;
     }
 
-    void RegisterEnemy(EnemyController enemy)
+    void RegisterEnemy(EnemyController enemy, Team team)
     {
+        enemy.transform.localScale = enemy.transform.localScale * enemy.enemyData.size;
+
+        var renderer = enemy.GetComponentInChildren<SpriteRenderer>();
+        renderer.color = new Color(team.color.r, team.color.g, team.color.b, 1);
+
         enemies.Add(enemy);
         enemy.ball = ball;
         enemy.transform.SetParent(transform);
-        enemy.kickoffPoint = kickoffPointOne.position;
+        enemy.transform.name = enemy.enemyData.enemyName;
+        enemy.shootPosition = kickoffPointOne.position;
     }
 }

@@ -15,33 +15,22 @@ public class EnemyController : MonoBehaviour
         RUN_SPAWN,
         HAS_BALL,
     }
-
-    public EnemyData humanData;
     public EnemyState currentState = EnemyState.RUN_TOWARDS;
+    public Enemy enemyData;
 
+    public Rigidbody2D Rigidbody { get; private set; }
+    public Collider2D Collider { get; private set; }
     private FlockTowardsPoint flock;
 
     [HideInInspector]
     public BallPhysicsBody ball;
 
-    [Range(0, 30)]
-    public float distanceToPoint = 3.5f;
-
-    [Range(0, 30)]
-    public float distanceToSelf = 9.5f;
-
-    [Range(0, 30)]
-    public float ballPositionLength = 1.2f;
-
-    public float ballSpeedCutoff = 20f;
-
-    public Vector2 kickoffPoint;
+    // Where the enemy will move when they have grabbed the ball
+    public Vector2 shootPosition;
     private Vector2 spawn;
 
-    public Rigidbody2D Rigidbody { get; private set; }
-    public Collider2D Collider { get; private set; }
-
-    public event Action<EnemyController> OnCatchBall;
+    // Used when the enemy is grabbing the ball while moving.
+    private float grabbedBallOffset = 1.2f;
 
     void Start()
     {
@@ -57,26 +46,30 @@ public class EnemyController : MonoBehaviour
 
         if (currentState != EnemyState.HAS_BALL)
         {
-            if (ball.VelocityLenSq <= ballSpeedCutoff && !ball.Frozen) currentState = EnemyState.RUN_TOWARDS;
-            if (ball.VelocityLenSq > ballSpeedCutoff && !ball.Frozen) currentState = EnemyState.RUN_AWAY;
+            if (ball.VelocityLenSq <= enemyData.behaviour.minBallSpeed && !ball.Frozen) currentState = EnemyState.RUN_TOWARDS;
+            if (ball.VelocityLenSq > enemyData.behaviour.minBallSpeed && !ball.Frozen) currentState = EnemyState.RUN_AWAY;
         }
 
         switch (currentState)
         {
             case EnemyState.RUN_AWAY:
+                flock.maxSpeed = enemyData.retreatSpeed;
                 flock.goalTransform = FindEscapePoint();
                 flock.Move();
                 break;
             case EnemyState.RUN_TOWARDS:
+                flock.maxSpeed = enemyData.chaseSpeed;
                 flock.goalTransform = ball.transform.position;
                 flock.Move();
                 CatchBall();
                 break;
             case EnemyState.RUN_SPAWN:
+                flock.maxSpeed = enemyData.retreatSpeed;
                 flock.goalTransform = spawn;
                 flock.Move();
                 break;
             case EnemyState.HAS_BALL:
+                flock.maxSpeed = enemyData.retreatSpeed;
                 HasBall();
                 SetBallPosition();
                 break;
@@ -99,7 +92,7 @@ public class EnemyController : MonoBehaviour
 
     void HasBall()
     {
-        flock.goalTransform = kickoffPoint;
+        flock.goalTransform = shootPosition;
         flock.MoveIndependently();
 
         if (math.distance(flock.goalTransform, new Vector2(transform.position.x, transform.position.y)) < 0.3f)
@@ -116,7 +109,7 @@ public class EnemyController : MonoBehaviour
 
     void SetBallPosition()
     {
-        var dir = flock.velocity.normalized * ballPositionLength;
+        var dir = flock.velocity.normalized * grabbedBallOffset;
         ball.transform.position = transform.position + new Vector3(dir.x, dir.y, 0);
     }
 
@@ -151,7 +144,7 @@ public class EnemyController : MonoBehaviour
         Vector2[] points = SuitableEscapePoints();
 
         float distanceDefaultPointToFollow = math.distance(points[0], new Vector2(transform.position.x, transform.position.y));
-        if (directionToGoal.magnitude < distanceToSelf && distanceDefaultPointToFollow < distanceToPoint)
+        if (directionToGoal.magnitude < enemyData.behaviour.distanceToSelf && distanceDefaultPointToFollow < enemyData.behaviour.distanceToPoint)
         {
             Vector2 bestPoint = points[0];
             float bestValue = (new Vector2(ball.transform.position.x, ball.transform.position.y) - bestPoint).magnitude;

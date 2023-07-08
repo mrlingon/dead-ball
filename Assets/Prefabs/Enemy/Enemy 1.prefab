@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2140958575
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a1ee922c23cbb434096213d89d67294c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -243,9 +243,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanData: {fileID: 11400000, guid: 94f55f03dd83548448b176e4e7f3a2f1, type: 2}
   currentState: 1
-  follow: {fileID: 0}
-  distanceToPoint: 3.5
-  distanceToSelf: 9.5
+  ball: {fileID: 0}
+  distanceToPoint: 4.9
+  distanceToSelf: 21.9
+  ballPositionLength: 1.2
+  ballSpeedCutoff: 7
+  kickoffPoint: {x: 0, y: 0}
 --- !u!50 &-4457583277160563778
 Rigidbody2D:
   serializedVersion: 4
