@@ -22,7 +22,7 @@ public class FMODPlayerScript : MonoBehaviour
 
     void PlayerisCharging()
     {
-        playerHoldDrag.StartDrag += () =>
+        playerHoldDrag.StartDrag += (_) =>
         {
             playerCharge.start();
         };
@@ -33,7 +33,7 @@ public class FMODPlayerScript : MonoBehaviour
 
     void PlayerIsJumping()
     {
-        playerHoldDrag.Released += (drag) =>
+        playerHoldDrag.Released += (_,drag) =>
         {
             playerJump.start();
         };
