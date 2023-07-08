@@ -15,16 +15,16 @@ public class FlockTowardsPoint : MonoBehaviour
     [Range(1, 50)]
     public float neighborhoodRadius = 3f;
 
-    [Range(0, 10)]
+    [Range(0, 30)]
     public float separationAmount = 1f;
 
-    [Range(0, 3)]
+    [Range(0, 30)]
     public float cohesionAmount = 1f;
 
-    [Range(0, 3)]
+    [Range(0, 30)]
     public float alignmentAmount = 1f;
 
-    [Range(0, 3)]
+    [Range(0, 30)]
     public float goalAmount = 1f;
 
     public Vector2 goalTransform;
@@ -63,7 +63,7 @@ public class FlockTowardsPoint : MonoBehaviour
         UpdateRotation();
         //WrapAround();
 
-        // DebugDraw.Circle(Position, neighborhoodRadius, Color.cyan);
+        DebugDraw.Circle(Position, neighborhoodRadius, Color.cyan);
         DebugDraw.Arrow(Position, velocity, Color.red, 1f, 0.25f, 0.5f);
     }
 
