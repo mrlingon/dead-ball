@@ -35,7 +35,6 @@ public class PlayerHoldDrag : MonoBehaviour
 
     public void OnLobInput(InputAction.CallbackContext context)
     {
-        Debug.Log(locked);
         if (locked) return;
         if (context.action.triggered && context.action.ReadValue<float>() != 0 &&
             context.action.phase == InputActionPhase.Performed)

@@ -376,6 +376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 156192773}
   - component: {fileID: 156192772}
+  - component: {fileID: 156192774}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -410,6 +411,23 @@ Transform:
   m_Father: {fileID: 2098052834}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &156192774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156192771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f760ab098c30d2e4d9272cf6490d8fa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Score: 0
+  Combo: 0
+  Kills: 0
+  ComboTimeWindow: 3
+  trackingCombo: 0
 --- !u!1 &162450256
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,8 +911,9 @@ MonoBehaviour:
   - {fileID: 952686578}
   - {fileID: 563922904}
   - {fileID: 1825881234}
+  teamOne: {fileID: 11400000, guid: 67fd12790fedfd44396d51bf53e27e57, type: 2}
+  teamTwo: {fileID: 11400000, guid: 7c4806998b9596d45b9a86abea53ba0f, type: 2}
   enemyPrefab: {fileID: 7093265360175481408, guid: eaeebeedea6bf5646a3192b9e9d95058, type: 3}
-  number: 1
 --- !u!114 &554416648
 MonoBehaviour:
   m_ObjectHideFlags: 0

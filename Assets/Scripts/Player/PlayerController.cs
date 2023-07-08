@@ -60,6 +60,21 @@ public class PlayerController : MonoBehaviour
 
             Ball.ApplyForce(force);
         };
+
+        Ball.HitEnemy += (enemy, hit) =>
+        {
+            if (hit)
+            {
+                GameManager.Instance.BallCamera?.Shake(0.004f, 1f, 0.444f);
+
+                GameManager.Instance.Scores.AddScore(1);
+                GameManager.Instance.Scores.AddKill();
+            }
+            else
+            {
+                GameManager.Instance.BallCamera?.Shake(0.001f, 1f, 0.444f);
+            }
+        };
     }
 
     protected void FixedUpdate()
