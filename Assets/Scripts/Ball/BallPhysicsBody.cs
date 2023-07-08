@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
@@ -13,6 +14,10 @@ public class BallPhysicsBody : MonoBehaviour
     // Height of the ball
     [Range(0.0f, 5.0f)]
     public float Height = 0.5f;
+
+    // Height of the ball
+    [Range(0.0f, 5.0f)]
+    public float PlayerHeight = 1.0f;
 
     [Range(0.0f, 9.8f)]
     public float Gravity = 9.8f;
@@ -33,15 +38,26 @@ public class BallPhysicsBody : MonoBehaviour
 
     public Transform ShadowPivot;
 
+    [Header("Debug")]
+    public bool Debugging = true;
+
     public Rigidbody2D Rigidbody { get; private set; }
 
     public Collider2D Collider { get; private set; }
 
-    public PhysicsEvents2D PhysicsEvents;
+    private PhysicsEvents2D PhysicsEvents;
 
     public float HeightForce { get; private set; } = 0.0f;
 
+    // Returns the velocity of the ball.
+    public float3 Velocity => new float3(Rigidbody.velocity.x, Rigidbody.velocity.y, HeightForce);
+
+    // Returns the sqr lenght of the velocity.
+    public float VelocityLenSq => math.lengthsq(Velocity);
+
     public bool IsAirborne => !IsGrounded();
+
+    public event Action<GameObject> HitEnemy;
 
     public bool IsGrounded()
     {
@@ -78,6 +94,19 @@ public class BallPhysicsBody : MonoBehaviour
                 HeightForce = 0;
             }
         };
+
+        PhysicsEvents.TriggerEnter += (collision) =>
+        {
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                if (Debugging)
+                {
+                    Debug.Log("Hit enemy!!");
+                    DebugDraw.Circle(transform.position, 0.5f, Color.red, 3.0f);
+                }
+                HitEnemy?.Invoke(collision.gameObject);
+            }
+        };
     }
 
     protected void Start()
@@ -85,9 +114,17 @@ public class BallPhysicsBody : MonoBehaviour
 
     }
 
+    protected void Update()
+    {
+        if (Debugging)
+        {
+            DebugDraw.Line(transform.position, transform.position + new Vector3(Velocity.x, Velocity.y, 0), Color.red);
+            DebugDraw.Line(transform.position, transform.position + new Vector3(0, Velocity.z, 0), Color.blue);
+        }
+    }
+
     protected void FixedUpdate()
     {
-        LockZAxis();
         DisableCollisionWhenAirborne();
 
         if (HeightForce != 0 || !IsGrounded())
@@ -96,12 +133,6 @@ public class BallPhysicsBody : MonoBehaviour
         ApplyRotation();
         ApplyModelHeight();
         ApplyShadowScale();
-    }
-
-    protected void LockZAxis()
-    {
-        // transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-
     }
 
     protected void ApplyRotation()
@@ -134,7 +165,15 @@ public class BallPhysicsBody : MonoBehaviour
 
     protected void DisableCollisionWhenAirborne()
     {
-        // Collider.enabled = IsGrounded();
+        // Disable collision with a specific layer
+        if (IsAirborne && Height > PlayerHeight)
+        {
+            Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"), true);
+        }
+        else
+        {
+            Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"), false);
+        }
     }
 
     protected void ApplyModelHeight()
