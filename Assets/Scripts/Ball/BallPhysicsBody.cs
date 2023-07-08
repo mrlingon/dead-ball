@@ -94,6 +94,8 @@ public class BallPhysicsBody : MonoBehaviour
     public void SetFrozen(bool frozen)
     {
         Frozen = frozen;
+        Height = 0;
+        HeightForce = 0f;
         Rigidbody.simulated = !frozen;
     }
 
@@ -135,7 +137,9 @@ public class BallPhysicsBody : MonoBehaviour
                     GameManager.Instance.BallCamera?.Shake(0.004f, 1f, 0.444f);
 
                     Destroy(collision.transform.parent.gameObject);
-                } else {
+                }
+                else
+                {
                     GameManager.Instance.BallCamera?.Shake(0.001f, 1f, 0.444f);
                 }
             }
@@ -163,7 +167,9 @@ public class BallPhysicsBody : MonoBehaviour
             requestedZoom = true;
             GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.8f, 0.333f);
 
-        } else if (requestedZoom && GameManager.Instance?.BallCamera != null && GameManager.Instance?.BallCamera?.VirtualCamera.m_Lens.OrthographicSize != GameManager.Instance?.BallCamera?.DefaultStartZoom) {
+        }
+        else if (requestedZoom && GameManager.Instance?.BallCamera != null && GameManager.Instance?.BallCamera?.VirtualCamera.m_Lens.OrthographicSize != GameManager.Instance?.BallCamera?.DefaultStartZoom)
+        {
             GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom, 0.666f);
             requestedZoom = false;
         }
