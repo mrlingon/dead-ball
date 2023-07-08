@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,25 +15,36 @@ public class EnemyController : MonoBehaviour
     }
 
     public EnemyData humanData;
-
-    [SerializeField]
     public EnemyState currentState = EnemyState.RUN_TOWARDS;
+    public PhysicsEvents2D ballCollisionEvents;
 
-    public Flocking flocking;
-    public Transform ballTransform;
+    private FlockTowardsPoint flock;
+    [HideInInspector]
+    public Transform follow;
+
+    public event Action<EnemyController> OnCatchBall;
+
+    void Start()
+    {
+        TryGetComponent<FlockTowardsPoint>(out flock);
+        ballCollisionEvents.TriggerEnter += other =>
+        {
+            OnCatchBall?.Invoke(this);
+        };
+    }
 
     void Update()
     {
-        if (!ballTransform) return;
+        if (!follow) return;
         switch (currentState)
         {
             case EnemyState.RUN_AWAY:
-                flocking.goalTransform = FindEscapePoint();
-                flocking.Move();
+                flock.goalTransform = FindEscapePoint();
+                flock.Move();
                 break;
             case EnemyState.RUN_TOWARDS:
-                flocking.goalTransform = ballTransform.position;
-                flocking.Move();
+                flock.goalTransform = follow.position;
+                flock.Move();
                 break;
             case EnemyState.HAS_BALL:
                 HasBall();
@@ -44,19 +56,17 @@ public class EnemyController : MonoBehaviour
 
     Vector2 FindEscapePoint()
     {
-        Vector2 directionToGoal = ballTransform.position - transform.position;
+        Vector2 directionToGoal = follow.position - transform.position;
         Vector2 directionFromGoal = new Vector2(-directionToGoal.x, -directionToGoal.y);
 
         Vector2 rayDirection = transform.right;  // Create a direction vector going right from the position of this game object
 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(ballTransform.position, directionFromGoal, 100);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(follow.position, directionFromGoal, 100);
 
         foreach (RaycastHit2D hit in hits)
         {
-            if (hit.collider.tag == "Ground") // If the hit collider has the tag "MyTag"
+            if (hit.collider.tag == "Ground")
             {
-                Debug.Log("We hit " + hit.collider.name);
-                Debug.Log("Point where raycast hit: " + hit.point);
                 return hit.point;
             }
         }
