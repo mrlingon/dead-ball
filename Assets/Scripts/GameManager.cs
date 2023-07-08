@@ -32,11 +32,14 @@ public class GameManager : MonoBehaviour
     }
 
     public PlayerController Player { get; set; }
+    public BallCameraController BallCamera { get; set; }
 
     private bool IsTicking;
 
     protected void Awake()
     {
+        LeanTween.init(800);
+
         InnerInstance = this;
         DontDestroyOnLoad(gameObject);
         IsTicking = true;
