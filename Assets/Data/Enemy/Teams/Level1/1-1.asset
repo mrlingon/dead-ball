@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 963802d436219f844a8522df724e3066, type: 3}
+  m_Name: 1-1
+  m_EditorClassIdentifier: 
+  color: {r: 0.9374922, g: 0.9433962, b: 0.5562478, a: 0}
+  teamName: Newbies
+  enemies:
+  - {fileID: 11400000, guid: 9605b85a9571671458678c7879c97460, type: 2}
+  - {fileID: 11400000, guid: 9605b85a9571671458678c7879c97460, type: 2}
+  - {fileID: 11400000, guid: 9605b85a9571671458678c7879c97460, type: 2}
