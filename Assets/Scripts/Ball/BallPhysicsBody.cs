@@ -120,6 +120,7 @@ public class BallPhysicsBody : MonoBehaviour
         {
             DebugDraw.Line(transform.position, transform.position + new Vector3(Velocity.x, Velocity.y, 0), Color.red);
             DebugDraw.Line(transform.position, transform.position + new Vector3(0, Velocity.z, 0), Color.blue);
+            DebugDraw.Line(transform.position, transform.position + new Vector3(0, Height, 0), Color.yellow);
         }
     }
 
