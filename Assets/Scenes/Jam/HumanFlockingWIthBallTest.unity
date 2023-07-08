@@ -543,8 +543,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f84dedeb8f81444c940142397182e92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 7093265360175481408, guid: 19b1503fd152dc64290b34749e1e6a17, type: 3}
-  number: 24
+  Team1SpawnPoints: []
+  Team2SpawnPoints: []
+  enemyPrefab: {fileID: 7093265360175481408, guid: eaeebeedea6bf5646a3192b9e9d95058, type: 3}
+  number: 20
 --- !u!114 &554416648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -558,7 +560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  ballSpeedCutoff: 1
+  ballSpeedCutoff: 40
   ball: {fileID: 875394094}
 --- !u!4 &554416649
 Transform:
@@ -960,6 +962,8 @@ MonoBehaviour:
   SpinSpeed: 50
   SpinHeightMultiplier: 1
   ShadowScale: 0.075
+  RequiredCollisionVelocity: 250
+  CollisionPenalty: 0.5
   ModelPivot: {fileID: 841588397}
   ModelParent: {fileID: 1408480880}
   ShadowPivot: {fileID: 181627794}
@@ -1746,6 +1750,7 @@ MonoBehaviour:
   DragForceHeightMultiplier: 0.005
   Ball: {fileID: 875394094}
   PlayerHoldDrag: {fileID: 1894918455}
+  DragPower: {fileID: 0}
 --- !u!114 &1894918454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1804,7 +1809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982e2dc6451a084408d1a8e895391341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Max: 0
+  Current: 50
   Debugging: 1
 --- !u!114 &1894918456
 MonoBehaviour:
