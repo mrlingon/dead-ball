@@ -6,19 +6,19 @@ using Unity.Mathematics;
 public sealed class DebugDraw
 {
     [BurstDiscard]
-    public static void Circle(Vector3 center, Vector3 normal, float radius, Color color)
+    public static void Circle(Vector3 center, Vector3 normal, float radius, Color color, float duration = 0)
     {
         Vector3 v1;
         Vector3 v2;
         CalculatePlaneVectorsFromNormal(normal, out v1, out v2);
-        CircleInternal(center, v1, v2, radius, color);
+        CircleInternal(center, v1, v2, radius, color, duration);
     }
 
     [BurstDiscard]
-    public static void Circle(Vector3 center, float radius, Color color)
+    public static void Circle(Vector3 center, float radius, Color color, float duration = 0)
     {
         CalculatePlaneVectorsFromNormal(new float3(0, 0, 1), out var v1, out var v2);
-        CircleInternal(center, v1, v2, radius, color);
+        CircleInternal(center, v1, v2, radius, color, duration);
     }
 
 

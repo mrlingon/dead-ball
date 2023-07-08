@@ -12,10 +12,10 @@ public class FlockTowardsPoint : MonoBehaviour
     [Range(.1f, .5f)]
     public float maxForce = .03f;
 
-    [Range(1, 10)]
+    [Range(1, 50)]
     public float neighborhoodRadius = 3f;
 
-    [Range(0, 3)]
+    [Range(0, 10)]
     public float separationAmount = 1f;
 
     [Range(0, 3)]
@@ -40,14 +40,14 @@ public class FlockTowardsPoint : MonoBehaviour
         }
         set
         {
-            gameObject.transform.position = value;
+            gameObject.transform.position = new Vector3(value.x, value.y, gameObject.transform.position.z);
         }
     }
 
     private void Start()
     {
         float angle = Random.Range(0, 2 * Mathf.PI);
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle) + baseRotation);
+        // transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle) + baseRotation);
         velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
     }
 
@@ -62,6 +62,9 @@ public class FlockTowardsPoint : MonoBehaviour
         UpdatePosition();
         UpdateRotation();
         //WrapAround();
+
+        // DebugDraw.Circle(Position, neighborhoodRadius, Color.cyan);
+        DebugDraw.Arrow(Position, velocity, Color.red, 1f, 0.25f, 0.5f);
     }
 
     private void Flock(IEnumerable<FlockTowardsPoint> boids)
@@ -88,7 +91,7 @@ public class FlockTowardsPoint : MonoBehaviour
     private void UpdateRotation()
     {
         var angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle) + baseRotation);
+        // transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle) + baseRotation);
     }
 
     private Vector2 Goal()
