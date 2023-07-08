@@ -8,47 +8,40 @@ public class EnemyInstantiator : MonoBehaviour
     public List<Transform> Team1SpawnPoints = new List<Transform>();
     public List<Transform> Team2SpawnPoints = new List<Transform>();
 
-    public Team teamOne;
-    public Team teamTwo;
+    public Transform shootPositionOne;
+    public Transform shootPositionTwo;
 
     public GameObject enemyPrefab;
 
+    public event Action BeginInstantiation;
     public event Action<EnemyController, Team> OnInstantiate;
 
-    private bool runOnce = false;
-
-    private void Update()
+    public void SetUpLevel(Level level)
     {
-        if (runOnce) return;
-        var i = 0;
-        foreach (var enemy in teamOne.enemies)
+        BeginInstantiation?.Invoke();
+        SetUpTeam(level.teamOne, Team1SpawnPoints, 1);
+        SetUpTeam(level.teamTwo, Team2SpawnPoints, 2);
+    }
+
+    private void SetUpTeam(Team team, List<Transform> spawnPoints, int teamIndex)
+    {
+        int i = 0;
+        foreach (var enemy in team.enemies)
         {
-            if (Team1SpawnPoints.Count - 1 < i)
+            if (spawnPoints.Count - 1 < i)
             {
                 Debug.LogWarning("Not enough spawn points.");
                 break;
             }
-            var gameObject = Instantiate(enemyPrefab, Team1SpawnPoints[i].position, Quaternion.identity);
+            var gameObject = Instantiate(enemyPrefab, spawnPoints[i].position, Quaternion.identity);
             var enemyController = gameObject.GetComponent<EnemyController>();
             enemyController.enemyData = enemy;
-            OnInstantiate?.Invoke(enemyController, teamOne);
+
+            if (teamIndex == 1) enemyController.shootPosition = shootPositionOne.position;
+            if (teamIndex == 2) enemyController.shootPosition = shootPositionTwo.position;
+
+            OnInstantiate?.Invoke(enemyController, team);
             i++;
         }
-        i = 0;
-        foreach (var enemy in teamTwo.enemies)
-        {
-            if (Team2SpawnPoints.Count - 1 < i)
-            {
-                Debug.LogWarning("Not enough spawn points.");
-                break;
-            }
-            var gameObject = Instantiate(enemyPrefab, Team2SpawnPoints[i].position, Quaternion.identity);
-            var enemyController = gameObject.GetComponent<EnemyController>();
-            Debug.Log(enemyController);
-            enemyController.enemyData = enemy;
-            OnInstantiate?.Invoke(enemyController, teamTwo);
-            i++;
-        }
-        runOnce = true;
     }
 }

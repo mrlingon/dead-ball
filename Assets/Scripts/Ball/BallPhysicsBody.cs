@@ -72,6 +72,8 @@ public class BallPhysicsBody : MonoBehaviour
 
     public event Action<GameObject> HitEnemy;
 
+    public event Action KilledEnemy;
+
     public bool Frozen { get; private set; } = false;
 
     public bool IsGrounded()
@@ -147,6 +149,7 @@ public class BallPhysicsBody : MonoBehaviour
                     BloodTrail.ActivateTrail(1f, 2f);
                     Instantiate(BloodParticles, collision.transform.parent.position, Quaternion.identity);
                     Destroy(collision.transform.parent.gameObject);
+                    KilledEnemy?.Invoke();
                 }
                 else
                 {

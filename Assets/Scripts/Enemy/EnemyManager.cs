@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ElRaccoone.Timers;
 using NaughtyAttributes;
@@ -8,13 +9,23 @@ public class EnemyManager : MonoBehaviour
     [ReadOnly]
     public List<EnemyController> enemies = new List<EnemyController>();
     public BallPhysicsBody ball;
-    public Transform kickoffPointOne;
-    public Transform kickoffPointTwo;
+
+    public event Action AllEnemiesDead;
 
     void Start()
     {
+        ball.KilledEnemy += () =>
+        {
+            Debug.Log(enemies.Count);
+            if (enemies.Count == 0)
+            {
+                AllEnemiesDead?.Invoke();
+            }
+        };
+
         if (TryGetComponent<EnemyInstantiator>(out var enemyInstantiator))
         {
+            enemyInstantiator.BeginInstantiation += Reset;
             enemyInstantiator.OnInstantiate += (enemy, team) =>
             {
                 // just temp timer to wait for enemy to be initialized
@@ -41,6 +52,14 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    void Reset()
+    {
+        foreach (var enemy in enemies)
+        {
+            Destroy(enemy.gameObject);
+        }
+    }
+
     bool EnemyHasBall()
     {
         foreach (var enemy in enemies)
@@ -61,6 +80,6 @@ public class EnemyManager : MonoBehaviour
         enemy.ball = ball;
         enemy.transform.SetParent(transform);
         enemy.transform.name = enemy.enemyData.enemyName;
-        enemy.shootPosition = kickoffPointOne.position;
+
     }
 }
