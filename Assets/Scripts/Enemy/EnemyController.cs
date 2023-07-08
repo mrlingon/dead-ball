@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HumanController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
 
-    public enum HumanState
+    public enum EnemyState
     {
         RUN_AWAY,
         RUN_TOWARDS,
@@ -13,41 +13,38 @@ public class HumanController : MonoBehaviour
         SHOOTING,
     }
 
-    public HumanData humanData;
+    public EnemyData humanData;
 
     [SerializeField]
-    public HumanState currentState;
+    public EnemyState currentState = EnemyState.RUN_TOWARDS;
+
     public Flocking flocking;
     public Transform ballTransform;
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
+        if (!ballTransform) return;
         switch (currentState)
         {
-            case HumanState.RUN_AWAY:
+            case EnemyState.RUN_AWAY:
                 flocking.goalTransform = FindEscapePoint();
                 flocking.Move();
                 break;
-            case HumanState.RUN_TOWARDS:
+            case EnemyState.RUN_TOWARDS:
                 flocking.goalTransform = ballTransform.position;
                 flocking.Move();
                 break;
-            case HumanState.HAS_BALL:
+            case EnemyState.HAS_BALL:
                 HasBall();
                 break;
-            case HumanState.SHOOTING:
+            case EnemyState.SHOOTING:
                 break;
         }
     }
 
     Vector2 FindEscapePoint()
     {
-        Vector2 directionToGoal = new Vector2(ballTransform.position.x, ballTransform.position.y) - new Vector2(transform.position.x, transform.position.y);
+        Vector2 directionToGoal = ballTransform.position - transform.position;
         Vector2 directionFromGoal = new Vector2(-directionToGoal.x, -directionToGoal.y);
 
         Vector2 rayDirection = transform.right;  // Create a direction vector going right from the position of this game object
@@ -61,7 +58,6 @@ public class HumanController : MonoBehaviour
                 Debug.Log("We hit " + hit.collider.name);
                 Debug.Log("Point where raycast hit: " + hit.point);
                 return hit.point;
-                break;  // Exit the loop as we found a hit with the correct tag
             }
         }
         return new Vector2(0, 0);
