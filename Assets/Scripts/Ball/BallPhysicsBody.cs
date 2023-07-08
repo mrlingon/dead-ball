@@ -70,7 +70,7 @@ public class BallPhysicsBody : MonoBehaviour
 
     public bool IsAirborne => !IsGrounded();
 
-    public event Action<GameObject> HitEnemy;
+    public event Action<GameObject, bool> HitEnemy;
 
     public bool Frozen { get; private set; } = false;
 
@@ -82,11 +82,11 @@ public class BallPhysicsBody : MonoBehaviour
 
     public void ApplyForce(float3 force)
     {
-        if (!IsGrounded())
-        {
-            Debug.LogWarning("Cannot apply force when airborne");
-            return;
-        }
+        //if (!IsGrounded())
+        //{
+            // Debug.LogWarning("Cannot apply force when airborne");
+            // return;
+        //}
 
         // We need to apply the force to the rigidbody
         Rigidbody.AddForce(new Vector2(force.x, force.y), ForceMode2D.Impulse);
@@ -135,22 +135,20 @@ public class BallPhysicsBody : MonoBehaviour
                         DebugDraw.Circle(transform.position, 0.5f, Color.red, 3.0f);
                     }
 
-                    HitEnemy?.Invoke(collision.gameObject);
+                    HitEnemy?.Invoke(collision.gameObject, true);
 
                     Rigidbody.velocity *= CollisionPenalty;
                     HeightForce *= CollisionPenalty;
 
-                    GameManager.Instance.BallCamera?.Shake(0.004f, 1f, 0.444f);
-
-                    float2 worldPos = new float2(transform.position.x, transform.position.y);
-                    GameManager.Instance.GameField?.SplatterPaint(worldPos, 1.2f, 8, 15, 2, 10);
+                    GameManager.Instance.GameField?.SplatterPaint(new float2(transform.position.x, transform.position.y), 1.2f, 8, 15, 2, 6);
                     BloodTrail.ActivateTrail(1f, 2f);
                     Instantiate(BloodParticles, collision.transform.parent.position, Quaternion.identity);
+
                     Destroy(collision.transform.parent.gameObject);
                 }
                 else
                 {
-                    GameManager.Instance.BallCamera?.Shake(0.001f, 1f, 0.444f);
+                    HitEnemy?.Invoke(collision.gameObject, false);
                 }
             }
         };

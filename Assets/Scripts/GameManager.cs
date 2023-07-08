@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     public BallCameraController BallCamera { get; set; }
     public GameField GameField { get; set; }
 
+    public ScoreManager Scores { get; set; }
+
     private bool IsTicking;
 
     protected void Awake()
