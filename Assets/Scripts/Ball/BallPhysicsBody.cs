@@ -97,6 +97,7 @@ public class BallPhysicsBody : MonoBehaviour
         Height = 0;
         HeightForce = 0f;
         Rigidbody.simulated = !frozen;
+        Rigidbody.velocity = Vector2.zero;
     }
 
     protected void Awake()

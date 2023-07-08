@@ -104,8 +104,12 @@ public class EnemyController : MonoBehaviour
 
         if (math.distance(flock.goalTransform, new Vector2(transform.position.x, transform.position.y)) < 0.3f)
         {
+
             ball.SetFrozen(false);
+            Rigidbody.velocity = Vector2.zero;
+            GameManager.Instance.Player.CanControl = false;
             ball.ApplyForce(new float3(-20, 0, 0));
+
             currentState = EnemyState.RUN_SPAWN;
         }
     }
