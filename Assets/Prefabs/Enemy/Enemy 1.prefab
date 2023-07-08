@@ -210,6 +210,8 @@ GameObject:
   - component: {fileID: -4457583277160563778}
   - component: {fileID: 5559853843871097783}
   - component: {fileID: 1893190016287948582}
+  - component: {fileID: -5983507099316141690}
+  - component: {fileID: 3189494697414898392}
   m_Layer: 6
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -360,3 +362,60 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2472011, y: 0.8736683}
   m_EdgeRadius: 0
+--- !u!114 &-5983507099316141690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093265360175481408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e48b7903923934eaaa3f9133fd8efd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CryingEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  LaughingEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+--- !u!114 &3189494697414898392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093265360175481408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -346270566
+      Data2: 1183828457
+      Data3: 2108371591
+      Data4: 292126980
+    Path: event:/Enemies/Wallahs
+  Event: 
+  PlayEvent: 11
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
