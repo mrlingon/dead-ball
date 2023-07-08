@@ -426,7 +426,7 @@ MonoBehaviour:
   Score: 0
   Combo: 0
   Kills: 0
-  ComboTimeWindow: 1
+  ComboTimeWindow: 3
   trackingCombo: 0
 --- !u!1 &162450256
 GameObject:

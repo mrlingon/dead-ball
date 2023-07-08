@@ -21,6 +21,8 @@ public class ScoreManager : MonoBehaviour
 
     private float trackingTimer = 0.0f;
 
+    private bool comboEnabled = true;
+
     public event Action<int> OnComboEnded;
 
     public event Action<int> OnScoreAdded;
@@ -47,11 +49,8 @@ public class ScoreManager : MonoBehaviour
     {
         Kills++;
         OnKillAdded?.Invoke(1);
-
-        if (!trackingCombo)
-        {
+        if (comboEnabled)
             AddCombo();
-        }
     }
 
     void Awake()
