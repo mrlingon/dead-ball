@@ -69,14 +69,9 @@ public class EnemyManager : MonoBehaviour
 
     void RegisterEnemy(EnemyController enemy, Team team)
     {
-        enemy.transform.localScale = enemy.transform.localScale * enemy.enemyData.size;
-
-        var renderer = enemy.GetComponentInChildren<SpriteRenderer>();
-        renderer.color = new Color(team.color.r, team.color.g, team.color.b, 1);
         enemies.Add(enemy);
-        enemy.ball = ball;
         enemy.transform.SetParent(transform);
-        enemy.transform.name = enemy.enemyData.enemyName;
+        enemy.ball = ball;
     }
 
     public void ActivateEnemies()

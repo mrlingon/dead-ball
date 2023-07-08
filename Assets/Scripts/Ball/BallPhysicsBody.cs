@@ -138,7 +138,8 @@ public class BallPhysicsBody : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Goal"))
             {
-                Timers.SetTimeout(250, () => {
+                Timers.SetTimeout(250, () =>
+                {
                     GameManager.Instance?.GameOver();
                     SetFrozen(true);
                 });
@@ -192,12 +193,12 @@ public class BallPhysicsBody : MonoBehaviour
         if (VelocityLenSq >= RequiredCollisionVelocity && !requestedZoom)
         {
             requestedZoom = true;
-            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.8f, 0.333f);
+            //GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.8f, 0.333f);
 
         }
         else if (requestedZoom && GameManager.Instance?.BallCamera != null && GameManager.Instance?.BallCamera?.VirtualCamera.m_Lens.OrthographicSize != GameManager.Instance?.BallCamera?.DefaultStartZoom)
         {
-            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom, 0.666f);
+            //GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom, 0.666f);
             requestedZoom = false;
         }
     }

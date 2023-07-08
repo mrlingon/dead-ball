@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using ElRaccoone.Timers;
 using UnityEngine;
 
-
 [System.Serializable]
 public struct Level
 {
@@ -40,31 +39,45 @@ public class LevelManager : MonoBehaviour
     {
         LevelCompleted?.Invoke(levels[currentLevel], currentLevel);
         currentLevel++;
-        if (currentLevel > levels.Length)
-        {
-            AllLevelsComplete?.Invoke(levels[currentLevel], currentLevel);
-        }
+        if (currentLevel >= levels.Length)
+            GameManager.Instance?.GameWin();
         else
-        {
             StartLevel(levels[currentLevel]);
-        }
     }
 
     // Update is called once per frame
     void StartLevel(Level level)
     {
-        ball.SetFrozen(true);
-        ball.transform.position = Vector3.zero;
-        ballCameraController.ZoomTo(5f, 0.1f);
-        enemyInstantiator.SetUpLevel(level);
+        if (currentLevel == 0)
+        {
+            PrepareLevel(level);
+        }
+        else
+        {
+            Timers.SetTimeout(1000, () =>
+            {
+                PrepareLevel(level);
+            });
+        }
 
         Timers.SetTimeout(levelTransitionTime, () =>
         {
             LevelStarted?.Invoke(levels[currentLevel], currentLevel);
             ball.SetFrozen(false);
             ballCameraController.ZoomTo(ballCameraController.DefaultStartZoom, 0.5f);
-            enemyManager.ActivateEnemies();
         });
 
+        Timers.SetTimeout(levelTransitionTime + 500, () =>
+        {
+            enemyManager.ActivateEnemies();
+        });
+    }
+
+    private void PrepareLevel(Level level)
+    {
+        ball.SetFrozen(true);
+        enemyInstantiator.SetUpLevel(level);
+        ball.transform.position = Vector3.zero;
+        ballCameraController.ZoomTo(3f, 1f);
     }
 }

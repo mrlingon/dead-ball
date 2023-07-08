@@ -35,6 +35,8 @@ public class EnemyController : MonoBehaviour
 
     private bool activated = false;
 
+    public int team;
+
     public void Activate()
     {
         activated = true;

@@ -40,6 +40,14 @@ public class EnemyInstantiator : MonoBehaviour
             if (teamIndex == 1) enemyController.shootPosition = shootPositionOne.position;
             if (teamIndex == 2) enemyController.shootPosition = shootPositionTwo.position;
 
+            enemyController.team = teamIndex;
+
+            enemyController.transform.name = enemyController.enemyData.enemyName;
+
+            enemyController.transform.localScale = enemyController.transform.localScale * enemyController.enemyData.size;
+            var renderer = enemyController.GetComponentInChildren<SpriteRenderer>();
+            renderer.color = new Color(team.color.r, team.color.g, team.color.b, 1);
+
             OnInstantiate?.Invoke(enemyController, team);
             i++;
         }

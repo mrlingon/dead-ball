@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     public event Action OnEnemyShootBall;
 
     public event Action OnGameOver;
+    public event Action OnGameWin;
 
     public event Action OnGameStart;
 
@@ -127,6 +128,15 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Game Over. Score: " + Scores.Score + " Combo: " + Scores.Combo + ". Kills: " + Scores.Kills);
 
+    }
+
+    public void GameWin()
+    {
+        OnGameWin?.Invoke();
+        Reset();
+        GameManager.Instance.Player.CanControl = false;
+
+        Debug.Log("You Win. Score: " + Scores.Score + " Combo: " + Scores.Combo + ". Kills: " + Scores.Kills);
     }
 
     public void LoadScene(int targetScene)
