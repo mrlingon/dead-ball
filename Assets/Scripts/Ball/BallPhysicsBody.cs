@@ -30,6 +30,15 @@ public class BallPhysicsBody : MonoBehaviour
     [Range(0.01f, 1.0f)]
     public float ShadowScale = 0.15f;
 
+    [Header("Collision")]
+
+    [Range(0.0f, 500.0f)]
+    public float RequiredCollisionVelocity = 250.0f;
+
+    [Range(0.0f, 500.0f)]
+    public float CollisionPenalty = 0.5f;
+
+
     [Header("Refs")]
 
     public Transform ModelPivot;
@@ -104,13 +113,12 @@ public class BallPhysicsBody : MonoBehaviour
                     DebugDraw.Circle(transform.position, 0.5f, Color.red, 3.0f);
                 }
 
-                HitEnemy?.Invoke(collision.gameObject);
-
-                // TODO: dont do this hehe :)
-                Debug.Log(VelocityLenSq);
-
-                if (VelocityLenSq >= 300.0f)
+                if (VelocityLenSq >= RequiredCollisionVelocity)
                 {
+                    HitEnemy?.Invoke(collision.gameObject);
+
+                    Rigidbody.velocity *= CollisionPenalty;
+
                     Destroy(collision.transform.parent.gameObject);
                 }
             }
