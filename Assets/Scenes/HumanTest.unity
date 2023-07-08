@@ -247,8 +247,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanData: {fileID: 11400000, guid: 94f55f03dd83548448b176e4e7f3a2f1, type: 2}
   currentState: 0
-  moveTowardsTarget: {fileID: 184249879}
-  ballTransform: {fileID: 1943579768}
+  follow: {fileID: 0}
+  distanceToPoint: 3.5
+  distanceToSelf: 9.5
 --- !u!4 &184249881
 Transform:
   m_ObjectHideFlags: 0
@@ -433,8 +434,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanData: {fileID: 11400000, guid: 94f55f03dd83548448b176e4e7f3a2f1, type: 2}
   currentState: 0
-  moveTowardsTarget: {fileID: 284695844}
-  ballTransform: {fileID: 1943579768}
+  follow: {fileID: 0}
+  distanceToPoint: 3.5
+  distanceToSelf: 9.5
 --- !u!4 &284695846
 Transform:
   m_ObjectHideFlags: 0
@@ -1571,8 +1573,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f84dedeb8f81444c940142397182e92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishPrefab: {fileID: 7093265360175481408, guid: 19b1503fd152dc64290b34749e1e6a17, type: 3}
-  goal: {fileID: 1943579768}
+  Team1SpawnPoints: []
+  Team2SpawnPoints: []
+  enemyPrefab: {fileID: 0}
   number: 24
 --- !u!1 &1021153382
 GameObject:
@@ -1698,8 +1701,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanData: {fileID: 11400000, guid: 94f55f03dd83548448b176e4e7f3a2f1, type: 2}
   currentState: 0
-  moveTowardsTarget: {fileID: 1021153385}
-  ballTransform: {fileID: 1943579768}
+  follow: {fileID: 0}
+  distanceToPoint: 3.5
+  distanceToSelf: 9.5
 --- !u!4 &1021153387
 Transform:
   m_ObjectHideFlags: 0
@@ -1834,8 +1838,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanData: {fileID: 11400000, guid: 94f55f03dd83548448b176e4e7f3a2f1, type: 2}
   currentState: 0
-  moveTowardsTarget: {fileID: 1131640519}
-  ballTransform: {fileID: 1943579768}
+  follow: {fileID: 0}
+  distanceToPoint: 3.5
+  distanceToSelf: 9.5
 --- !u!4 &1131640518
 Transform:
   m_ObjectHideFlags: 0
@@ -2066,8 +2071,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanData: {fileID: 11400000, guid: 94f55f03dd83548448b176e4e7f3a2f1, type: 2}
   currentState: 0
-  moveTowardsTarget: {fileID: 1321567444}
-  ballTransform: {fileID: 1943579768}
+  follow: {fileID: 0}
+  distanceToPoint: 3.5
+  distanceToSelf: 9.5
 --- !u!4 &1321567446
 Transform:
   m_ObjectHideFlags: 0
@@ -2111,7 +2117,8 @@ Transform:
   m_LocalPosition: {x: -1.4183315, y: -0.5733208, z: 0.0611959}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2139352140}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2531,3 +2538,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2139352139
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2139352140}
+  - component: {fileID: 2139352141}
+  m_Layer: 0
+  m_Name: UIDocument
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2139352140
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139352139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1440198940}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2139352141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139352139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: b2715a3809fe13b4992479ff5f690670, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 413dcca2f6635d74c9c5e2ebb7604c4e, type: 3}
+  m_SortingOrder: 0
