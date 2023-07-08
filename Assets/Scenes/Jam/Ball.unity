@@ -454,7 +454,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162450256}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.5, y: -0.116, z: 0}
+  m_LocalPosition: {x: -3.354, y: -0.116, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -913,8 +913,8 @@ MonoBehaviour:
   - {fileID: 952686578}
   - {fileID: 563922904}
   - {fileID: 1825881234}
-  teamOne: {fileID: 11400000, guid: 67fd12790fedfd44396d51bf53e27e57, type: 2}
-  teamTwo: {fileID: 11400000, guid: 7c4806998b9596d45b9a86abea53ba0f, type: 2}
+  shootPositionOne: {fileID: 162450257}
+  shootPositionTwo: {fileID: 1911813778}
   enemyPrefab: {fileID: 7093265360175481408, guid: eaeebeedea6bf5646a3192b9e9d95058, type: 3}
 --- !u!114 &554416648
 MonoBehaviour:
@@ -930,8 +930,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies: []
   ball: {fileID: 875394094}
-  kickoffPointOne: {fileID: 162450257}
-  kickoffPointTwo: {fileID: 0}
 --- !u!4 &554416649
 Transform:
   m_ObjectHideFlags: 0
@@ -1069,6 +1067,7 @@ Transform:
   - {fileID: 1497744543}
   - {fileID: 1056547091}
   - {fileID: 162450257}
+  - {fileID: 1911813778}
   m_Father: {fileID: 127885837}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3570,6 +3569,58 @@ Transform:
   m_Father: {fileID: 724124335}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1774487661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1774487662}
+  - component: {fileID: 1774487663}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1774487662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774487661}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2098052834}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1774487663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774487661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff46e24f99fbbf489475c139b2fe650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - teamOne: {fileID: 11400000, guid: 67fd12790fedfd44396d51bf53e27e57, type: 2}
+    teamTwo: {fileID: 11400000, guid: 7c4806998b9596d45b9a86abea53ba0f, type: 2}
+  ballCameraController: {fileID: 1181822138}
+  ball: {fileID: 875394094}
+  enemyInstantiator: {fileID: 554416647}
+  enemyManager: {fileID: 554416648}
+  levelTransitionTime: 2500
 --- !u!1 &1782127066
 GameObject:
   m_ObjectHideFlags: 0
@@ -3793,6 +3844,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0bb40eca-1111-467b-b42d-d6bd15a84225
     m_ActionName: Gameplay/Kick1[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b8ac477e-cb6a-4d1b-9c97-788deaaf5b63
+    m_ActionName: Gameplay/Release[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -3930,6 +3985,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1911813777
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1911813778}
+  m_Layer: 0
+  m_Name: ShootPosition (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1911813778
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911813777}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.296, y: -0.116, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 720106191}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1914107295
 GameObject:
   m_ObjectHideFlags: 0
@@ -4395,6 +4481,7 @@ Transform:
   - {fileID: 554416649}
   - {fileID: 1894918457}
   - {fileID: 156192773}
+  - {fileID: 1774487662}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

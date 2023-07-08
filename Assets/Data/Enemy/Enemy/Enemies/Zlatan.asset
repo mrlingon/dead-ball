@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Zlatan
   m_EditorClassIdentifier: 
   enemyName: Zlatan
-  size: 2
+  size: 1.3
   health: 10
   strength: 10
   chaseSpeed: 8

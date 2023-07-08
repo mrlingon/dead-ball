@@ -48,6 +48,7 @@ public class EnemyInstantiator : MonoBehaviour
             var renderer = enemyController.GetComponentInChildren<SpriteRenderer>();
             renderer.color = new Color(team.color.r, team.color.g, team.color.b, 1);
 
+            enemyController.OnSpawn();
             OnInstantiate?.Invoke(enemyController, team);
             i++;
         }

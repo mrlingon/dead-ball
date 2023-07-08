@@ -19,6 +19,9 @@ public class EnemyController : MonoBehaviour
     public EnemyState currentState = EnemyState.RUN_TOWARDS;
     public Enemy enemyData;
 
+    public Animator Animator;
+    public SpriteRenderer SpriteRenderer;
+
     public Rigidbody2D Rigidbody { get; private set; }
     public Collider2D Collider { get; private set; }
     private FlockTowardsPoint flock;
@@ -42,12 +45,22 @@ public class EnemyController : MonoBehaviour
         activated = true;
     }
 
+    private bool canFlipSprite = true;
+
     void Start()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
         Collider = GetComponent<Collider2D>();
         spawn = transform.position;
         TryGetComponent<FlockTowardsPoint>(out flock);
+    }
+
+    public void OnSpawn()
+    {
+        if (team == 2)
+        {
+            SpriteRenderer.flipX = true;
+        }
     }
 
     void Update()
@@ -60,6 +73,31 @@ public class EnemyController : MonoBehaviour
             if (ball.VelocityLenSq <= enemyData.behaviour.minBallSpeed && !ball.Frozen) currentState = EnemyState.RUN_TOWARDS;
             if (ball.VelocityLenSq > enemyData.behaviour.minBallSpeed && !ball.Frozen) currentState = EnemyState.RUN_AWAY;
         }
+
+        if (flock.velocity.magnitude > 0.1f)
+        {
+            Animator.SetTrigger("Running");
+        }
+        else
+        {
+            Animator.ResetTrigger("Running");
+        }
+
+        // Flip X if we are moving left
+        if (canFlipSprite && flock.velocity.x <= 0 && SpriteRenderer.flipX == false)
+        {
+            SpriteRenderer.flipX = true;
+            canFlipSprite = false;
+
+            Timers.SetTimeout(1000, () => canFlipSprite = true);
+        }
+        else if (canFlipSprite && flock.velocity.x > 0 && SpriteRenderer.flipX == true)
+        {
+            SpriteRenderer.flipX = false;
+            canFlipSprite = false;
+            Timers.SetTimeout(1000, () => canFlipSprite = true);
+        }
+
 
         switch (currentState)
         {
