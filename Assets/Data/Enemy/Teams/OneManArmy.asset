@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: OneManArmy
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0, b: 0, a: 0}
-  teamName: 
-  enemies: []
+  teamName: One Man Army
+  enemies:
+  - {fileID: 11400000, guid: 9605b85a9571671458678c7879c97460, type: 2}

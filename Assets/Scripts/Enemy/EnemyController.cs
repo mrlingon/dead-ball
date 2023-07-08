@@ -32,6 +32,13 @@ public class EnemyController : MonoBehaviour
     // Used when the enemy is grabbing the ball while moving.
     private float grabbedBallOffset = 1.2f;
 
+    private bool activated = false;
+
+    public void Activate()
+    {
+        activated = true;
+    }
+
     void Start()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
@@ -43,6 +50,7 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         if (!ball) return;
+        if (!activated) return;
 
         if (currentState != EnemyState.HAS_BALL)
         {

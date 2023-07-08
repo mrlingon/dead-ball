@@ -22,7 +22,9 @@ public class LevelManager : MonoBehaviour
     public EnemyInstantiator enemyInstantiator;
     public EnemyManager enemyManager;
 
-    public int currentLevel = 0;
+    public int currentLevel { get; private set; } = 0;
+
+    public int levelTransitionTime = 2500;
 
     public event Action<Level, int> LevelStarted;
     public event Action<Level, int> LevelCompleted;
@@ -36,7 +38,6 @@ public class LevelManager : MonoBehaviour
 
     void NextLevel()
     {
-        Debug.Log("Next Level");
         LevelCompleted?.Invoke(levels[currentLevel], currentLevel);
         currentLevel++;
         if (currentLevel > levels.Length)
@@ -52,7 +53,18 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void StartLevel(Level level)
     {
-        LevelStarted?.Invoke(levels[currentLevel], currentLevel);
+        ball.SetFrozen(true);
+        ball.transform.position = Vector3.zero;
+        ballCameraController.ZoomTo(5f, 0.1f);
         enemyInstantiator.SetUpLevel(level);
+
+        Timers.SetTimeout(levelTransitionTime, () =>
+        {
+            LevelStarted?.Invoke(levels[currentLevel], currentLevel);
+            ball.SetFrozen(false);
+            ballCameraController.ZoomTo(ballCameraController.DefaultStartZoom, 0.5f);
+            enemyManager.ActivateEnemies();
+        });
+
     }
 }

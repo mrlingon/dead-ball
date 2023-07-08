@@ -14,9 +14,11 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
-        ball.KilledEnemy += () =>
+        ball.KilledEnemy += (go) =>
         {
-            Debug.Log(enemies.Count);
+            var enemy = enemies.Find(ec => ec.gameObject == go);
+            enemies.Remove(enemy);
+            Destroy(enemy.gameObject);
             if (enemies.Count == 0)
             {
                 AllEnemiesDead?.Invoke();
@@ -28,11 +30,7 @@ public class EnemyManager : MonoBehaviour
             enemyInstantiator.BeginInstantiation += Reset;
             enemyInstantiator.OnInstantiate += (enemy, team) =>
             {
-                // just temp timer to wait for enemy to be initialized
-                Timers.SetTimeout(3000, () =>
-                {
-                    RegisterEnemy(enemy, team);
-                });
+                RegisterEnemy(enemy, team);
             };
         }
     }
@@ -75,11 +73,17 @@ public class EnemyManager : MonoBehaviour
 
         var renderer = enemy.GetComponentInChildren<SpriteRenderer>();
         renderer.color = new Color(team.color.r, team.color.g, team.color.b, 1);
-
         enemies.Add(enemy);
         enemy.ball = ball;
         enemy.transform.SetParent(transform);
         enemy.transform.name = enemy.enemyData.enemyName;
+    }
 
+    public void ActivateEnemies()
+    {
+        foreach (var enemy in enemies)
+        {
+            enemy.Activate();
+        }
     }
 }

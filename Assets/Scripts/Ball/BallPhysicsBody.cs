@@ -72,7 +72,7 @@ public class BallPhysicsBody : MonoBehaviour
 
     public event Action<GameObject, bool> HitEnemy;
 
-    public event Action KilledEnemy;
+    public event Action<GameObject> KilledEnemy;
 
     public bool Frozen { get; private set; } = false;
 
@@ -86,8 +86,8 @@ public class BallPhysicsBody : MonoBehaviour
     {
         //if (!IsGrounded())
         //{
-            // Debug.LogWarning("Cannot apply force when airborne");
-            // return;
+        // Debug.LogWarning("Cannot apply force when airborne");
+        // return;
         //}
 
         // We need to apply the force to the rigidbody
@@ -145,9 +145,7 @@ public class BallPhysicsBody : MonoBehaviour
                     GameManager.Instance.GameField?.SplatterPaint(new float2(transform.position.x, transform.position.y), 1.2f, 8, 15, 2, 6);
                     BloodTrail.ActivateTrail(1f, 2f);
                     Instantiate(BloodParticles, collision.transform.parent.position, Quaternion.identity);
-
-                    Destroy(collision.transform.parent.gameObject);
-                    KilledEnemy?.Invoke();
+                    KilledEnemy?.Invoke(collision.transform.parent.gameObject);
                 }
                 else
                 {
