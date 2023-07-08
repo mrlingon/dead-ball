@@ -61,8 +61,19 @@ public class FlockTowardsPoint : MonoBehaviour
         UpdateVelocity();
         UpdatePosition();
         UpdateRotation();
-        //WrapAround();
 
+        DebugDraw.Circle(Position, neighborhoodRadius, Color.cyan);
+        DebugDraw.Arrow(Position, velocity, Color.red, 1f, 0.25f, 0.5f);
+    }
+
+    /* Move towards the goal without flocking behaviour */
+    public void MoveIndependently()
+    {
+        var goal = Goal();
+        acceleration = goal * goalAmount;
+        UpdateVelocity();
+        UpdatePosition();
+        UpdateRotation();
         DebugDraw.Circle(Position, neighborhoodRadius, Color.cyan);
         DebugDraw.Arrow(Position, velocity, Color.red, 1f, 0.25f, 0.5f);
     }
@@ -178,13 +189,5 @@ public class FlockTowardsPoint : MonoBehaviour
             baseVector = baseVector.normalized * maxMagnitude;
         }
         return baseVector;
-    }
-
-    private void WrapAround()
-    {
-        if (Position.x < -14) Position = new Vector2(14, Position.y);
-        if (Position.y < -8) Position = new Vector2(Position.x, 8);
-        if (Position.x > 14) Position = new Vector2(-14, Position.y);
-        if (Position.y > 8) Position = new Vector2(Position.x, -8);
     }
 }

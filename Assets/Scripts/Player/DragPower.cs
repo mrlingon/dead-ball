@@ -28,7 +28,7 @@ public class DragPower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        holdDrag.Released += (drag) => {
+        holdDrag.Released += (_, drag) => {
             currentPower -= math.length(drag);
         };
     }
