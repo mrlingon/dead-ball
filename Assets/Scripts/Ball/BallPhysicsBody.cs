@@ -101,10 +101,18 @@ public class BallPhysicsBody : MonoBehaviour
             {
                 if (Debugging)
                 {
-                    Debug.Log("Hit enemy!!");
                     DebugDraw.Circle(transform.position, 0.5f, Color.red, 3.0f);
                 }
+
                 HitEnemy?.Invoke(collision.gameObject);
+
+                // TODO: dont do this hehe :)
+                Debug.Log(VelocityLenSq);
+
+                if (VelocityLenSq >= 300.0f)
+                {
+                    Destroy(collision.transform.parent.gameObject);
+                }
             }
         };
     }

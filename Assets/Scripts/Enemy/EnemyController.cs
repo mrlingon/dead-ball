@@ -55,8 +55,6 @@ public class EnemyController : MonoBehaviour
         {
             if (hit.collider.tag == "Ground") // If the hit collider has the tag "MyTag"
             {
-                Debug.Log("We hit " + hit.collider.name);
-                Debug.Log("Point where raycast hit: " + hit.point);
                 return hit.point;
             }
         }
