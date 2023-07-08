@@ -6,15 +6,9 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(Rigidbody2D))]
-public class BallController : MonoBehaviour
+public class BallPhysicsBody : MonoBehaviour
 {
-    [Button("Apply Force Test")]
-    public void ApplyForceTest()
-    {
-        ApplyForce(new float3(2, 2, 4));
-    }
-
-    [Header("Movement")]
+    [Header("Settings")]
 
     // Height of the ball
     [Range(0.0f, 5.0f)]
@@ -23,15 +17,27 @@ public class BallController : MonoBehaviour
     [Range(0.0f, 9.8f)]
     public float Gravity = 9.8f;
 
+    [Range(0.0f, 50f)]
+    public float SpinSpeed = 20.0f;
+    public float SpinHeightMultiplier = 0.5f;
+
+
+    [Range(0.01f, 1.0f)]
+    public float ShadowScale = 0.15f;
+
     [Header("Refs")]
 
     public Transform ModelPivot;
+
+    public Transform ModelParent;
 
     public Transform ShadowPivot;
 
     public Rigidbody2D Rigidbody { get; private set; }
 
     public Collider2D Collider { get; private set; }
+
+    public PhysicsEvents2D PhysicsEvents;
 
     public float HeightForce { get; private set; } = 0.0f;
 
@@ -62,13 +68,23 @@ public class BallController : MonoBehaviour
     {
         Rigidbody = GetComponent<Rigidbody2D>();
         Collider = GetComponent<Collider2D>();
+
+        TryGetComponent(out PhysicsEvents);
+
+        PhysicsEvents.CollisionEnter += (collision) =>
+        {
+            if (collision.gameObject.CompareTag("Ground"))
+            {
+                HeightForce = 0;
+            }
+        };
     }
 
     protected void Start()
     {
     }
 
-    protected void Update()
+    protected void FixedUpdate()
     {
         LockZAxis();
         DisableCollisionWhenAirborne();
@@ -76,6 +92,7 @@ public class BallController : MonoBehaviour
         if (HeightForce != 0 || !IsGrounded())
             ApplyHeightForce();
 
+        ApplyRotation();
         ApplyModelHeight();
         ApplyShadowScale();
     }
@@ -83,6 +100,16 @@ public class BallController : MonoBehaviour
     protected void LockZAxis()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+    }
+
+    protected void ApplyRotation()
+    {
+        if (ModelParent != null)
+        {
+            var velocity = new float3(Rigidbody.velocity.x, Rigidbody.velocity.y, HeightForce * SpinHeightMultiplier);
+            var forward = math.normalizesafe(velocity);
+            ModelParent.Rotate(forward * Time.deltaTime * SpinSpeed * Rigidbody.velocity.magnitude);
+        }
     }
 
     protected void ApplyHeightForce()
@@ -105,7 +132,7 @@ public class BallController : MonoBehaviour
 
     protected void DisableCollisionWhenAirborne()
     {
-        Collider.enabled = IsGrounded();
+        // Collider.enabled = IsGrounded();
     }
 
     protected void ApplyModelHeight()
@@ -116,8 +143,8 @@ public class BallController : MonoBehaviour
 
     protected void ApplyShadowScale()
     {
-        const float ShadowScale = 0.25f;
+        const float MaxShadowScale = 5.0f;
         if (ShadowPivot != null)
-            ShadowPivot.localScale = new Vector3(1, 1, 1) * (1 + Height * ShadowScale);
+            ShadowPivot.localScale = new Vector3(1, 1, 1) * math.min((1 + Height * ShadowScale), MaxShadowScale);
     }
 }
