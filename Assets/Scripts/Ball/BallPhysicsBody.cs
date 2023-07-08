@@ -132,7 +132,11 @@ public class BallPhysicsBody : MonoBehaviour
                     Rigidbody.velocity *= CollisionPenalty;
                     HeightForce *= CollisionPenalty;
 
+                    GameManager.Instance.BallCamera?.Shake(0.004f, 1f, 0.444f);
+
                     Destroy(collision.transform.parent.gameObject);
+                } else {
+                    GameManager.Instance.BallCamera?.Shake(0.001f, 1f, 0.444f);
                 }
             }
         };
@@ -150,6 +154,14 @@ public class BallPhysicsBody : MonoBehaviour
             DebugDraw.Line(transform.position, transform.position + new Vector3(Velocity.x, Velocity.y, 0), Color.red);
             DebugDraw.Line(transform.position, transform.position + new Vector3(0, Velocity.z, 0), Color.blue);
             DebugDraw.Line(transform.position, transform.position + new Vector3(0, Height, 0), Color.yellow);
+        }
+
+        // zooming meme
+        if (VelocityLenSq >= RequiredCollisionVelocity)
+        {
+            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.859f, 0.333f);
+        } else if (GameManager.Instance?.BallCamera != null && GameManager.Instance?.BallCamera?.VirtualCamera.m_Lens.OrthographicSize != GameManager.Instance?.BallCamera?.DefaultStartZoom) {
+            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom, 0.666f);
         }
     }
 
