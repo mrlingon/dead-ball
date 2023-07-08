@@ -16,7 +16,6 @@ public class EnemyController : MonoBehaviour
 
     public EnemyData humanData;
     public EnemyState currentState = EnemyState.RUN_TOWARDS;
-    public PhysicsEvents2D ballCollisionEvents;
 
     private FlockTowardsPoint flock;
     [HideInInspector]
@@ -27,10 +26,6 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         TryGetComponent<FlockTowardsPoint>(out flock);
-        ballCollisionEvents.TriggerEnter += other =>
-        {
-            OnCatchBall?.Invoke(this);
-        };
     }
 
     void Update()
