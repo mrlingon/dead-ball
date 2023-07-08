@@ -7,10 +7,9 @@ public class EnemyManager : MonoBehaviour
 {
     [ReadOnly]
     public List<EnemyController> enemies = new List<EnemyController>();
-
-    public float ballSpeedCutoff = 20f;
-
     public BallPhysicsBody ball;
+    public Transform kickoffPointOne;
+    public Transform kickoffPointTwo;
 
     void Start()
     {
@@ -28,35 +27,35 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (ball.VelocityLenSq <= ballSpeedCutoff)
+        var hasBall = EnemyHasBall();
+        if (hasBall)
         {
-            foreach (EnemyController h in enemies)
+            foreach (EnemyController enemy in enemies)
             {
-                h.currentState = EnemyController.EnemyState.RUN_TOWARDS;
+                if (enemy.currentState != EnemyController.EnemyState.HAS_BALL)
+                {
+                    enemy.currentState = EnemyController.EnemyState.RUN_SPAWN;
+                }
             }
         }
-        else
+    }
+
+    bool EnemyHasBall()
+    {
+        foreach (var enemy in enemies)
         {
-            foreach (EnemyController h in enemies)
-            {
-                h.currentState = EnemyController.EnemyState.RUN_AWAY;
-            }
+            if (enemy.currentState == EnemyController.EnemyState.HAS_BALL) return true;
         }
+        return false;
     }
 
     void RegisterEnemy(EnemyController enemy)
     {
         enemies.Add(enemy);
-        enemy.follow = ball.transform;
+        enemy.ball = ball;
         enemy.transform.SetParent(transform);
-        enemy.OnCatchBall += OnEnemyCatchBall;
-    }
-
-    void OnEnemyCatchBall(EnemyController enemy)
-    {
-        Debug.Log(enemy.name + " catched the ball!");
+        enemy.kickoffPoint = kickoffPointOne.position;
     }
 }

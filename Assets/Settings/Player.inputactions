@@ -6,9 +6,18 @@
             "id": "9c74f67e-2d49-4337-88f4-139f57bb1b2b",
             "actions": [
                 {
-                    "name": "Hold",
+                    "name": "Kick",
                     "type": "Button",
                     "id": "15ea5267-46dc-4517-a7e4-adcfd12fd542",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Lob",
+                    "type": "Button",
+                    "id": "0bb40eca-1111-467b-b42d-d6bd15a84225",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -23,7 +32,18 @@
                     "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
-                    "action": "Hold",
+                    "action": "Kick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e5b4e537-09f2-4382-9b6b-88eebe4e24b6",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lob",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
