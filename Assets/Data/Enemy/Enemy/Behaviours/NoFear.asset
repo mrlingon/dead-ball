@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f88b7f7e008f66e4db642ac2a3de29d2, type: 3}
-  m_Name: FastBoi
+  m_Script: {fileID: 11500000, guid: dd6aad8a23b385b4bb1c76585c8be811, type: 3}
+  m_Name: NoFear
   m_EditorClassIdentifier: 
-  enemyName: Zlatan
-  size: 1
-  health: 10
-  strength: 10
-  chaseSpeed: 20
-  retreatSpeed: 30
-  behaviour: {fileID: 11400000, guid: 4008910f6422a814a9e94711086ebad5, type: 2}
+  distanceToPoint: 3.5
+  distanceToSelf: 9.5
+  minBallSpeed: 10

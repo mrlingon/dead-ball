@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6aad8a23b385b4bb1c76585c8be811, type: 3}
   m_Name: Coward
   m_EditorClassIdentifier: 
-  distanceToPoint: 3.5
-  distanceToSelf: 9.5
-  minBallSpeed: 6
+  distanceToPoint: 5.6
+  distanceToSelf: 29
+  minBallSpeed: 15
