@@ -147,6 +147,7 @@ public class BallPhysicsBody : MonoBehaviour
 
     }
 
+    private bool requestedZoom = false;
     protected void Update()
     {
         if (Debugging)
@@ -157,11 +158,14 @@ public class BallPhysicsBody : MonoBehaviour
         }
 
         // zooming meme
-        if (VelocityLenSq >= RequiredCollisionVelocity)
+        if (VelocityLenSq >= RequiredCollisionVelocity && !requestedZoom)
         {
-            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.859f, 0.333f);
-        } else if (GameManager.Instance?.BallCamera != null && GameManager.Instance?.BallCamera?.VirtualCamera.m_Lens.OrthographicSize != GameManager.Instance?.BallCamera?.DefaultStartZoom) {
+            requestedZoom = true;
+            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.8f, 0.333f);
+
+        } else if (requestedZoom && GameManager.Instance?.BallCamera != null && GameManager.Instance?.BallCamera?.VirtualCamera.m_Lens.OrthographicSize != GameManager.Instance?.BallCamera?.DefaultStartZoom) {
             GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom, 0.666f);
+            requestedZoom = false;
         }
     }
 

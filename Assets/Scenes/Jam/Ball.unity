@@ -2801,7 +2801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DragForceMultiplier: 0.085
-  DragForceHeightMultiplier: 0.005
+  DragForceHeightMultiplier: 0.004
   Ball: {fileID: 875394094}
   PlayerHoldDrag: {fileID: 1894918455}
   DragPower: {fileID: 1894918456}
@@ -3574,7 +3574,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4484090582897386816, guid: 47b60f0b22ef2be489dd44ef0534c7b4, type: 3}
       propertyPath: DragForceHeightMultiplier
-      value: 0.005
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 5856512089015673503, guid: 47b60f0b22ef2be489dd44ef0534c7b4, type: 3}
       propertyPath: MaxPower

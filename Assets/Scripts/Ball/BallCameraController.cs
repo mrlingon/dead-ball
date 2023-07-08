@@ -9,13 +9,6 @@ public class BallCameraController : MonoBehaviour
 
     public Cinemachine.CinemachineVirtualCamera VirtualCamera { get; private set; }
 
-    [NaughtyAttributes.Button("Shake Test")]
-    public void ShakeTest()
-    {
-        Shake(0.005f, 1f, 1f);
-    }
-
-
     private int shakeTweenId = -1;
     public void Shake(float shakeAmplitude, float shakeFrequency, float shakeDuration)
     {
@@ -71,7 +64,8 @@ public class BallCameraController : MonoBehaviour
 
         VirtualCamera = GetComponent<Cinemachine.CinemachineVirtualCamera>();
         VirtualCamera.m_Lens.OrthographicSize = 5f;
-        Timers.SetTimeout(1500, () => ZoomTo(DefaultStartZoom, 0.666f));
+
+        Timers.SetTimeout(2500, () => ZoomTo(DefaultStartZoom, 0.5f));
     }
 
     void Start()
