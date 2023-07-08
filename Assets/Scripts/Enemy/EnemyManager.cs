@@ -12,15 +12,10 @@ public class EnemyManager : MonoBehaviour
     {
         if (TryGetComponent<EnemyInstantiator>(out var enemyInstantiator))
         {
-            Debug.Log("YOOO");
             enemyInstantiator.OnInstantiate += go =>
             {
-                enemies.Add(go.GetComponent<EnemyController>());
-                if (go.TryGetComponent<EnemyController>(out var h))
-                {
-                    h.ball = ball;
-                }
-                go.transform.SetParent(transform);
+                var enemy = go.GetComponent<EnemyController>();
+                RegisterEnemy(enemy);
             };
         }
     }
@@ -42,6 +37,18 @@ public class EnemyManager : MonoBehaviour
                 h.currentState = EnemyController.EnemyState.RUN_AWAY;
             }
         }
+    }
 
+    void RegisterEnemy(EnemyController enemy)
+    {
+        enemies.Add(enemy);
+        enemy.follow = ball.transform;
+        enemy.transform.SetParent(transform);
+        enemy.OnCatchBall += OnEnemyCatchBall;
+    }
+
+    void OnEnemyCatchBall(EnemyController enemy)
+    {
+        Debug.Log(enemy.name + " catched the ball!");
     }
 }
