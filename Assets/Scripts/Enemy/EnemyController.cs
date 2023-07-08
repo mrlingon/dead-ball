@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Unity.Mathematics;
+using ElRaccoone.Timers;
 
 public class EnemyController : MonoBehaviour
 {
@@ -89,12 +90,11 @@ public class EnemyController : MonoBehaviour
     {
         float dist = Vector2.Distance(ball.transform.position, transform.position);
 
-        if (dist <= 3.0 && !ball.Frozen)
+        const float CatchDistance = 3f;
+        if (dist <= CatchDistance && !ball.Frozen && !ball.IsAirborne)
         {
-            ball.SetFrozen(true);
-            currentState = EnemyState.HAS_BALL;
-            Rigidbody.simulated = false;
-            Collider.enabled = false;
+            EnterHasBallState();
+            GameManager.Instance.CatchedOrReleasedBall(released: false, this);
         }
     }
 
@@ -105,14 +105,32 @@ public class EnemyController : MonoBehaviour
 
         if (math.distance(flock.goalTransform, new Vector2(transform.position.x, transform.position.y)) < 0.3f)
         {
-
             ball.SetFrozen(false);
-            Rigidbody.velocity = Vector2.zero;
-            GameManager.Instance.Player.CanControl = false;
-            ball.ApplyForce(new float3(-20, 0, 0));
 
-            currentState = EnemyState.RUN_SPAWN;
+            float3 dir = math.normalize(new float3(flock.goalTransform.x, flock.goalTransform.y, 0.05f) - new float3(transform.position.x, transform.position.y, 0));
+            ball.ApplyForce(dir * 25);
+            GameManager.Instance.EnemyShootBall();
+
+            ExitHasBallState();
         }
+    }
+    public void EnterHasBallState()
+    {
+        currentState = EnemyState.HAS_BALL;
+        Rigidbody.simulated = false;
+        Collider.enabled = false;
+    }
+
+    public void ExitHasBallState()
+    {
+        currentState = EnemyState.RUN_SPAWN;
+
+        Timers.SetTimeout(1000, () =>
+        {
+            Rigidbody.velocity = Vector2.zero;
+            Rigidbody.simulated = true;
+            Collider.enabled = true;
+        });
     }
 
     void SetBallPosition()

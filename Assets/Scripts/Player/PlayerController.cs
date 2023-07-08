@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +12,12 @@ public class PlayerController : MonoBehaviour
     public float LobXYForceMultipler = 0.005f;
     public float LobZForceMultipler = 0.1f;
 
+    [Header("Ball Release Settings")]
+    public float ReleaseKeyPower = 0.15f;
+
+    [SerializeField] [ReadOnly]
+    private float ReleasePowerLeft = 1.0f;
+
     [Header("Refs")]
     public InputActionAsset InputActions;
     public BallPhysicsBody Ball;
@@ -20,6 +27,8 @@ public class PlayerController : MonoBehaviour
 
     private InputAction KickAction;
     private InputAction LobAction;
+    private InputAction ReleaseAction;
+
 
     protected void Awake()
     {
@@ -34,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
         KickAction = InputActions.FindAction("Gameplay/Kick");
         LobAction = InputActions.FindAction("Gameplay/Lob");
+        ReleaseAction = InputActions.FindAction("Gameplay/Release");
 
         DontDestroyOnLoad(gameObject);
 
@@ -66,7 +76,6 @@ public class PlayerController : MonoBehaviour
             if (hit)
             {
                 GameManager.Instance.BallCamera?.Shake(0.004f, 1f, 0.444f);
-
                 GameManager.Instance.Scores.AddScore(1);
                 GameManager.Instance.Scores.AddKill();
             }
@@ -75,11 +84,41 @@ public class PlayerController : MonoBehaviour
                 GameManager.Instance.BallCamera?.Shake(0.001f, 1f, 0.444f);
             }
         };
+
+        GameManager.Instance.OnCatchedBall += () =>
+        {
+            ReleaseAction.Enable();
+            ReleasePowerLeft = 1.0f;
+            PlayerHoldDrag.Reset();
+        };
+
+        GameManager.Instance.OnReleasedBall += () =>
+        {
+            ReleaseAction.Disable();
+            PlayerHoldDrag.Reset();
+            ReleasePowerLeft = 1.0f;
+        };
     }
 
-    protected void FixedUpdate()
+    protected void Update()
     {
+        if (!ReleaseAction.enabled && GameManager.Instance.BallIsCatched)
+        {
+            ReleaseAction.Enable();
+        }
+        else if (ReleaseAction.enabled && !GameManager.Instance.BallIsCatched)
+        {
+            ReleaseAction.Disable();
+        }
 
+        if (GameManager.Instance.BallIsCatched && ReleaseAction.WasPressedThisFrame())
+        {
+            ReleasePowerLeft -= ReleaseKeyPower;
+            if (ReleasePowerLeft <= 0.0f)
+            {
+                GameManager.Instance.CatchedOrReleasedBall(true);
+            }
+        }
     }
 
     public void ToggleControl(bool canControl)

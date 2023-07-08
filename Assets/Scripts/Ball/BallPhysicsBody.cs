@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ElRaccoone.Timers;
 using NaughtyAttributes;
 using Unity.Mathematics;
 using UnityEngine;
@@ -108,6 +109,15 @@ public class BallPhysicsBody : MonoBehaviour
 
     protected void Awake()
     {
+        if (GameManager.Instance?.Ball != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.Ball = this;
+
         Rigidbody = GetComponent<Rigidbody2D>();
         Collider = GetComponent<Collider2D>();
 
@@ -126,6 +136,14 @@ public class BallPhysicsBody : MonoBehaviour
 
         PhysicsEvents.TriggerEnter += (collision) =>
         {
+            if (collision.gameObject.CompareTag("Goal"))
+            {
+                Timers.SetTimeout(250, () => {
+                    GameManager.Instance?.GameOver();
+                    SetFrozen(true);
+                });
+            }
+
             if (Frozen) return;
 
             if (collision.gameObject.CompareTag("Enemy"))
