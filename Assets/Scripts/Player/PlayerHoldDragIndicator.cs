@@ -38,6 +38,13 @@ public class PlayerHoldDragIndicator : MonoBehaviour
             DragEndIndicator.gameObject.SetActive(false);
             LineRenderer.Reset();
         };
+
+        HoldDrag.Cancelled += () =>
+        {
+            DragStartIndicator.gameObject.SetActive(false);
+            DragEndIndicator.gameObject.SetActive(false);
+            LineRenderer.Reset();
+        };
     }
 
     void Update()

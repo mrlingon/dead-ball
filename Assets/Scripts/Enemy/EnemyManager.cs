@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ElRaccoone.Timers;
 using NaughtyAttributes;
@@ -8,21 +9,28 @@ public class EnemyManager : MonoBehaviour
     [ReadOnly]
     public List<EnemyController> enemies = new List<EnemyController>();
     public BallPhysicsBody ball;
-    public Transform kickoffPointOne;
-    public Transform kickoffPointTwo;
+
+    public event Action AllEnemiesDead;
 
     void Start()
     {
+        ball.KilledEnemy += (go) =>
+        {
+            var enemy = enemies.Find(ec => ec.gameObject == go);
+            enemies.Remove(enemy);
+            Destroy(enemy.gameObject);
+            if (enemies.Count == 0)
+            {
+                AllEnemiesDead?.Invoke();
+            }
+        };
+
         if (TryGetComponent<EnemyInstantiator>(out var enemyInstantiator))
         {
-            enemyInstantiator.OnInstantiate += go =>
+            enemyInstantiator.BeginInstantiation += Reset;
+            enemyInstantiator.OnInstantiate += (enemy, team) =>
             {
-                // just temp timer to wait for enemy to be initialized
-                Timers.SetTimeout(3000, () =>
-                {
-                    var enemy = go.GetComponent<EnemyController>();
-                    RegisterEnemy(enemy);
-                });
+                RegisterEnemy(enemy, team);
             };
         }
     }
@@ -42,6 +50,14 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    void Reset()
+    {
+        foreach (var enemy in enemies)
+        {
+            Destroy(enemy.gameObject);
+        }
+    }
+
     bool EnemyHasBall()
     {
         foreach (var enemy in enemies)
@@ -51,11 +67,18 @@ public class EnemyManager : MonoBehaviour
         return false;
     }
 
-    void RegisterEnemy(EnemyController enemy)
+    void RegisterEnemy(EnemyController enemy, Team team)
     {
         enemies.Add(enemy);
-        enemy.ball = ball;
         enemy.transform.SetParent(transform);
-        enemy.kickoffPoint = kickoffPointOne.position;
+        enemy.ball = ball;
+    }
+
+    public void ActivateEnemies()
+    {
+        foreach (var enemy in enemies)
+        {
+            enemy.Activate();
+        }
     }
 }

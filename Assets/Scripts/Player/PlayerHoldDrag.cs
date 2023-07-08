@@ -11,6 +11,8 @@ public class PlayerHoldDrag : MonoBehaviour
 
     public event Action<PlayerKickMode, float2> Released;
 
+    public event Action Cancelled;
+
     public event Action<PlayerKickMode> StartDrag;
 
     public bool IsDragging => recording;
@@ -35,7 +37,6 @@ public class PlayerHoldDrag : MonoBehaviour
 
     public void OnLobInput(InputAction.CallbackContext context)
     {
-        Debug.Log(locked);
         if (locked) return;
         if (context.action.triggered && context.action.ReadValue<float>() != 0 &&
             context.action.phase == InputActionPhase.Performed)
@@ -84,6 +85,14 @@ public class PlayerHoldDrag : MonoBehaviour
 
         Released?.Invoke(mode, Drag);
 
+        DragPoints.Origin = float2.zero;
+        DragPoints.Current = float2.zero;
+    }
+
+    public void Reset()
+    {
+        recording = false;
+        Cancelled?.Invoke();
         DragPoints.Origin = float2.zero;
         DragPoints.Current = float2.zero;
     }
