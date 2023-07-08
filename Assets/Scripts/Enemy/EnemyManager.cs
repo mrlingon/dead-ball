@@ -8,7 +8,7 @@ public class EnemyManager : MonoBehaviour
     [ReadOnly]
     public List<EnemyController> enemies = new List<EnemyController>();
 
-    public float ballSpeedCutoff = 1f;
+    public float ballSpeedCutoff = 20f;
 
     public BallPhysicsBody ball;
 
@@ -31,7 +31,7 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ball.Rigidbody.velocity.magnitude <= ballSpeedCutoff)
+        if (ball.VelocityLenSq <= ballSpeedCutoff)
         {
             foreach (EnemyController h in enemies)
             {

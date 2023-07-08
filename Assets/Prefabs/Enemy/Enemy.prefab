@@ -105,10 +105,10 @@ MonoBehaviour:
   maxSpeed: 10
   maxForce: 0.1
   neighborhoodRadius: 7.49
-  separationAmount: 2.35
-  cohesionAmount: 1
-  alignmentAmount: 1
-  goalAmount: 2.06
+  separationAmount: 30
+  cohesionAmount: 0
+  alignmentAmount: 0
+  goalAmount: 0
   goalTransform: {x: 0, y: 0}
   acceleration: {x: 1, y: 1}
   velocity: {x: 1, y: 1}
@@ -173,10 +173,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   humanData: {fileID: 11400000, guid: 94f55f03dd83548448b176e4e7f3a2f1, type: 2}
-  ballTransform: {fileID: 0}
   currentState: 0
-  flock: {fileID: 2034781610900877380}
-  ballCollisionEvents: {fileID: 5964584027803124680}
+  follow: {fileID: 0}
+  distanceToPoint: 0
+  distanceToSelf: 0
 --- !u!50 &-4457583277160563778
 Rigidbody2D:
   serializedVersion: 4
