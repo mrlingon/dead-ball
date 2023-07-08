@@ -18,7 +18,7 @@ public class EnemyManager : MonoBehaviour
                 enemies.Add(go.GetComponent<EnemyController>());
                 if (go.TryGetComponent<EnemyController>(out var h))
                 {
-                    h.ballTransform = ball.transform;
+                    h.ball = ball;
                 }
                 go.transform.SetParent(transform);
             };

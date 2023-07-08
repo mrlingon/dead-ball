@@ -35,8 +35,8 @@ public class BallPhysicsBody : MonoBehaviour
     [Range(0.0f, 500.0f)]
     public float RequiredCollisionVelocity = 250.0f;
 
-    [Range(0.0f, 500.0f)]
-    public float CollisionPenalty = 0.5f;
+    [Range(0.1f, 0.9f)]
+    public float CollisionPenalty = 0.35f;
 
 
     [Header("Refs")]
@@ -68,6 +68,8 @@ public class BallPhysicsBody : MonoBehaviour
 
     public event Action<GameObject> HitEnemy;
 
+    public bool Frozen { get; private set; } = false;
+
     public bool IsGrounded()
     {
         const float GroundedDistance = 0.0001f;
@@ -89,6 +91,12 @@ public class BallPhysicsBody : MonoBehaviour
         HeightForce += force.z;
     }
 
+    public void SetFrozen(bool frozen)
+    {
+        Frozen = frozen;
+        Rigidbody.simulated = !frozen;
+    }
+
     protected void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
@@ -98,6 +106,8 @@ public class BallPhysicsBody : MonoBehaviour
 
         PhysicsEvents.CollisionEnter += (collision) =>
         {
+            if (Frozen) return;
+
             if (collision.gameObject.CompareTag("Ground"))
             {
                 HeightForce = 0;
@@ -106,18 +116,21 @@ public class BallPhysicsBody : MonoBehaviour
 
         PhysicsEvents.TriggerEnter += (collision) =>
         {
+            if (Frozen) return;
+
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                if (Debugging)
-                {
-                    DebugDraw.Circle(transform.position, 0.5f, Color.red, 3.0f);
-                }
-
                 if (VelocityLenSq >= RequiredCollisionVelocity)
                 {
+                    if (Debugging)
+                    {
+                        DebugDraw.Circle(transform.position, 0.5f, Color.red, 3.0f);
+                    }
+
                     HitEnemy?.Invoke(collision.gameObject);
 
                     Rigidbody.velocity *= CollisionPenalty;
+                    HeightForce *= CollisionPenalty;
 
                     Destroy(collision.transform.parent.gameObject);
                 }
@@ -142,12 +155,18 @@ public class BallPhysicsBody : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        DisableCollisionWhenAirborne();
+        if (!Frozen)
+        {
+            DisableCollisionWhenAirborne();
 
-        if (HeightForce != 0 || !IsGrounded())
-            ApplyHeightForce();
+            if (HeightForce != 0 || !IsGrounded())
+            {
+                ApplyHeightForce();
+            }
 
-        ApplyRotation();
+            ApplyRotation();
+        }
+
         ApplyModelHeight();
         ApplyShadowScale();
     }
