@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     public PlayerController Player { get; set; }
     public BallCameraController BallCamera { get; set; }
+    public GameField GameField { get; set; }
 
     private bool IsTicking;
 

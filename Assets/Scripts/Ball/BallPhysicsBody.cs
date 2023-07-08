@@ -47,6 +47,8 @@ public class BallPhysicsBody : MonoBehaviour
 
     public Transform ShadowPivot;
 
+    public RunParticlesOnce BloodParticles;
+
     [Header("Debug")]
     public bool Debugging = true;
 
@@ -55,6 +57,8 @@ public class BallPhysicsBody : MonoBehaviour
     public Collider2D Collider { get; private set; }
 
     private PhysicsEvents2D PhysicsEvents;
+
+    private BloodTrail BloodTrail;
 
     public float HeightForce { get; private set; } = 0.0f;
 
@@ -106,6 +110,7 @@ public class BallPhysicsBody : MonoBehaviour
         Collider = GetComponent<Collider2D>();
 
         TryGetComponent(out PhysicsEvents);
+        TryGetComponent(out BloodTrail);
 
         PhysicsEvents.CollisionEnter += (collision) =>
         {
@@ -137,6 +142,10 @@ public class BallPhysicsBody : MonoBehaviour
 
                     GameManager.Instance.BallCamera?.Shake(0.004f, 1f, 0.444f);
 
+                    float2 worldPos = new float2(transform.position.x, transform.position.y);
+                    GameManager.Instance.GameField?.SplatterPaint(worldPos, 1.2f, 8, 15, 2, 10);
+                    BloodTrail.ActivateTrail(1f, 2f);
+                    Instantiate(BloodParticles, collision.transform.parent.position, Quaternion.identity);
                     Destroy(collision.transform.parent.gameObject);
                 }
                 else
