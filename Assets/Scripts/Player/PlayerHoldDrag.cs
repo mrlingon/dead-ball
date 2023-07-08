@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerHoldDrag : MonoBehaviour
 {
-    public int Max = 50;
+    public int Current = 50;
 
     public bool Debugging = true;
 
@@ -79,9 +79,9 @@ public class PlayerHoldDrag : MonoBehaviour
 
         DragPoints.Current = Mouse.current.position.ReadValue();
 
-        if (math.length(Drag) > Max)
+        if (math.length(Drag) > Current)
         {
-            DragPoints.Current = DragPoints.Origin + -(math.normalize(Drag) * Max);
+            DragPoints.Current = DragPoints.Origin + -(math.normalize(Drag) * Current);
         }
 
         if (Debugging)

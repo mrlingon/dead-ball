@@ -1,11 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
+using ElRaccoone.Timers;
+using NaughtyAttributes;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    [ReadOnly]
     public List<EnemyController> enemies = new List<EnemyController>();
-    public float ballSpeedCutoff = 1f;
+
+    public float ballSpeedCutoff = 20f;
+
     public BallPhysicsBody ball;
 
     void Start()
@@ -14,8 +18,12 @@ public class EnemyManager : MonoBehaviour
         {
             enemyInstantiator.OnInstantiate += go =>
             {
-                var enemy = go.GetComponent<EnemyController>();
-                RegisterEnemy(enemy);
+                // just temp timer to wait for enemy to be initialized
+                Timers.SetTimeout(3000, () =>
+                {
+                    var enemy = go.GetComponent<EnemyController>();
+                    RegisterEnemy(enemy);
+                });
             };
         }
     }
@@ -23,7 +31,7 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ball.Rigidbody.velocity.magnitude <= ballSpeedCutoff)
+        if (ball.VelocityLenSq <= ballSpeedCutoff)
         {
             foreach (EnemyController h in enemies)
             {

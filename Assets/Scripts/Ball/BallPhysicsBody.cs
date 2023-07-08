@@ -35,8 +35,8 @@ public class BallPhysicsBody : MonoBehaviour
     [Range(0.0f, 500.0f)]
     public float RequiredCollisionVelocity = 250.0f;
 
-    [Range(0.0f, 500.0f)]
-    public float CollisionPenalty = 0.5f;
+    [Range(0.1f, 0.9f)]
+    public float CollisionPenalty = 0.35f;
 
 
     [Header("Refs")]
@@ -68,6 +68,8 @@ public class BallPhysicsBody : MonoBehaviour
 
     public event Action<GameObject> HitEnemy;
 
+    public bool Frozen { get; private set; } = false;
+
     public bool IsGrounded()
     {
         const float GroundedDistance = 0.0001f;
@@ -89,6 +91,12 @@ public class BallPhysicsBody : MonoBehaviour
         HeightForce += force.z;
     }
 
+    public void SetFrozen(bool frozen)
+    {
+        Frozen = frozen;
+        Rigidbody.simulated = !frozen;
+    }
+
     protected void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
@@ -98,6 +106,8 @@ public class BallPhysicsBody : MonoBehaviour
 
         PhysicsEvents.CollisionEnter += (collision) =>
         {
+            if (Frozen) return;
+
             if (collision.gameObject.CompareTag("Ground"))
             {
                 HeightForce = 0;
@@ -106,20 +116,27 @@ public class BallPhysicsBody : MonoBehaviour
 
         PhysicsEvents.TriggerEnter += (collision) =>
         {
+            if (Frozen) return;
+
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                if (Debugging)
-                {
-                    DebugDraw.Circle(transform.position, 0.5f, Color.red, 3.0f);
-                }
-
                 if (VelocityLenSq >= RequiredCollisionVelocity)
                 {
+                    if (Debugging)
+                    {
+                        DebugDraw.Circle(transform.position, 0.5f, Color.red, 3.0f);
+                    }
+
                     HitEnemy?.Invoke(collision.gameObject);
 
                     Rigidbody.velocity *= CollisionPenalty;
+                    HeightForce *= CollisionPenalty;
+
+                    GameManager.Instance.BallCamera?.Shake(0.004f, 1f, 0.444f);
 
                     Destroy(collision.transform.parent.gameObject);
+                } else {
+                    GameManager.Instance.BallCamera?.Shake(0.001f, 1f, 0.444f);
                 }
             }
         };
@@ -130,6 +147,7 @@ public class BallPhysicsBody : MonoBehaviour
 
     }
 
+    private bool requestedZoom = false;
     protected void Update()
     {
         if (Debugging)
@@ -138,16 +156,33 @@ public class BallPhysicsBody : MonoBehaviour
             DebugDraw.Line(transform.position, transform.position + new Vector3(0, Velocity.z, 0), Color.blue);
             DebugDraw.Line(transform.position, transform.position + new Vector3(0, Height, 0), Color.yellow);
         }
+
+        // zooming meme
+        if (VelocityLenSq >= RequiredCollisionVelocity && !requestedZoom)
+        {
+            requestedZoom = true;
+            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.8f, 0.333f);
+
+        } else if (requestedZoom && GameManager.Instance?.BallCamera != null && GameManager.Instance?.BallCamera?.VirtualCamera.m_Lens.OrthographicSize != GameManager.Instance?.BallCamera?.DefaultStartZoom) {
+            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom, 0.666f);
+            requestedZoom = false;
+        }
     }
 
     protected void FixedUpdate()
     {
-        DisableCollisionWhenAirborne();
+        if (!Frozen)
+        {
+            DisableCollisionWhenAirborne();
 
-        if (HeightForce != 0 || !IsGrounded())
-            ApplyHeightForce();
+            if (HeightForce != 0 || !IsGrounded())
+            {
+                ApplyHeightForce();
+            }
 
-        ApplyRotation();
+            ApplyRotation();
+        }
+
         ApplyModelHeight();
         ApplyShadowScale();
     }

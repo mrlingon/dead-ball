@@ -219,13 +219,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseRotation: {x: 1, y: 0, z: -58}
-  maxSpeed: 5.03
-  maxForce: 0.1
+  maxSpeed: 8.71
+  maxForce: 0.168
   neighborhoodRadius: 7.49
-  separationAmount: 2.35
+  separationAmount: 8.4
   cohesionAmount: 1
-  alignmentAmount: 1
-  goalAmount: 2.06
+  alignmentAmount: 0.2
+  goalAmount: 5
   goalTransform: {x: 0, y: 0}
   acceleration: {x: 1, y: 1}
   velocity: {x: 1, y: 1}
@@ -242,9 +242,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   humanData: {fileID: 11400000, guid: 94f55f03dd83548448b176e4e7f3a2f1, type: 2}
-  currentState: 0
-  flocking: {fileID: 2034781610900877380}
-  ballTransform: {fileID: 0}
+  currentState: 1
+  follow: {fileID: 0}
+  distanceToPoint: 3.5
+  distanceToSelf: 9.5
 --- !u!50 &-4457583277160563778
 Rigidbody2D:
   serializedVersion: 4
@@ -257,8 +258,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.0001
-  m_LinearDrag: 0
+  m_Mass: 2
+  m_LinearDrag: 0.5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
