@@ -82,6 +82,7 @@ public class BallPhysicsBody : MonoBehaviour
 
     protected void Start()
     {
+
     }
 
     protected void FixedUpdate()
@@ -99,7 +100,8 @@ public class BallPhysicsBody : MonoBehaviour
 
     protected void LockZAxis()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        // transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+
     }
 
     protected void ApplyRotation()
