@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88b7f7e008f66e4db642ac2a3de29d2, type: 3}
+  m_Name: Chonky
+  m_EditorClassIdentifier: 
+  enemyName: Zlatan
+  size: 1
+  health: 10
+  strength: 10
+  chaseSpeed: 20
+  retreatSpeed: 30
+  behaviour: {fileID: 11400000, guid: 4008910f6422a814a9e94711086ebad5, type: 2}

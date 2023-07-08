@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ElRaccoone.Timers;
 using NaughtyAttributes;
 using Unity.Mathematics;
 using UnityEngine;
@@ -47,6 +48,8 @@ public class BallPhysicsBody : MonoBehaviour
 
     public Transform ShadowPivot;
 
+    public RunParticlesOnce BloodParticles;
+
     [Header("Debug")]
     public bool Debugging = true;
 
@@ -55,6 +58,8 @@ public class BallPhysicsBody : MonoBehaviour
     public Collider2D Collider { get; private set; }
 
     private PhysicsEvents2D PhysicsEvents;
+
+    private BloodTrail BloodTrail;
 
     public float HeightForce { get; private set; } = 0.0f;
 
@@ -66,7 +71,9 @@ public class BallPhysicsBody : MonoBehaviour
 
     public bool IsAirborne => !IsGrounded();
 
-    public event Action<GameObject> HitEnemy;
+    public event Action<GameObject, bool> HitEnemy;
+
+    public event Action<GameObject> KilledEnemy;
 
     public bool Frozen { get; private set; } = false;
 
@@ -78,11 +85,11 @@ public class BallPhysicsBody : MonoBehaviour
 
     public void ApplyForce(float3 force)
     {
-        if (!IsGrounded())
-        {
-            Debug.LogWarning("Cannot apply force when airborne");
-            return;
-        }
+        //if (!IsGrounded())
+        //{
+        // Debug.LogWarning("Cannot apply force when airborne");
+        // return;
+        //}
 
         // We need to apply the force to the rigidbody
         Rigidbody.AddForce(new Vector2(force.x, force.y), ForceMode2D.Impulse);
@@ -94,15 +101,28 @@ public class BallPhysicsBody : MonoBehaviour
     public void SetFrozen(bool frozen)
     {
         Frozen = frozen;
+        Height = 0;
+        HeightForce = 0f;
         Rigidbody.simulated = !frozen;
+        Rigidbody.velocity = Vector2.zero;
     }
 
     protected void Awake()
     {
+        if (GameManager.Instance?.Ball != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.Ball = this;
+
         Rigidbody = GetComponent<Rigidbody2D>();
         Collider = GetComponent<Collider2D>();
 
         TryGetComponent(out PhysicsEvents);
+        TryGetComponent(out BloodTrail);
 
         PhysicsEvents.CollisionEnter += (collision) =>
         {
@@ -116,6 +136,15 @@ public class BallPhysicsBody : MonoBehaviour
 
         PhysicsEvents.TriggerEnter += (collision) =>
         {
+            if (collision.gameObject.CompareTag("Goal"))
+            {
+                Timers.SetTimeout(250, () =>
+                {
+                    GameManager.Instance?.GameOver();
+                    SetFrozen(true);
+                });
+            }
+
             if (Frozen) return;
 
             if (collision.gameObject.CompareTag("Enemy"))
@@ -127,16 +156,19 @@ public class BallPhysicsBody : MonoBehaviour
                         DebugDraw.Circle(transform.position, 0.5f, Color.red, 3.0f);
                     }
 
-                    HitEnemy?.Invoke(collision.gameObject);
+                    HitEnemy?.Invoke(collision.gameObject, true);
 
                     Rigidbody.velocity *= CollisionPenalty;
                     HeightForce *= CollisionPenalty;
 
-                    GameManager.Instance.BallCamera?.Shake(0.004f, 1f, 0.444f);
-
-                    Destroy(collision.transform.parent.gameObject);
-                } else {
-                    GameManager.Instance.BallCamera?.Shake(0.001f, 1f, 0.444f);
+                    GameManager.Instance.GameField?.SplatterPaint(new float2(transform.position.x, transform.position.y), 1.2f, 8, 15, 2, 6);
+                    BloodTrail.ActivateTrail(1f, 2f);
+                    Instantiate(BloodParticles, collision.transform.parent.position, Quaternion.identity);
+                    KilledEnemy?.Invoke(collision.transform.parent.gameObject);
+                }
+                else
+                {
+                    HitEnemy?.Invoke(collision.gameObject, false);
                 }
             }
         };
@@ -161,10 +193,12 @@ public class BallPhysicsBody : MonoBehaviour
         if (VelocityLenSq >= RequiredCollisionVelocity && !requestedZoom)
         {
             requestedZoom = true;
-            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.8f, 0.333f);
+            //GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.8f, 0.333f);
 
-        } else if (requestedZoom && GameManager.Instance?.BallCamera != null && GameManager.Instance?.BallCamera?.VirtualCamera.m_Lens.OrthographicSize != GameManager.Instance?.BallCamera?.DefaultStartZoom) {
-            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom, 0.666f);
+        }
+        else if (requestedZoom && GameManager.Instance?.BallCamera != null && GameManager.Instance?.BallCamera?.VirtualCamera.m_Lens.OrthographicSize != GameManager.Instance?.BallCamera?.DefaultStartZoom)
+        {
+            //GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom, 0.666f);
             requestedZoom = false;
         }
     }

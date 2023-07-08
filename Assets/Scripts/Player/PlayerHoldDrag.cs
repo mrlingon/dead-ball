@@ -9,9 +9,11 @@ public class PlayerHoldDrag : MonoBehaviour
 
     public bool Debugging = true;
 
-    public event Action<float2> Released;
+    public event Action<PlayerKickMode, float2> Released;
 
-    public event Action StartDrag;
+    public event Action Cancelled;
+
+    public event Action<PlayerKickMode> StartDrag;
 
     public bool IsDragging => recording;
 
@@ -24,22 +26,42 @@ public class PlayerHoldDrag : MonoBehaviour
 
     private bool recording;
 
-    private bool locked = false;
+    private bool locked => !GameManager.Instance.Player?.CanControl ?? false;
 
     private bool hasPressed = false;
+    public enum PlayerKickMode
+    {
+        Lob,
+        Kick,
+    }
 
-    public void OnKeyPress(InputAction.CallbackContext context)
+    public void OnLobInput(InputAction.CallbackContext context)
     {
         if (locked) return;
         if (context.action.triggered && context.action.ReadValue<float>() != 0 &&
             context.action.phase == InputActionPhase.Performed)
         {
-            TriggerPressed();
+            TriggerPressed(PlayerKickMode.Lob);
         } else if (context.action.triggered && context.action.ReadValue<float>() == default &&
             context.action.phase == InputActionPhase.Performed)
         {
             if (!recording) return;
-            TriggerReleased();
+            TriggerReleased(PlayerKickMode.Lob);
+        }
+    }
+
+    public void OnKickInput(InputAction.CallbackContext context)
+    {
+        if (locked) return;
+        if (context.action.triggered && context.action.ReadValue<float>() != 0 &&
+            context.action.phase == InputActionPhase.Performed)
+        {
+            TriggerPressed(PlayerKickMode.Kick);
+        } else if (context.action.triggered && context.action.ReadValue<float>() == default &&
+            context.action.phase == InputActionPhase.Performed)
+        {
+            if (!recording) return;
+            TriggerReleased(PlayerKickMode.Kick);
         }
     }
 
@@ -49,20 +71,28 @@ public class PlayerHoldDrag : MonoBehaviour
         DragPoints.Current = float2.zero;
     }
 
-    void TriggerPressed()
+    void TriggerPressed(PlayerKickMode Mode)
     {
         recording = true;
         DragPoints.Origin = Mouse.current.position.ReadValue();
         DragPoints.Current = DragPoints.Origin;
-        StartDrag?.Invoke();
+        StartDrag?.Invoke(Mode);
     }
 
-    void TriggerReleased()
+    void TriggerReleased(PlayerKickMode mode)
     {
         recording = false;
 
-        Released?.Invoke(Drag);
+        Released?.Invoke(mode, Drag);
 
+        DragPoints.Origin = float2.zero;
+        DragPoints.Current = float2.zero;
+    }
+
+    public void Reset()
+    {
+        recording = false;
+        Cancelled?.Invoke();
         DragPoints.Origin = float2.zero;
         DragPoints.Current = float2.zero;
     }
@@ -90,15 +120,5 @@ public class PlayerHoldDrag : MonoBehaviour
             DebugDraw.Circle(DragPointsInWorld.Origin, 0.25f, Color.cyan);
             DebugDraw.Circle(DragPointsInWorld.Current, 0.25f, Color.red);
         }
-    }
-
-    public void Disable()
-    {
-        locked = true;
-    }
-
-    public void Enable()
-    {
-        locked = false;
     }
 }

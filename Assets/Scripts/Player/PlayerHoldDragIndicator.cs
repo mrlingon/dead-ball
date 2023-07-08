@@ -13,21 +13,33 @@ public class PlayerHoldDragIndicator : MonoBehaviour
     [NaughtyAttributes.Required]
     public SpriteRenderer DragEndIndicator;
 
+    public TMPro.TMP_Text Text;
+
     private LineRenderer LineRenderer;
+
+    private PlayerHoldDrag.PlayerKickMode KickMode;
 
     void Awake()
     {
         LineRenderer = GetComponentInChildren<LineRenderer>();
         LineRenderer.Reset();
 
-        HoldDrag.StartDrag += () =>
+        HoldDrag.StartDrag += (mode) =>
         {
+            KickMode = mode;
             LineRenderer.positionCount = 2;
             DragStartIndicator.gameObject.SetActive(true);
             DragEndIndicator.gameObject.SetActive(true);
         };
 
-        HoldDrag.Released += (d) =>
+        HoldDrag.Released += (_, d) =>
+        {
+            DragStartIndicator.gameObject.SetActive(false);
+            DragEndIndicator.gameObject.SetActive(false);
+            LineRenderer.Reset();
+        };
+
+        HoldDrag.Cancelled += () =>
         {
             DragStartIndicator.gameObject.SetActive(false);
             DragEndIndicator.gameObject.SetActive(false);
@@ -39,6 +51,7 @@ public class PlayerHoldDragIndicator : MonoBehaviour
     {
         if (!HoldDrag.IsDragging) return;
 
+        Text.text = KickMode == PlayerHoldDrag.PlayerKickMode.Kick ? "Kick" : "Lob";
         LineRenderer.SetPosition(0, HoldDrag.DragPointsInWorld.Origin);
         LineRenderer.SetPosition(1, HoldDrag.DragPointsInWorld.Current);
 

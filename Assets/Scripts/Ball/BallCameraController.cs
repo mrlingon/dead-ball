@@ -64,8 +64,6 @@ public class BallCameraController : MonoBehaviour
 
         VirtualCamera = GetComponent<Cinemachine.CinemachineVirtualCamera>();
         VirtualCamera.m_Lens.OrthographicSize = 5f;
-
-        Timers.SetTimeout(2500, () => ZoomTo(DefaultStartZoom, 0.5f));
     }
 
     void Start()
