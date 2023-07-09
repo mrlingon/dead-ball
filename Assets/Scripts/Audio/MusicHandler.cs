@@ -70,13 +70,13 @@ public class MusicHandler : MonoBehaviour
             if (isGrabbed)
             {
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByID(isGrabbedID, 1f);
-                Debug.Log("True");
+
             }
 
             if (!isGrabbed)
             {
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByID(isGrabbedID, 0f);
-                Debug.Log("False");
+
             }
 
             checkIsGrabbed = !checkIsGrabbed;
