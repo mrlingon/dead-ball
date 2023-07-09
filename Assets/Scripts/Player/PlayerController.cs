@@ -119,6 +119,15 @@ public class PlayerController : MonoBehaviour
                 GameManager.Instance.CatchedOrReleasedBall(true);
             }
         }
+
+        if (Ball.VelocityLenSq >= Ball.RequiredCollisionVelocity * 1.05)
+        {
+            GameManager.Instance.BallCamera?.ShowTrailParticles();
+        }
+        else
+        {
+            GameManager.Instance.BallCamera?.HideTrailParticles();
+        }
     }
 
     public float GetReleaseProgress()
