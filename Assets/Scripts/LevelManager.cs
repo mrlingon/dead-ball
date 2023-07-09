@@ -42,10 +42,12 @@ public class LevelManager : MonoBehaviour
 
         if (GameManager.Instance != null)
             GameManager.Instance.LevelManager = this;
+
     }
 
     void Start()
     {
+        GameManager.Instance.Player.ToggleControl(false);
         currentLevel = startLevel - 1;
         enemyManager.AllEnemiesDead += NextLevel;
         if (startLevelOnImmediately) NextLevel();
@@ -104,6 +106,7 @@ public class LevelManager : MonoBehaviour
 
     private void StartLevel(Level level)
     {
+        GameManager.Instance.Player.ToggleControl(true);
         ball.SetFrozen(false);
         ballCameraController.ZoomTo(ballCameraController.DefaultStartZoom, 0.5f);
         enemyManager.ActivateEnemies();
