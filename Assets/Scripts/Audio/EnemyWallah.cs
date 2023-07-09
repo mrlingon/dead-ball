@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static EnemyController;
 
 public class EnemyWallah : MonoBehaviour
 {
-    private EnemyState currentState = EnemyState.RUN_TOWARDS;
-
     [Header("Events")]
     public FMODUnity.EventReference WallahEvent;
 
@@ -15,17 +14,30 @@ public class EnemyWallah : MonoBehaviour
     FMOD.Studio.EventDescription EnemyWallahDescription;
     FMOD.Studio.PARAMETER_DESCRIPTION enemyStateDesc;
     FMOD.Studio.PARAMETER_ID enemyStateID;
-    FMOD.Studio.PARAMETER_DESCRIPTION murderCountDesc;
-    FMOD.Studio.PARAMETER_ID murderCountID;
+    /*FMOD.Studio.PARAMETER_DESCRIPTION murderCountDesc;
+    FMOD.Studio.PARAMETER_ID murderCountID;*/
+
+    //FMODUnity.StudioEventEmitter wallah;
+
+    private EnemyState enemyState;
 
     void Start()
     {
+        InitializeEvents();
         InitializeParameters();
+
+        Wallah.start();
     }
 
     void Update()
     {
         WallahState();
+    }
+
+    void InitializeEvents()
+    {
+        Wallah = FMODUnity.RuntimeManager.CreateInstance(WallahEvent);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(Wallah, GetComponent<Transform>(), GetComponent<Rigidbody>());
     }
 
     void InitializeParameters()
@@ -34,17 +46,20 @@ public class EnemyWallah : MonoBehaviour
         EnemyWallahDescription.getParameterDescriptionByName("EnemyState", out enemyStateDesc);
         enemyStateID = enemyStateDesc.id;
 
-        FMODUnity.RuntimeManager.StudioSystem.getParameterDescriptionByName("MurderCount", out murderCountDesc);
-        murderCountID = murderCountDesc.id;
+        /*FMODUnity.RuntimeManager.StudioSystem.getParameterDescriptionByName("MurderCount", out murderCountDesc);
+        murderCountID = murderCountDesc.id;*/
     }
 
     void WallahState()
     {
-        if (currentState == EnemyState.HAS_BALL)
-            Wallah.setParameterByIDWithLabel(enemyStateID, "Has Ball");
-        else if (currentState == EnemyState.RUN_AWAY)
+        EnemyController enemyController = this.GetComponent<EnemyController>();
+        enemyState = enemyController.currentState;
+
+        if (enemyState == EnemyState.RUN_TOWARDS)
+            Wallah.setParameterByIDWithLabel(enemyStateID, "Running Towards");
+        else if (enemyState == EnemyState.RUN_AWAY)
             Wallah.setParameterByIDWithLabel(enemyStateID, "Running Away");
         else
-            Wallah.setParameterByIDWithLabel(enemyStateID, "Running Towards");
+            Wallah.setParameterByIDWithLabel(enemyStateID, "Has Ball");
     }
 }
