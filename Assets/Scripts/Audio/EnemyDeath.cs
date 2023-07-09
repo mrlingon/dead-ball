@@ -17,13 +17,13 @@ public class EnemyDeath : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    void PlayDeathSound()
+    public void PlayDeathSound()
     {
-                death = FMODUnity.RuntimeManager.CreateInstance(DeathEvent);
-                death.start();
-                death.release();
+        death = FMODUnity.RuntimeManager.CreateInstance(DeathEvent);
+        death.start();
+        death.release();
     }
 }
