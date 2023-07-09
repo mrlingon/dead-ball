@@ -90,7 +90,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    void Reset()
+    public void Reset()
     {
         Score = 0;
         Combo = 0;
