@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour
             ReleaseAction.Disable();
             PlayerHoldDrag.Reset();
             ReleasePowerLeft = 1.0f;
+            ToggleControl(false);
         };
 
         GameManager.Instance.LevelManager.LevelCompleted += (level, level_rank) =>
@@ -134,6 +135,11 @@ public class PlayerController : MonoBehaviour
             {
                 LookAtCameraRotationAnimation(2f);
             });
+        };
+
+        GameManager.Instance.LevelManager.LevelStart += (level, level_rank) =>
+        {
+            ToggleControl(true);
         };
 
         GameManager.Instance.OnGameOver += () =>
