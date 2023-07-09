@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using ElRaccoone.Timers;
 using NaughtyAttributes;
 using Unity.Mathematics;
@@ -25,6 +26,8 @@ public class PlayerController : MonoBehaviour
     public BallPhysicsBody Ball;
     public PlayerHoldDrag PlayerHoldDrag;
     public DragPower DragPower;
+    public GameObject TrackingIndicatorPrefab;
+
     public bool CanControl { get; set; } = true;
 
     private InputAction KickAction;
@@ -85,6 +88,16 @@ public class PlayerController : MonoBehaviour
             else
             {
                 GameManager.Instance.BallCamera?.Shake(0.001f, 1f, 0.444f);
+            }
+        };
+
+
+        GameManager.Instance.LevelManager.LevelStart += (level, level_rank) =>
+        {
+            foreach (var enemy in GameManager.Instance.LevelManager.enemyManager.enemies)
+            {
+                var go = Instantiate(TrackingIndicatorPrefab, Ball.transform);
+                go.GetComponent<TargetIndicator>().SetTarget(enemy.transform);
             }
         };
 

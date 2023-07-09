@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 963802d436219f844a8522df724e3066, type: 3}
-  m_Name: 4-1
+  m_Name: 6-2
   m_EditorClassIdentifier: 
-  color: {r: 0.13679248, g: 0.16472821, b: 1, a: 1}
-  teamName: TERALAN
+  color: {r: 0, g: 0.19396202, b: 0.9056604, a: 1}
+  teamName: MUCKCHESTER UNITARD
   enemies:
   - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
   - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 2c8f4a43ccd7dea43a719bea2c4b629c, type: 2}
-  - {fileID: 11400000, guid: 2c8f4a43ccd7dea43a719bea2c4b629c, type: 2}
-  - {fileID: 11400000, guid: 2c8f4a43ccd7dea43a719bea2c4b629c, type: 2}
-  - {fileID: 11400000, guid: 2c8f4a43ccd7dea43a719bea2c4b629c, type: 2}
+  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
+  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
+  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
+  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
+  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
+  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}

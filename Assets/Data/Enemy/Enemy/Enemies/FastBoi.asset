@@ -16,6 +16,6 @@ MonoBehaviour:
   size: 1
   health: 10
   strength: 10
-  chaseSpeed: 20
-  retreatSpeed: 30
+  chaseSpeed: 15
+  retreatSpeed: 25
   behaviour: {fileID: 11400000, guid: 4008910f6422a814a9e94711086ebad5, type: 2}
