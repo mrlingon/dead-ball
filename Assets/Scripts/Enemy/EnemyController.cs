@@ -47,6 +47,8 @@ public class EnemyController : MonoBehaviour
 
     private bool canFlipSprite = true;
 
+    private bool canGrabBall = true;
+
     void Start()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
@@ -128,6 +130,7 @@ public class EnemyController : MonoBehaviour
 
     void CatchBall()
     {
+        if (!canGrabBall) return;
         float dist = Vector2.Distance(ball.transform.position, transform.position);
 
         const float CatchDistance = 3f;
@@ -164,10 +167,11 @@ public class EnemyController : MonoBehaviour
     public void ExitHasBallState()
     {
         currentState = EnemyState.RUN_SPAWN;
-
+        canGrabBall = false;
         Timers.SetTimeout(1000, () =>
         {
             if (!Rigidbody || !Collider) return; // If we got destroyed during timeout 
+            canGrabBall = true;
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.simulated = true;
             Collider.enabled = true;
