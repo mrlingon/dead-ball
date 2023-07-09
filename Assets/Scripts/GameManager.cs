@@ -143,6 +143,7 @@ public class GameManager : MonoBehaviour
         Timers.SetTimeout(1500, () =>
         {
             MusicHandler.StopMusic();
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Music/Game Over");
             OnGameOver?.Invoke();
             SceneLoader.LoadScene(SceneLoader.GAMEOVER_SCENE);
             Debug.Log("Game Over. Score: " + Scores.Score + " Combo: " + Scores.Combo + ". Kills: " + Scores.Kills);
@@ -151,6 +152,8 @@ public class GameManager : MonoBehaviour
 
     public void GameWin()
     {
+        MusicHandler.StopMusic();
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Music/Game Win");
         OnGameWin?.Invoke();
         Reset();
         GameManager.Instance.Player.CanControl = false;
