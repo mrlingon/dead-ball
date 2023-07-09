@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public BallPhysicsBody Ball { get; set; }
     public GameField GameField { get; set; }
     public ScoreManager Scores { get; set; }
+    public LevelManager LevelManager { get; set; }
 
     public event Action OnCatchedBall;
     public event Action OnReleasedBall;

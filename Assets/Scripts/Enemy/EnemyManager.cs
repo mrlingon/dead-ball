@@ -52,7 +52,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    void Reset()
+    public void Reset()
     {
         foreach (var enemy in enemies)
         {
