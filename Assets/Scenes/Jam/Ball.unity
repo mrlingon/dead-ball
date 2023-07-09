@@ -6627,6 +6627,7 @@ GameObject:
   - component: {fileID: 875394096}
   - component: {fileID: 875394097}
   - component: {fileID: 875394098}
+  - component: {fileID: 875394099}
   m_Layer: 3
   m_Name: Ball
   m_TagString: Untagged
@@ -6781,6 +6782,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 737a732e503805b4b8dc821e23bc3322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &875394099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875394089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d91faef1c9f484409d4314b0e544cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Land:
+    Guid:
+      Data1: -698109853
+      Data2: 1116806106
+      Data3: 1321058974
+      Data4: -1881439863
+    Path: event:/Player/Land
+  ball: {fileID: 875394089}
 --- !u!1 &947055233
 GameObject:
   m_ObjectHideFlags: 0
@@ -8652,6 +8673,7 @@ GameObject:
   - component: {fileID: 1894918455}
   - component: {fileID: 1894918454}
   - component: {fileID: 1894918453}
+  - component: {fileID: 1894918458}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -8795,6 +8817,27 @@ Transform:
   m_Father: {fileID: 2098052834}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1894918458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894918452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c0a32337e3bf204d8ac0269f91fa3e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Jump:
+    Guid:
+      Data1: 900665122
+      Data2: 1326835062
+      Data3: -662049619
+      Data4: -618700188
+    Path: event:/Player/Jump
+  playerController: {fileID: 1894918453}
+  playerHoldDrag: {fileID: 1894918455}
 --- !u!1 &1907539836
 GameObject:
   m_ObjectHideFlags: 0
@@ -9885,5 +9928,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3695874641433311120, guid: 28de90a59e72a014f82d1bb2f031b821, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4419872906269586632}
   m_SourcePrefab: {fileID: 100100000, guid: 28de90a59e72a014f82d1bb2f031b821, type: 3}
+--- !u!1 &4419872906269586631 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3695874641433311120, guid: 28de90a59e72a014f82d1bb2f031b821, type: 3}
+  m_PrefabInstance: {fileID: 4419872906269586630}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4419872906269586632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4419872906269586631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c376b1e85627af42bb08072ef508423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComboEvent:
+    Guid:
+      Data1: -1925827197
+      Data2: 1123657868
+      Data3: -1562982221
+      Data4: 745590576
+    Path: event:/Player/Combo Time
