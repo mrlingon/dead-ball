@@ -158,6 +158,12 @@ public class BallPhysicsBody : MonoBehaviour
                         DebugDraw.Circle(transform.position, 0.5f, Color.red, 3.0f);
                     }
 
+
+                    if (collision.gameObject.TryGetComponent(out EnemyController enemy))
+                    {
+                        if (enemy.isDying) return;
+                    }
+
                     HitEnemy?.Invoke(collision.gameObject, true);
 
                     Rigidbody.velocity *= CollisionPenalty;

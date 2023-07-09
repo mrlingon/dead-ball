@@ -1,3 +1,4 @@
+using System;
 using NaughtyAttributes;
 using Unity.Mathematics;
 using UnityEngine;
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private InputAction LobAction;
     private InputAction ReleaseAction;
 
+    public event Action<bool> ShowingTrailParticles;
 
     protected void Awake()
     {
@@ -100,6 +102,7 @@ public class PlayerController : MonoBehaviour
         };
     }
 
+    private bool showingTrailParticles = false;
     protected void Update()
     {
         if (!ReleaseAction.enabled && GameManager.Instance.BallIsCatched)
@@ -120,13 +123,17 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Ball.VelocityLenSq >= Ball.RequiredCollisionVelocity * 1.05)
+        if (Ball.VelocityLenSq >= Ball.RequiredCollisionVelocity * 1.05 && !showingTrailParticles)
         {
+            showingTrailParticles = true;
             GameManager.Instance.BallCamera?.ShowTrailParticles();
+            ShowingTrailParticles?.Invoke(true);
         }
-        else
+        else if (showingTrailParticles)
         {
+            showingTrailParticles = false;
             GameManager.Instance.BallCamera?.HideTrailParticles();
+            ShowingTrailParticles?.Invoke(false);
         }
     }
 
