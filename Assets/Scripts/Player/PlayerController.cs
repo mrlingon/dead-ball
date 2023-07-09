@@ -81,13 +81,13 @@ public class PlayerController : MonoBehaviour
         {
             if (hit)
             {
-                GameManager.Instance.BallCamera?.Shake(0.004f, 1f, 0.444f);
+                GameManager.Instance.BallCamera?.Shake(0.008f, 1f, 0.444f);
                 GameManager.Instance.Scores.AddScore(1);
                 GameManager.Instance.Scores.AddKill();
             }
             else
             {
-                GameManager.Instance.BallCamera?.Shake(0.001f, 1f, 0.444f);
+                GameManager.Instance.BallCamera?.Shake(0.005f, 1f, 0.444f);
             }
         };
 
@@ -164,9 +164,12 @@ public class PlayerController : MonoBehaviour
         if (GameManager.Instance.BallIsCatched && ReleaseAction.WasPressedThisFrame())
         {
             ReleasePowerLeft -= ReleaseKeyPower;
+            GameManager.Instance.BallCamera?.Shake(0.005f, 1f, 0.444f);
+
             if (ReleasePowerLeft <= 0.0f)
             {
                 GameManager.Instance.CatchedOrReleasedBall(true);
+                GameManager.Instance.BallCamera?.Shake(0.008f, 1f, 0.444f);
             }
         }
 
@@ -192,7 +195,7 @@ public class PlayerController : MonoBehaviour
     public void LookAtCameraRotationAnimation(float time = 0.333f)
     {
         GameManager.Instance.BallCamera?.ShowTrailParticles();
-        GameManager.Instance.BallCamera?.Shake(0.012f, 1f, time + 0.333f);
+        GameManager.Instance.BallCamera?.Shake(0.016f, 1f, time + 0.333f);
         LeanTween.rotateZ(Ball.ModelParent.transform.gameObject, 26, time).setEase(LeanTweenType.easeOutCubic).setOnComplete(() =>
         {
             GameManager.Instance.BallCamera?.HideTrailParticles();
