@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
 
     private bool canFlipSprite = true;
 
-    private bool canGrabBall = true;
+
 
     void Start()
     {
@@ -130,7 +130,7 @@ public class EnemyController : MonoBehaviour
 
     void CatchBall()
     {
-        if (!canGrabBall) return;
+        if (!ball.canBeGrabbed) return;
         float dist = Vector2.Distance(ball.transform.position, transform.position);
 
         const float CatchDistance = 3f;
@@ -150,7 +150,7 @@ public class EnemyController : MonoBehaviour
         {
             ball.SetFrozen(false);
 
-            float3 dir = math.normalize(new float3(flock.goalTransform.x, 0, 0.05f) - new float3(transform.position.x, 0, 0));
+            float3 dir = new float3(team == 1 ? -1 : 1, 0, 0f);
             ball.ApplyForce(dir * 25);
             GameManager.Instance.EnemyShootBall();
 
@@ -167,11 +167,13 @@ public class EnemyController : MonoBehaviour
     public void ExitHasBallState()
     {
         currentState = EnemyState.RUN_SPAWN;
-        canGrabBall = false;
+        ball.canBeGrabbed = false;
+
         Timers.SetTimeout(1000, () =>
         {
             if (!Rigidbody || !Collider) return; // If we got destroyed during timeout 
-            canGrabBall = true;
+
+            ball.canBeGrabbed = true;
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.simulated = true;
             Collider.enabled = true;

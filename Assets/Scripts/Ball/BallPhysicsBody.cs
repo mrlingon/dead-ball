@@ -77,6 +77,8 @@ public class BallPhysicsBody : MonoBehaviour
 
     public bool Frozen { get; private set; } = false;
 
+    public bool canBeGrabbed = true; // Frans när du ser detta säg till mig
+
     public bool IsGrounded()
     {
         const float GroundedDistance = 0.0001f;
@@ -193,12 +195,12 @@ public class BallPhysicsBody : MonoBehaviour
         if (VelocityLenSq >= RequiredCollisionVelocity && !requestedZoom)
         {
             requestedZoom = true;
-            //GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.8f, 0.333f);
+            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.8f, 0.333f);
 
         }
         else if (requestedZoom && GameManager.Instance?.BallCamera != null && GameManager.Instance?.BallCamera?.VirtualCamera.m_Lens.OrthographicSize != GameManager.Instance?.BallCamera?.DefaultStartZoom)
         {
-            //GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom, 0.666f);
+            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom, 0.666f);
             requestedZoom = false;
         }
     }
