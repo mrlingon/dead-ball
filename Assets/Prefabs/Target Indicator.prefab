@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  HideDistance: 45
+  HideDistance: 40
 --- !u!1 &7367847191270729929
 GameObject:
   m_ObjectHideFlags: 0
