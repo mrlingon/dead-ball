@@ -121,6 +121,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public float GetReleaseProgress()
+    {
+        return ReleasePowerLeft;
+    }
+
     public void ToggleControl(bool canControl)
     {
         CanControl = canControl;

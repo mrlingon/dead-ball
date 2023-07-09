@@ -53,6 +53,13 @@ public class ScoreManager : MonoBehaviour
             AddCombo();
     }
 
+    public float GetComboProgress()
+    {
+        if (!trackingCombo)
+            return 0.0f;
+        return 1 - (trackingTimer / ComboTimeWindow);
+    }
+
     void Awake()
     {
         if (GameManager.Instance.Scores != null)
