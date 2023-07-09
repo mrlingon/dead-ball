@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 5559853843871097783}
   - component: {fileID: 1893190016287948582}
   - component: {fileID: -5983507099316141690}
-  - component: {fileID: 3189494697414898392}
+  - component: {fileID: 3179998142110819457}
   m_Layer: 6
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -473,7 +473,7 @@ MonoBehaviour:
       Data4: 1865217930
     Path: event:/Enemies/EnemyWallah
   ballSensor: {fileID: 0}
---- !u!114 &3189494697414898392
+--- !u!114 &3179998142110819457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -482,28 +482,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7093265360175481408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fff7f4b3f425054992ad8ded7889d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
+  DeathEvent:
     Guid:
       Data1: 2032583245
       Data2: 1294777971
       Data3: -749534795
       Data4: -1292282901
     Path: event:/Enemies/Death
-  Event: 
-  PlayEvent: 2
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  AllowNonRigidbodyDoppler: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!1 &7300034625192971650
 GameObject:
   m_ObjectHideFlags: 0
