@@ -134,6 +134,18 @@ public class PlayerController : MonoBehaviour
                 LookAtCameraRotationAnimation(2f);
             });
         };
+
+        GameManager.Instance.OnGameOver += () =>
+        {
+            ToggleControl(false);
+            PlayerHoldDrag.Reset();
+        };
+
+        GameManager.Instance.OnGameWin += () =>
+        {
+            ToggleControl(false);
+            PlayerHoldDrag.Reset();
+        };
     }
 
     private bool showingTrailParticles = false;
