@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cinemachine;
+using ElRaccoone.Timers;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,7 +23,11 @@ public class GameManager : MonoBehaviour
 #if UNITY_EDITOR
 
             if (!Application.isPlaying || IsQuitting)
+            {
+                Debug.Log("We are quittting or not playing!");
                 return null;
+
+            }
 
             if (InnerInstance == null)
             {
@@ -40,6 +45,7 @@ public class GameManager : MonoBehaviour
     public ScoreManager Scores { get; set; }
     public LevelManager LevelManager { get; set; }
     public SceneLoader SceneLoader { get; set; }
+    public MusicHandler MusicHandler { get; set; }
 
     public event Action OnCatchedBall;
     public event Action OnReleasedBall;
@@ -58,6 +64,7 @@ public class GameManager : MonoBehaviour
 
     protected void Awake()
     {
+
         if (InnerInstance != null && InnerInstance != this)
         {
             Destroy(this.gameObject);
@@ -79,7 +86,7 @@ public class GameManager : MonoBehaviour
 #if UNITY_EDITOR
     protected void OnDestroy()
     {
-        IsQuitting = true;
+        //IsQuitting = true;
     }
 #endif
 
@@ -131,10 +138,14 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        OnGameOver?.Invoke();
         Reset();
-        GameManager.Instance.Player.CanControl = false;
-        Debug.Log("Game Over. Score: " + Scores.Score + " Combo: " + Scores.Combo + ". Kills: " + Scores.Kills);
+        Timers.SetTimeout(1500, () =>
+        {
+            MusicHandler.StopMusic();
+            OnGameOver?.Invoke();
+            SceneLoader.LoadScene(SceneLoader.GAMEOVER_SCENE);
+            Debug.Log("Game Over. Score: " + Scores.Score + " Combo: " + Scores.Combo + ". Kills: " + Scores.Kills);
+        });
     }
 
     public void GameWin()
@@ -142,13 +153,23 @@ public class GameManager : MonoBehaviour
         OnGameWin?.Invoke();
         Reset();
         GameManager.Instance.Player.CanControl = false;
-
+        SceneLoader.LoadScene(SceneLoader.GAMEOVER_SCENE);
         Debug.Log("You Win. Score: " + Scores.Score + " Combo: " + Scores.Combo + ". Kills: " + Scores.Kills);
     }
 
 
     public void Reset()
     {
+        OnCatchedBall = null;
+        OnReleasedBall = null;
+        OnEnemyShootBall = null;
+        OnGameOver = null;
+        OnGameWin = null;
+        OnGameStart = null;
+
+        Scores.Reset();
+
+
         EnemyWithBall = null;
         BallIsCatched = false;
         GameManager.Instance.Player.CanControl = true;

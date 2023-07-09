@@ -3,7 +3,7 @@
     <ui:VisualElement name="Master" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Media/Images/menu-background.png?fileID=2800000&amp;guid=421a53f9ce1caf740909c57551705836&amp;type=3#menu-background&apos;);">
         <ui:VisualElement name="MainContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: center; flex-direction: column; justify-content: space-between; align-self: stretch; display: flex; visibility: visible;">
             <ui:VisualElement focusable="true" name="VisualElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; align-items: center; justify-content: center; width: 100%;">
-                <ui:Button text="START" display-tooltip-when-elided="true" name="StartButton" style="width: 15%; background-image: none; margin-bottom: 6px; margin-left: 2px; margin-right: 2px; padding-bottom: 10px; margin-top: 6px; color: rgb(255, 255, 255); -unity-font-style: bold; font-size: 18px;" />
+                <ui:Button text="START" display-tooltip-when-elided="true" name="StartButton" style="width: 15%; background-image: none; margin-bottom: 6px; margin-left: 2px; margin-right: 2px; padding-bottom: 10px; margin-top: 6px; color: rgb(7, 7, 7); -unity-font-style: bold; font-size: 18px;" />
                 <ui:Button text="HOW TO PLAY" display-tooltip-when-elided="true" name="HowToButton" style="width: 15%; margin-left: 2px; margin-right: 2px; margin-top: 6px; margin-bottom: 6px;" />
                 <ui:Button text="EXIT GAME" display-tooltip-when-elided="true" name="ExitButton" style="width: 15%; margin-left: 2px; margin-right: 2px; margin-top: 6px; margin-bottom: 6px;" />
             </ui:VisualElement>

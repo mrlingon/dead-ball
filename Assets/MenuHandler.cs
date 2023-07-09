@@ -57,15 +57,14 @@ public class menuHandler : MonoBehaviour
 
     private void PrintClickMessage()
     {
-
         Debug.Log($"{"button"} was clicked!");
-        SceneManager.LoadScene(1);
+        GameManager.Instance.SceneLoader.LoadScene(SceneLoader.GAME_SCENE);
     }
+
     private void RestartGame()
     {
-
         Debug.Log($"{"button"} was clicked!");
-        SceneManager.LoadScene(1);
+        GameManager.Instance.SceneLoader.LoadScene(SceneLoader.GAME_SCENE);
     }
 
 

@@ -49,8 +49,6 @@ public class PlayerController : MonoBehaviour
         LobAction = InputActions.FindAction("Gameplay/Lob");
         ReleaseAction = InputActions.FindAction("Gameplay/Release");
 
-        DontDestroyOnLoad(gameObject);
-
         ToggleControl(true);
     }
 
@@ -119,7 +117,8 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.LevelManager.LevelSetUp += (level, level_rank) =>
         {
             SetInitialRotation(0f);
-            Timers.SetTimeout(400, () => {
+            Timers.SetTimeout(400, () =>
+            {
                 LookAtCameraRotationAnimation(2f);
             });
         };
@@ -162,14 +161,15 @@ public class PlayerController : MonoBehaviour
 
     public void SetInitialRotation(float time = 0.333f)
     {
-        LeanTween.rotate(Ball.ModelParent.transform.gameObject, new Vector3(0, 90, -180),time).setEase(LeanTweenType.easeOutCubic);
+        LeanTween.rotate(Ball.ModelParent.transform.gameObject, new Vector3(0, 90, -180), time).setEase(LeanTweenType.easeOutCubic);
     }
 
     public void LookAtCameraRotationAnimation(float time = 0.333f)
     {
         GameManager.Instance.BallCamera?.ShowTrailParticles();
         GameManager.Instance.BallCamera?.Shake(0.012f, 1f, time + 0.333f);
-        LeanTween.rotateZ(Ball.ModelParent.transform.gameObject, 26, time).setEase(LeanTweenType.easeOutCubic).setOnComplete(() => {
+        LeanTween.rotateZ(Ball.ModelParent.transform.gameObject, 26, time).setEase(LeanTweenType.easeOutCubic).setOnComplete(() =>
+        {
             GameManager.Instance.BallCamera?.HideTrailParticles();
         });
     }
