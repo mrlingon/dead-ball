@@ -22,6 +22,8 @@ public class EnemyController : MonoBehaviour
     public Animator Animator;
     public SpriteRenderer SpriteRenderer;
 
+    public SpriteRenderer RunTowardsIndicator;
+
     public Rigidbody2D Rigidbody { get; private set; }
     public Collider2D Collider { get; private set; }
     private FlockTowardsPoint flock;
@@ -55,6 +57,7 @@ public class EnemyController : MonoBehaviour
         Collider = GetComponent<Collider2D>();
         spawn = transform.position;
         TryGetComponent<FlockTowardsPoint>(out flock);
+        RunTowardsIndicator.enabled = false;
     }
 
     public void OnSpawn()
@@ -100,6 +103,7 @@ public class EnemyController : MonoBehaviour
             Timers.SetTimeout(1000, () => canFlipSprite = true);
         }
 
+        RunTowardsIndicator.enabled = false;
 
         switch (currentState)
         {
@@ -113,6 +117,7 @@ public class EnemyController : MonoBehaviour
                 flock.goalTransform = ball.transform.position;
                 flock.Move();
                 CatchBall();
+                RunTowardsIndicator.enabled = true;
                 break;
             case EnemyState.RUN_SPAWN:
                 flock.maxSpeed = enemyData.retreatSpeed;
@@ -124,7 +129,6 @@ public class EnemyController : MonoBehaviour
                 HasBall();
                 SetBallPosition();
                 break;
-
         }
     }
 
@@ -171,7 +175,7 @@ public class EnemyController : MonoBehaviour
 
         Timers.SetTimeout(1000, () =>
         {
-            if (!Rigidbody || !Collider) return; // If we got destroyed during timeout 
+            if (!Rigidbody || !Collider) return; // If we got destroyed during timeout
 
             ball.canBeGrabbed = true;
             Rigidbody.velocity = Vector2.zero;
