@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Processors;
 using static EnemyController;
 
 public class EnemyWallah : MonoBehaviour
@@ -14,10 +15,6 @@ public class EnemyWallah : MonoBehaviour
     FMOD.Studio.EventDescription EnemyWallahDescription;
     FMOD.Studio.PARAMETER_DESCRIPTION enemyStateDesc;
     FMOD.Studio.PARAMETER_ID enemyStateID;
-    /*FMOD.Studio.PARAMETER_DESCRIPTION murderCountDesc;
-    FMOD.Studio.PARAMETER_ID murderCountID;*/
-
-    //FMODUnity.StudioEventEmitter wallah;
 
     private EnemyState enemyState;
 
@@ -28,6 +25,7 @@ public class EnemyWallah : MonoBehaviour
 
         InitializeEvents();
         InitializeParameters();
+        stopOnDeath();
 
         ballSensor = GetComponentInChildren<BallSensor>();
         if (ballSensor)
@@ -54,7 +52,7 @@ public class EnemyWallah : MonoBehaviour
     void InitializeEvents()
     {
         Wallah = FMODUnity.RuntimeManager.CreateInstance(WallahEvent);
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(Wallah, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(Wallah, GetComponent<Transform>(), GetComponent<Rigidbody2D>());
     }
 
     void InitializeParameters()
@@ -62,9 +60,6 @@ public class EnemyWallah : MonoBehaviour
         EnemyWallahDescription = FMODUnity.RuntimeManager.GetEventDescription(WallahEvent);
         EnemyWallahDescription.getParameterDescriptionByName("EnemyState", out enemyStateDesc);
         enemyStateID = enemyStateDesc.id;
-
-        /*FMODUnity.RuntimeManager.StudioSystem.getParameterDescriptionByName("MurderCount", out murderCountDesc);
-        murderCountID = murderCountDesc.id;*/
     }
 
     void WallahState()
@@ -78,5 +73,20 @@ public class EnemyWallah : MonoBehaviour
             Wallah.setParameterByIDWithLabel(enemyStateID, "Running Away");
         else
             Wallah.setParameterByIDWithLabel(enemyStateID, "Has Ball");
+    }
+
+    void stopOnDeath()
+    {
+        GameManager.Instance.Ball.KilledEnemy += (go) =>
+        {
+            if (go == gameObject)
+            {
+                Wallah.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                Wallah.release();
+            }
+
+        };
+
+
     }
 }

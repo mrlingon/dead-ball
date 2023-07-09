@@ -1886,6 +1886,7 @@ GameObject:
   - component: {fileID: 875394096}
   - component: {fileID: 875394097}
   - component: {fileID: 875394098}
+  - component: {fileID: 875394099}
   m_Layer: 3
   m_Name: Ball
   m_TagString: Untagged
@@ -2034,6 +2035,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 737a732e503805b4b8dc821e23bc3322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &875394099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875394089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d91faef1c9f484409d4314b0e544cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Land:
+    Guid:
+      Data1: -698109853
+      Data2: 1116806106
+      Data3: 1321058974
+      Data4: -1881439863
+    Path: event:/Player/Land
+  ball: {fileID: 875394089}
 --- !u!1 &946343815
 GameObject:
   m_ObjectHideFlags: 0
@@ -4362,6 +4383,7 @@ GameObject:
   - component: {fileID: 1894918455}
   - component: {fileID: 1894918454}
   - component: {fileID: 1894918453}
+  - component: {fileID: 1894918458}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4504,6 +4526,34 @@ Transform:
   m_Father: {fileID: 2098052834}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1894918458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894918452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c0a32337e3bf204d8ac0269f91fa3e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Jump:
+    Guid:
+      Data1: 900665122
+      Data2: 1326835062
+      Data3: -662049619
+      Data4: -618700188
+    Path: event:/Player/Jump
+  Drag:
+    Guid:
+      Data1: 1175657048
+      Data2: 1245632007
+      Data3: 36310704
+      Data4: -1198592557
+    Path: event:/Player/StartDrag
+  playerController: {fileID: 1894918453}
+  playerHoldDrag: {fileID: 1894918455}
 --- !u!1 &1907539836
 GameObject:
   m_ObjectHideFlags: 0
@@ -4896,7 +4946,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1981714953}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26e4811aa2eef244e9a22e73a7d4410e, type: 3}
   m_Name: 
@@ -4922,7 +4972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attenuationObject: {fileID: 0}
+  attenuationObject: {fileID: 875394089}
 --- !u!1 &2054350742
 GameObject:
   m_ObjectHideFlags: 0
