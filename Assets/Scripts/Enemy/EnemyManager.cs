@@ -16,13 +16,17 @@ public class EnemyManager : MonoBehaviour
     {
         ball.KilledEnemy += (go) =>
         {
-            var enemy = enemies.Find(ec => ec.gameObject == go);
-            enemies.Remove(enemy);
-            Destroy(enemy.gameObject);
-            if (enemies.Count == 0)
+            Timers.SetTimeout(1000, () =>
             {
-                AllEnemiesDead?.Invoke();
+                var enemy = enemies.Find(ec => ec.gameObject == go);
+                enemies.Remove(enemy);
+                Destroy(enemy.gameObject);
+                if (enemies.Count == 0)
+                {
+                    AllEnemiesDead?.Invoke();
+                }
             }
+            );
         };
 
         if (TryGetComponent<EnemyInstantiator>(out var enemyInstantiator))
