@@ -211,7 +211,12 @@ GameObject:
   - component: {fileID: 5559853843871097783}
   - component: {fileID: 1893190016287948582}
   - component: {fileID: -5983507099316141690}
+<<<<<<< Updated upstream
   - component: {fileID: -5211566245909639397}
+=======
+  - component: {fileID: 3189494697414898392}
+  - component: {fileID: 4610647725199849231}
+>>>>>>> Stashed changes
   m_Layer: 6
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -404,7 +409,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7093265360175481408}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
@@ -436,3 +441,22 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &4610647725199849231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093265360175481408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fff7f4b3f425054992ad8ded7889d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeathEvent:
+    Guid:
+      Data1: 2032583245
+      Data2: 1294777971
+      Data3: -749534795
+      Data4: -1292282901
+    Path: event:/Enemies/Death
