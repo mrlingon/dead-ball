@@ -80,6 +80,8 @@ public class BallPhysicsBody : MonoBehaviour
     public int grabCooldown = 1000;
     public bool canBeGrabbed = true;
 
+    public float3 originalScale;
+
     public bool IsGrounded()
     {
         const float GroundedDistance = 0.0001f;
@@ -120,7 +122,7 @@ public class BallPhysicsBody : MonoBehaviour
 
         if (GameManager.Instance != null)
             GameManager.Instance.Ball = this;
-
+        originalScale = transform.localScale;
         Rigidbody = GetComponent<Rigidbody2D>();
         Collider = GetComponent<Collider2D>();
 
@@ -203,10 +205,11 @@ public class BallPhysicsBody : MonoBehaviour
         {
             requestedZoom = true;
             GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.8f, 0.333f);
-
+            LeanTween.scaleY(gameObject, originalScale.y * 0.8f, 0.333f).setEase(LeanTweenType.easeInOutSine);
         }
         else if (requestedZoom && GameManager.Instance?.BallCamera != null && GameManager.Instance?.BallCamera?.VirtualCamera.m_Lens.OrthographicSize != GameManager.Instance?.BallCamera?.DefaultStartZoom)
         {
+            LeanTween.scaleY(gameObject, originalScale.y, 0.333f).setEase(LeanTweenType.easeInOutSine);
             GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom, 0.666f);
             requestedZoom = false;
         }

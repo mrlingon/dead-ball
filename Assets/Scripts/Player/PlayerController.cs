@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Ball.VelocityLenSq >= Ball.RequiredCollisionVelocity * 1.05 && !showingTrailParticles)
+        if (Ball.VelocityLenSq >= Ball.RequiredCollisionVelocity && !showingTrailParticles)
         {
             showingTrailParticles = true;
             GameManager.Instance.BallCamera?.ShowTrailParticles();
