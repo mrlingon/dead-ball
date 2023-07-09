@@ -182,6 +182,7 @@ public class EnemyController : MonoBehaviour
         Collider.enabled = false;
 
         GetComponent<EnemyDeath>().PlayDeathSound();
+        GetComponent<EnemyWallah>().stopOnDeath();
 
         Animator.SetTrigger("Death");
         Animator.ResetTrigger("Running");
