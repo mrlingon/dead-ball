@@ -12,22 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 963802d436219f844a8522df724e3066, type: 3}
   m_Name: 7-2
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0.020420859, b: 0, a: 1}
-  teamName: DENMARK
+  color: {r: 0, g: 1, b: 0.045587063, a: 1}
+  teamName: Real Humans
   enemies:
+  - {fileID: 11400000, guid: 2c8f4a43ccd7dea43a719bea2c4b629c, type: 2}
   - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
   - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
+  - {fileID: 11400000, guid: 2c8f4a43ccd7dea43a719bea2c4b629c, type: 2}
+  - {fileID: 11400000, guid: 2c8f4a43ccd7dea43a719bea2c4b629c, type: 2}
   - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
   - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
+  - {fileID: 11400000, guid: 9605b85a9571671458678c7879c97460, type: 2}
+  - {fileID: 11400000, guid: 9605b85a9571671458678c7879c97460, type: 2}
+  - {fileID: 11400000, guid: 2c8f4a43ccd7dea43a719bea2c4b629c, type: 2}
