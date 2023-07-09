@@ -14,15 +14,15 @@ public class menuHandler : MonoBehaviour
     private Label _score;
 
     private VisualElement _mainContainer;
-private VisualElement _howToContainer;
+    private VisualElement _howToContainer;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        
+
+
     }
 
     // Update is called once per frame
@@ -30,7 +30,8 @@ private VisualElement _howToContainer;
     {
     }
 
-    private void OnEnable(){
+    private void OnEnable()
+    {
 
         var uiDoc = GetComponent<UIDocument>();
         _mainContainer = uiDoc.rootVisualElement.Q("MainContainer") as VisualElement;
@@ -45,7 +46,7 @@ private VisualElement _howToContainer;
 
         _score = uiDoc.rootVisualElement.Q("Score") as Label;
 
-        
+
 
         _startButton.RegisterCallback<ClickEvent>(evt => PrintClickMessage());
         _howToButton.RegisterCallback<ClickEvent>(evt => ToggleSettings());
@@ -54,35 +55,40 @@ private VisualElement _howToContainer;
 
     }
 
-    private void PrintClickMessage() {
+    private void PrintClickMessage()
+    {
 
         Debug.Log($"{"button"} was clicked!");
         SceneManager.LoadScene(1);
-      }
-      private void RestartGame() {
+    }
+    private void RestartGame()
+    {
 
         Debug.Log($"{"button"} was clicked!");
         SceneManager.LoadScene(1);
-      }
+    }
 
 
-    private void ToggleSettings(){
+    private void ToggleSettings()
+    {
         Debug.Log("Toggled HowTo!");
 
-        if(_mainContainer.style.display != DisplayStyle.None) {
+        if (_mainContainer.style.display != DisplayStyle.None)
+        {
             _mainContainer.style.opacity = 0;
-           _mainContainer.style.visibility = Visibility.Hidden;
-           _mainContainer.style.display = DisplayStyle.None;
-           _howToContainer.style.display = DisplayStyle.Flex;
-           _howToContainer.style.visibility = Visibility.Visible;
-           _howToContainer.style.opacity = 1;
+            _mainContainer.style.visibility = Visibility.Hidden;
+            _mainContainer.style.display = DisplayStyle.None;
+            _howToContainer.style.display = DisplayStyle.Flex;
+            _howToContainer.style.visibility = Visibility.Visible;
+            _howToContainer.style.opacity = 1;
 
-           Debug.Log("got this far");
+            Debug.Log("got this far");
         }
-        else {
-           _howToContainer.style.opacity = 0;
-           _howToContainer.style.visibility = Visibility.Hidden;
-           _howToContainer.style.display = DisplayStyle.None;
+        else
+        {
+            _howToContainer.style.opacity = 0;
+            _howToContainer.style.visibility = Visibility.Hidden;
+            _howToContainer.style.display = DisplayStyle.None;
             _mainContainer.style.display = DisplayStyle.Flex;
             _mainContainer.style.visibility = Visibility.Visible;
             _mainContainer.style.opacity = 1;
@@ -90,8 +96,9 @@ private VisualElement _howToContainer;
         }
 
     }
-    private void QuitGame(){
-            Debug.Log("Quit game!");
+    private void QuitGame()
+    {
+        Debug.Log("Quit game!");
     }
 
 }

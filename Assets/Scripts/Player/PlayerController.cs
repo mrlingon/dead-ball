@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     [Header("Ball Release Settings")]
     public float ReleaseKeyPower = 0.15f;
 
-    [SerializeField] [ReadOnly]
+    [SerializeField]
+    [ReadOnly]
     private float ReleasePowerLeft = 1.0f;
 
     [Header("Refs")]
@@ -61,7 +62,8 @@ public class PlayerController : MonoBehaviour
         {
         };
 
-        PlayerHoldDrag.Released += (mode, drag) => {
+        PlayerHoldDrag.Released += (mode, drag) =>
+        {
             float xyMult = mode == PlayerHoldDrag.PlayerKickMode.Kick ? KickXYForceMultipler : LobXYForceMultipler;
             float zMult = mode == PlayerHoldDrag.PlayerKickMode.Kick ? KickZForceMultipler : LobZForceMultipler;
 

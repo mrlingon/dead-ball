@@ -9,10 +9,10 @@ public class SceneLoader : MonoBehaviour
     public float TransitionTime;
 
 
-    public readonly static int GAME_SCENE = 0;
-    public readonly static int GAMEOVER_SCENE = 1;
-    public readonly static int GAMEWON_SCENE = 2;
-    public readonly static int MENU_SCENE = 3;
+    public readonly static int MENU_SCENE = 0;
+    public readonly static int GAME_SCENE = 1;
+    public readonly static int GAMEOVER_SCENE = 2;
+    public readonly static int GAMEWON_SCENE = 3;
 
     public bool DontLoadMenuOnStart = false;
 

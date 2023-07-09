@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
         get
         {
 #if UNITY_EDITOR
+
             if (!Application.isPlaying || IsQuitting)
                 return null;
 
@@ -57,7 +58,11 @@ public class GameManager : MonoBehaviour
 
     protected void Awake()
     {
-        if (InnerInstance != null) Destroy(this.gameObject);
+        if (InnerInstance != null && InnerInstance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
 
         LeanTween.init(800);
 
