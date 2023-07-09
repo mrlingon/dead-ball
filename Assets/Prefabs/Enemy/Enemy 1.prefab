@@ -397,14 +397,14 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -449849879
-      Data2: 1185254582
-      Data3: 35760256
-      Data4: 1865217930
-    Path: event:/Enemies/EnemyWallah
+      Data1: 2032583245
+      Data2: 1294777971
+      Data3: -749534795
+      Data4: -1292282901
+    Path: event:/Enemies/Death
   Event: 
-  PlayEvent: 11
-  StopEvent: 2
+  PlayEvent: 2
+  StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
