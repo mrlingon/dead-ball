@@ -147,7 +147,7 @@ public class EnemyController : MonoBehaviour
         {
             ball.SetFrozen(false);
 
-            float3 dir = math.normalize(new float3(flock.goalTransform.x, flock.goalTransform.y, 0.05f) - new float3(transform.position.x, transform.position.y, 0));
+            float3 dir = math.normalize(new float3(flock.goalTransform.x, 0, 0.05f) - new float3(transform.position.x, 0, 0));
             ball.ApplyForce(dir * 25);
             GameManager.Instance.EnemyShootBall();
 
@@ -163,10 +163,11 @@ public class EnemyController : MonoBehaviour
 
     public void ExitHasBallState()
     {
-        currentState = EnemyState.RUN_SPAWN;
 
         Timers.SetTimeout(1000, () =>
         {
+            currentState = EnemyState.RUN_SPAWN;
+            if (!Rigidbody || !Collider) return; // If we got destroyed during timeout 
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.simulated = true;
             Collider.enabled = true;

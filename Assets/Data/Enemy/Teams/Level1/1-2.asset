@@ -15,5 +15,5 @@ MonoBehaviour:
   color: {r: 0.75470066, g: 1, b: 0.7028302, a: 0}
   teamName: 
   enemies:
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
-  - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
+  - {fileID: 11400000, guid: 9605b85a9571671458678c7879c97460, type: 2}
+  - {fileID: 11400000, guid: 9605b85a9571671458678c7879c97460, type: 2}

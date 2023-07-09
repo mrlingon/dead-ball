@@ -69,7 +69,7 @@ public class LevelManager : MonoBehaviour
             ballCameraController.ZoomTo(ballCameraController.DefaultStartZoom, 0.5f);
         });
 
-        Timers.SetTimeout(levelTransitionTime + 500, () =>
+        Timers.SetTimeout(levelTransitionTime + 1000, () =>
         {
             enemyManager.ActivateEnemies();
         });

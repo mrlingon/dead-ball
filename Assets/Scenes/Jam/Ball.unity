@@ -4224,6 +4224,7 @@ MonoBehaviour:
   ball: {fileID: 875394094}
   enemyInstantiator: {fileID: 554416647}
   enemyManager: {fileID: 554416648}
+  startLevel: 1
   levelTransitionTime: 2500
 --- !u!1 &1782127066
 GameObject:
