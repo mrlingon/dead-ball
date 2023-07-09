@@ -98,6 +98,7 @@ public class LevelManager : MonoBehaviour
 
     private void SetUpLevel(Level level)
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Music/Angel");
         ball.SetFrozen(true);
         enemyInstantiator.SetUpLevel(level);
         ball.transform.position = Vector3.zero;
