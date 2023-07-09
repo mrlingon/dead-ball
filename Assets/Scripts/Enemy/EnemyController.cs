@@ -15,12 +15,15 @@ public class EnemyController : MonoBehaviour
         RUN_TOWARDS,
         RUN_SPAWN,
         HAS_BALL,
+        DYING
     }
     public EnemyState currentState = EnemyState.RUN_TOWARDS;
     public Enemy enemyData;
 
     public Animator Animator;
     public SpriteRenderer SpriteRenderer;
+
+    public SpriteRenderer ShirtRenderer;
 
     public SpriteRenderer RunTowardsIndicator;
 
@@ -62,14 +65,17 @@ public class EnemyController : MonoBehaviour
 
     public void OnSpawn()
     {
-        if (team == 2)
+        const int RightTeam = 2;
+        if (team == RightTeam)
         {
             SpriteRenderer.flipX = true;
+            ShirtRenderer.flipX = false;
         }
     }
 
     void Update()
     {
+        if (isDying) return;
         if (!ball) return;
         if (!activated) return;
 
@@ -79,7 +85,7 @@ public class EnemyController : MonoBehaviour
             if (ball.VelocityLenSq > enemyData.behaviour.minBallSpeed && !ball.Frozen) currentState = EnemyState.RUN_AWAY;
         }
 
-        if (flock.velocity.magnitude > 0.1f)
+        if (!isDying && flock.velocity.magnitude > 0.1f)
         {
             Animator.SetTrigger("Running");
         }
@@ -93,12 +99,14 @@ public class EnemyController : MonoBehaviour
         {
             SpriteRenderer.flipX = true;
             canFlipSprite = false;
+            ShirtRenderer.flipX = true;
 
             Timers.SetTimeout(1000, () => canFlipSprite = true);
         }
         else if (canFlipSprite && flock.velocity.x > 0 && SpriteRenderer.flipX == true)
         {
             SpriteRenderer.flipX = false;
+            ShirtRenderer.flipX = false;
             canFlipSprite = false;
             Timers.SetTimeout(1000, () => canFlipSprite = true);
         }
@@ -128,6 +136,8 @@ public class EnemyController : MonoBehaviour
                 flock.maxSpeed = enemyData.retreatSpeed;
                 HasBall();
                 SetBallPosition();
+                break;
+            default:
                 break;
         }
     }
@@ -161,6 +171,25 @@ public class EnemyController : MonoBehaviour
             ExitHasBallState();
         }
     }
+
+    public bool isDying = false;
+    public void TriggerDeath()
+    {
+        isDying = true;
+
+        currentState = EnemyState.DYING;
+        Rigidbody.simulated = false;
+        Collider.enabled = false;
+
+        Animator.SetTrigger("Death");
+        Animator.ResetTrigger("Running");
+
+        Timers.SetTimeout(1000, () =>
+        {
+            Destroy(gameObject);
+        });
+    }
+
     public void EnterHasBallState()
     {
         currentState = EnemyState.HAS_BALL;
@@ -245,5 +274,8 @@ public class EnemyController : MonoBehaviour
 
     }
 
-
+    public void SetColor(Color color)
+    {
+        ShirtRenderer.color = color;
+    }
 }
