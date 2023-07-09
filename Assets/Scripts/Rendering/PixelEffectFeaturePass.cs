@@ -9,7 +9,7 @@ namespace UnityEngine.Experimental.Rendering.Universal
     {
         Material blitMat;
         float pixelDensity;
-        
+
         ProfilingSampler m_ProfilingSampler;
         RenderStateBlock m_RenderStateBlock;
         List<ShaderTagId> m_ShaderTagIdList = new List<ShaderTagId>();
@@ -57,7 +57,7 @@ namespace UnityEngine.Experimental.Rendering.Universal
             CommandBuffer cmd = CommandBufferPool.Get("PixelEffect");
             using (new ProfilingScope(cmd, m_ProfilingSampler))
             {
-                
+
 
                 cmd.GetTemporaryRT(pixelTexID, pixelWidth, pixelHeight, 0, FilterMode.Point);
                 cmd.GetTemporaryRT(pixelDepthID, pixelWidth, pixelHeight, 24, FilterMode.Point, RenderTextureFormat.Depth);
@@ -80,7 +80,7 @@ namespace UnityEngine.Experimental.Rendering.Universal
 
                 context.ExecuteCommandBuffer(cmd);
                 cmd.Clear();
-                
+
             }
             context.ExecuteCommandBuffer(cmd);
             context.Submit();

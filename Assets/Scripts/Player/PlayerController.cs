@@ -100,6 +100,13 @@ public class PlayerController : MonoBehaviour
             PlayerHoldDrag.Reset();
             ReleasePowerLeft = 1.0f;
         };
+
+        GameManager.Instance.OnEnemyShootBall += () =>
+        {
+            ReleaseAction.Disable();
+            PlayerHoldDrag.Reset();
+            ReleasePowerLeft = 1.0f;
+        };
     }
 
     private bool showingTrailParticles = false;
