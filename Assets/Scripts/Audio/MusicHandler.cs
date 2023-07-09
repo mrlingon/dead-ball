@@ -23,6 +23,19 @@ public class MusicHandler : MonoBehaviour
     public bool isGrabbed = false;
     private bool checkIsGrabbed = false;
 
+    void Awake()
+    {
+        if (GameManager.Instance.MusicHandler != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        GameManager.Instance.MusicHandler = this;
+    }
+
+
+
     //Start and Update
     void Start()
     {
@@ -33,6 +46,16 @@ public class MusicHandler : MonoBehaviour
         GameManager.Instance.OnReleasedBall += () => isGrabbed = false;
         GameManager.Instance.Scores.OnKillAdded += (i) => murderCount = GameManager.Instance.Scores.Kills * 3;
 
+        Music.start();
+    }
+
+    public void StopMusic()
+    {
+        Music.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
+    public void StartMusic()
+    {
         Music.start();
     }
 
@@ -48,7 +71,7 @@ public class MusicHandler : MonoBehaviour
         Music = FMODUnity.RuntimeManager.CreateInstance(MusicEvent);
     }
 
-    void InitializeParameters()
+    public void InitializeParameters()
     {
         FMODUnity.RuntimeManager.StudioSystem.getParameterDescriptionByName("MurderCount", out murderCountDesc);
         murderCountID = murderCountDesc.id;
@@ -70,18 +93,16 @@ public class MusicHandler : MonoBehaviour
             if (isGrabbed)
             {
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByID(isGrabbedID, 1f);
-
             }
 
             if (!isGrabbed)
             {
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByID(isGrabbedID, 0f);
-
             }
 
             checkIsGrabbed = !checkIsGrabbed;
         }
 
-            
+
     }
 }

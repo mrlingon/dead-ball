@@ -92,6 +92,10 @@ public class ScoreManager : MonoBehaviour
 
     public void Reset()
     {
+        OnComboEnded = null;
+        OnScoreAdded = null;
+        OnComboAdded = null;
+        OnKillAdded = null;
         Score = 0;
         Combo = 0;
         Kills = 0;

@@ -24,9 +24,9 @@ Button {
     border-bottom-left-radius: 15px;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
-    background-color: rgb(1, 111, 3);
+    background-color: rgb(255, 255, 255);
     -unity-background-image-tint-color: rgb(1, 139, 4);
-    color: rgb(255, 255, 255);
+    color: rgb(53, 44, 44);
     -unity-font-style: bold;
     -unity-text-outline-width: 0.05px;
     -unity-text-outline-color: rgb(0, 0, 0);

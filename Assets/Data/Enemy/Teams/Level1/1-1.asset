@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 963802d436219f844a8522df724e3066, type: 3}
   m_Name: 1-1
   m_EditorClassIdentifier: 
-  color: {r: 0.98237085, g: 1, b: 0.1273585, a: 1}
-  teamName: Newbies
+  color: {r: 0, g: 0.0963881, b: 1, a: 1}
+  teamName: Gamers
   enemies:
   - {fileID: 11400000, guid: 9605b85a9571671458678c7879c97460, type: 2}
   - {fileID: 11400000, guid: 9605b85a9571671458678c7879c97460, type: 2}

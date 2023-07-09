@@ -8,20 +8,21 @@ public class menuHandler : MonoBehaviour
 {
 
     private Button _startButton;
-    private Button _settingsButton;
+    private Button _howToButton;
     private Button _exitButton;
     private Button _backButton;
+    private Label _score;
 
     private VisualElement _mainContainer;
-private VisualElement _settingsContainer;
+    private VisualElement _howToContainer;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        
+
+
     }
 
     // Update is called once per frame
@@ -29,52 +30,64 @@ private VisualElement _settingsContainer;
     {
     }
 
-    private void OnEnable(){
+    private void OnEnable()
+    {
 
         var uiDoc = GetComponent<UIDocument>();
         _mainContainer = uiDoc.rootVisualElement.Q("MainContainer") as VisualElement;
-        _settingsContainer = uiDoc.rootVisualElement.Q("SettingsContainer") as VisualElement;
+        _howToContainer = uiDoc.rootVisualElement.Q("HowToContainer") as VisualElement;
         _mainContainer.style.opacity = 1;
-        _settingsContainer.style.opacity = 0;
+        _howToContainer.style.opacity = 0;
 
         _startButton = uiDoc.rootVisualElement.Q("StartButton") as Button;
-        _settingsButton = uiDoc.rootVisualElement.Q("SettingsButton") as Button;
+        _howToButton = uiDoc.rootVisualElement.Q("HowToButton") as Button;
         _exitButton = uiDoc.rootVisualElement.Q("ExitButton") as Button;
         _backButton = uiDoc.rootVisualElement.Q("BackButton") as Button;
 
-        
+        _score = uiDoc.rootVisualElement.Q("Score") as Label;
+
+
 
         _startButton.RegisterCallback<ClickEvent>(evt => PrintClickMessage());
-        _settingsButton.RegisterCallback<ClickEvent>(evt => ToggleSettings());
+        _howToButton.RegisterCallback<ClickEvent>(evt => ToggleSettings());
         _backButton.RegisterCallback<ClickEvent>(evt => ToggleSettings());
         _exitButton.RegisterCallback<ClickEvent>(evt => QuitGame());
 
     }
 
-    private void PrintClickMessage() {
-
+    private void PrintClickMessage()
+    {
         Debug.Log($"{"button"} was clicked!");
-        SceneManager.LoadScene(1);
-      }
+        GameManager.Instance.SceneLoader.LoadScene(SceneLoader.GAME_SCENE);
+    }
+
+    private void RestartGame()
+    {
+        Debug.Log($"{"button"} was clicked!");
+        GameManager.Instance.SceneLoader.LoadScene(SceneLoader.GAME_SCENE);
+    }
 
 
-    private void ToggleSettings(){
-        Debug.Log("Toggled settings!");
+    private void ToggleSettings()
+    {
+        Debug.Log("Toggled HowTo!");
 
-        if(_mainContainer.style.display != DisplayStyle.None) {
+        if (_mainContainer.style.display != DisplayStyle.None)
+        {
             _mainContainer.style.opacity = 0;
-           _mainContainer.style.visibility = Visibility.Hidden;
-           _mainContainer.style.display = DisplayStyle.None;
-           _settingsContainer.style.display = DisplayStyle.Flex;
-           _settingsContainer.style.visibility = Visibility.Visible;
-           _settingsContainer.style.opacity = 1;
+            _mainContainer.style.visibility = Visibility.Hidden;
+            _mainContainer.style.display = DisplayStyle.None;
+            _howToContainer.style.display = DisplayStyle.Flex;
+            _howToContainer.style.visibility = Visibility.Visible;
+            _howToContainer.style.opacity = 1;
 
-           Debug.Log("got this far");
+            Debug.Log("got this far");
         }
-        else {
-           _settingsContainer.style.opacity = 0;
-           _settingsContainer.style.visibility = Visibility.Hidden;
-           _settingsContainer.style.display = DisplayStyle.None;
+        else
+        {
+            _howToContainer.style.opacity = 0;
+            _howToContainer.style.visibility = Visibility.Hidden;
+            _howToContainer.style.display = DisplayStyle.None;
             _mainContainer.style.display = DisplayStyle.Flex;
             _mainContainer.style.visibility = Visibility.Visible;
             _mainContainer.style.opacity = 1;
@@ -82,8 +95,9 @@ private VisualElement _settingsContainer;
         }
 
     }
-    private void QuitGame(){
-            Debug.Log("Quit game!");
+    private void QuitGame()
+    {
+        Debug.Log("Quit game!");
     }
 
 }

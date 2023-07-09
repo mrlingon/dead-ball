@@ -18,7 +18,7 @@ public class BallCameraController : MonoBehaviour
         noise.m_AmplitudeGain = shakeAmplitude;
         noise.m_FrequencyGain = shakeFrequency;
 
-        if (shakeTweenId != -1)
+        if (shakeTweenId != -1 && LeanTween.isTweening(shakeTweenId))
             LeanTween.cancel(shakeTweenId, true);
 
         shakeTweenId = LeanTween.value(gameObject, 0f, 1f, shakeDuration)
@@ -50,7 +50,7 @@ public class BallCameraController : MonoBehaviour
     {
         float currentZoom = VirtualCamera.m_Lens.OrthographicSize;
 
-        if (zoomToTweenId != -1)
+        if (zoomToTweenId != -1 && LeanTween.isTweening(zoomToTweenId))
             LeanTween.cancel(zoomToTweenId);
 
         zoomToTweenId = LeanTween.value(gameObject, (f) => VirtualCamera.m_Lens.OrthographicSize = f, VirtualCamera.m_Lens.OrthographicSize, zoom, duration)

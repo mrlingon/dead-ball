@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using ElRaccoone.Timers;
 using NaughtyAttributes;
 using Unity.Mathematics;
@@ -17,7 +18,8 @@ public class PlayerController : MonoBehaviour
     [Header("Ball Release Settings")]
     public float ReleaseKeyPower = 0.15f;
 
-    [SerializeField] [ReadOnly]
+    [SerializeField]
+    [ReadOnly]
     private float ReleasePowerLeft = 1.0f;
 
     [Header("Refs")]
@@ -25,6 +27,8 @@ public class PlayerController : MonoBehaviour
     public BallPhysicsBody Ball;
     public PlayerHoldDrag PlayerHoldDrag;
     public DragPower DragPower;
+    public GameObject TrackingIndicatorPrefab;
+
     public bool CanControl { get; set; } = true;
 
     private InputAction KickAction;
@@ -48,8 +52,6 @@ public class PlayerController : MonoBehaviour
         LobAction = InputActions.FindAction("Gameplay/Lob");
         ReleaseAction = InputActions.FindAction("Gameplay/Release");
 
-        DontDestroyOnLoad(gameObject);
-
         ToggleControl(true);
     }
 
@@ -62,7 +64,8 @@ public class PlayerController : MonoBehaviour
         {
         };
 
-        PlayerHoldDrag.Released += (mode, drag) => {
+        PlayerHoldDrag.Released += (mode, drag) =>
+        {
             float xyMult = mode == PlayerHoldDrag.PlayerKickMode.Kick ? KickXYForceMultipler : LobXYForceMultipler;
             float zMult = mode == PlayerHoldDrag.PlayerKickMode.Kick ? KickZForceMultipler : LobZForceMultipler;
 
@@ -78,13 +81,23 @@ public class PlayerController : MonoBehaviour
         {
             if (hit)
             {
-                GameManager.Instance.BallCamera?.Shake(0.004f, 1f, 0.444f);
+                GameManager.Instance.BallCamera?.Shake(0.008f, 1f, 0.444f);
                 GameManager.Instance.Scores.AddScore(1);
                 GameManager.Instance.Scores.AddKill();
             }
             else
             {
-                GameManager.Instance.BallCamera?.Shake(0.001f, 1f, 0.444f);
+                GameManager.Instance.BallCamera?.Shake(0.005f, 1f, 0.444f);
+            }
+        };
+
+
+        GameManager.Instance.LevelManager.LevelStart += (level, level_rank) =>
+        {
+            foreach (var enemy in GameManager.Instance.LevelManager.enemyManager.enemies)
+            {
+                var go = Instantiate(TrackingIndicatorPrefab, Ball.transform);
+                go.GetComponent<TargetIndicator>().SetTarget(enemy.transform);
             }
         };
 
@@ -117,9 +130,22 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.LevelManager.LevelSetUp += (level, level_rank) =>
         {
             SetInitialRotation(0f);
-            Timers.SetTimeout(400, () => {
+            Timers.SetTimeout(400, () =>
+            {
                 LookAtCameraRotationAnimation(2f);
             });
+        };
+
+        GameManager.Instance.OnGameOver += () =>
+        {
+            ToggleControl(false);
+            PlayerHoldDrag.Reset();
+        };
+
+        GameManager.Instance.OnGameWin += () =>
+        {
+            ToggleControl(false);
+            PlayerHoldDrag.Reset();
         };
     }
 
@@ -138,9 +164,12 @@ public class PlayerController : MonoBehaviour
         if (GameManager.Instance.BallIsCatched && ReleaseAction.WasPressedThisFrame())
         {
             ReleasePowerLeft -= ReleaseKeyPower;
+            GameManager.Instance.BallCamera?.Shake(0.005f, 1f, 0.444f);
+
             if (ReleasePowerLeft <= 0.0f)
             {
                 GameManager.Instance.CatchedOrReleasedBall(true);
+                GameManager.Instance.BallCamera?.Shake(0.008f, 1f, 0.444f);
             }
         }
 
@@ -160,14 +189,15 @@ public class PlayerController : MonoBehaviour
 
     public void SetInitialRotation(float time = 0.333f)
     {
-        LeanTween.rotate(Ball.ModelParent.transform.gameObject, new Vector3(0, 90, -180),time).setEase(LeanTweenType.easeOutCubic);
+        LeanTween.rotate(Ball.ModelParent.transform.gameObject, new Vector3(0, 90, -180), time).setEase(LeanTweenType.easeOutCubic);
     }
 
     public void LookAtCameraRotationAnimation(float time = 0.333f)
     {
         GameManager.Instance.BallCamera?.ShowTrailParticles();
-        GameManager.Instance.BallCamera?.Shake(0.012f, 1f, time + 0.333f);
-        LeanTween.rotateZ(Ball.ModelParent.transform.gameObject, 26, time).setEase(LeanTweenType.easeOutCubic).setOnComplete(() => {
+        GameManager.Instance.BallCamera?.Shake(0.016f, 1f, time + 0.333f);
+        LeanTween.rotateZ(Ball.ModelParent.transform.gameObject, 26, time).setEase(LeanTweenType.easeOutCubic).setOnComplete(() =>
+        {
             GameManager.Instance.BallCamera?.HideTrailParticles();
         });
     }
