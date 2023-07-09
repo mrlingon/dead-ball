@@ -56,7 +56,8 @@ public class EnemyManager : MonoBehaviour
     {
         foreach (var enemy in enemies)
         {
-            Destroy(enemy.gameObject);
+            if (enemy.gameObject)
+                Destroy(enemy.gameObject);
         }
     }
 
