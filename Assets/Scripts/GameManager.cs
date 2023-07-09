@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        Scores.lastGameScore = Scores.Score;
         Reset();
         Timers.SetTimeout(1500, () =>
         {
