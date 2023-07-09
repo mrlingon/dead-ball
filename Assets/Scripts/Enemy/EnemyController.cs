@@ -202,7 +202,7 @@ public class EnemyController : MonoBehaviour
         currentState = EnemyState.RUN_SPAWN;
         ball.canBeGrabbed = false;
 
-        Timers.SetTimeout(1000, () =>
+        Timers.SetTimeout(ball.grabCooldown, () =>
         {
             if (!Rigidbody || !Collider) return; // If we got destroyed during timeout
 
