@@ -15,10 +15,7 @@ public class FmodballPlayer : MonoBehaviour
         BallLand = FMODUnity.RuntimeManager.CreateInstance(Land);
         ballPhysicsBody = ball.GetComponent<BallPhysicsBody>();
 
-        GameManager.Instance.Ball.HitWall += () =>
-        {
-            BallLand.start();
-        };
+        
     }
     void ballLand()
     {
@@ -38,5 +35,13 @@ public class FmodballPlayer : MonoBehaviour
     {
 
         ballLand();
+    }
+
+    private void Start()
+    {
+        GameManager.Instance.Ball.HitWall += () =>
+        {
+            BallLand.start();
+        };
     }
 }
