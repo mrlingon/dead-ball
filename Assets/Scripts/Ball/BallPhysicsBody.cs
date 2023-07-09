@@ -77,6 +77,7 @@ public class BallPhysicsBody : MonoBehaviour
 
     public bool Frozen { get; private set; } = false;
 
+    public int grabCooldown = 1000; // Frans när du ser detta säg till mig
     public bool canBeGrabbed = true; // Frans när du ser detta säg till mig
 
     public float3 originalScale;

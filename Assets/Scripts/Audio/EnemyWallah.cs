@@ -21,12 +21,29 @@ public class EnemyWallah : MonoBehaviour
 
     private EnemyState enemyState;
 
+    public BallSensor ballSensor;
+
     void Start()
     {
+
         InitializeEvents();
         InitializeParameters();
 
+        ballSensor = GetComponentInChildren<BallSensor>();
+        if (ballSensor)
+        {
+            ballSensor.BallEnter += () =>
+            {
+                Wallah.start();
+            };
+            ballSensor.BallExit += () =>
+            {
+                Wallah.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            };
+        }
+
         Wallah.start();
+
     }
 
     void Update()
