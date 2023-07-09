@@ -77,6 +77,11 @@ public class BallPhysicsBody : MonoBehaviour
 
     public bool Frozen { get; private set; } = false;
 
+    public int grabCooldown = 1000;
+    public bool canBeGrabbed = true;
+
+    public float3 originalScale;
+
     public bool IsGrounded()
     {
         const float GroundedDistance = 0.0001f;
@@ -117,7 +122,7 @@ public class BallPhysicsBody : MonoBehaviour
 
         if (GameManager.Instance != null)
             GameManager.Instance.Ball = this;
-
+        originalScale = transform.localScale;
         Rigidbody = GetComponent<Rigidbody2D>();
         Collider = GetComponent<Collider2D>();
 
@@ -156,6 +161,12 @@ public class BallPhysicsBody : MonoBehaviour
                         DebugDraw.Circle(transform.position, 0.5f, Color.red, 3.0f);
                     }
 
+
+                    if (collision.gameObject.TryGetComponent(out EnemyController enemy))
+                    {
+                        if (enemy.isDying) return;
+                    }
+
                     HitEnemy?.Invoke(collision.gameObject, true);
 
                     Rigidbody.velocity *= CollisionPenalty;
@@ -180,6 +191,7 @@ public class BallPhysicsBody : MonoBehaviour
     }
 
     private bool requestedZoom = false;
+    private int squeezeId = -1;
     protected void Update()
     {
         if (Debugging)
@@ -193,12 +205,15 @@ public class BallPhysicsBody : MonoBehaviour
         if (VelocityLenSq >= RequiredCollisionVelocity && !requestedZoom)
         {
             requestedZoom = true;
-            //GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.8f, 0.333f);
-
+            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom * 0.8f, 0.333f);
+            if (squeezeId != -1 && LeanTween.isTweening(squeezeId)) LeanTween.cancel(squeezeId);
+            squeezeId = LeanTween.scaleY(gameObject, originalScale.y * 0.8f, 0.1f).setEase(LeanTweenType.easeInCubic).id;
         }
         else if (requestedZoom && GameManager.Instance?.BallCamera != null && GameManager.Instance?.BallCamera?.VirtualCamera.m_Lens.OrthographicSize != GameManager.Instance?.BallCamera?.DefaultStartZoom)
         {
-            //GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom, 0.666f);
+            if (squeezeId != -1 && LeanTween.isTweening(squeezeId)) LeanTween.cancel(squeezeId);
+            squeezeId = LeanTween.scaleY(gameObject, originalScale.y, 0.1f).setEase(LeanTweenType.easeInCubic).id;
+            GameManager.Instance?.BallCamera?.ZoomTo(GameManager.Instance.BallCamera.DefaultStartZoom, 0.666f);
             requestedZoom = false;
         }
     }

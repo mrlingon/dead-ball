@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
     public BallPhysicsBody Ball { get; set; }
     public GameField GameField { get; set; }
     public ScoreManager Scores { get; set; }
+    public LevelManager LevelManager { get; set; }
+    public SceneLoader SceneLoader { get; set; }
 
     public event Action OnCatchedBall;
     public event Action OnReleasedBall;
@@ -55,6 +57,8 @@ public class GameManager : MonoBehaviour
 
     protected void Awake()
     {
+        if (InnerInstance != null) Destroy(this.gameObject);
+
         LeanTween.init(800);
 
         InnerInstance = this;
@@ -125,9 +129,7 @@ public class GameManager : MonoBehaviour
         OnGameOver?.Invoke();
         Reset();
         GameManager.Instance.Player.CanControl = false;
-
         Debug.Log("Game Over. Score: " + Scores.Score + " Combo: " + Scores.Combo + ". Kills: " + Scores.Kills);
-
     }
 
     public void GameWin()
@@ -139,18 +141,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("You Win. Score: " + Scores.Score + " Combo: " + Scores.Combo + ". Kills: " + Scores.Kills);
     }
 
-    public void LoadScene(int targetScene)
-    {
-        Pause();
-        Player?.ToggleControl(false);
-
-        var asyncop = SceneManager.LoadSceneAsync(targetScene, LoadSceneMode.Single);
-        asyncop.completed += operation =>
-        {
-            Resume();
-            Player?.ToggleControl(true);
-        };
-    }
 
     public void Reset()
     {

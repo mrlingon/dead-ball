@@ -7,6 +7,8 @@ public class BallCameraController : MonoBehaviour
 {
     public float DefaultStartZoom = 13f;
 
+    public ParticleSystem TrailParticles;
+
     public Cinemachine.CinemachineVirtualCamera VirtualCamera { get; private set; }
 
     private int shakeTweenId = -1;
@@ -30,6 +32,17 @@ public class BallCameraController : MonoBehaviour
         CinemachineBasicMultiChannelPerlin noise = VirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         noise.m_AmplitudeGain = 0f;
         noise.m_FrequencyGain = 0f;
+    }
+
+    public void ShowTrailParticles()
+    {
+        TrailParticles.Play();
+    }
+
+    public void HideTrailParticles()
+    {
+        if (TrailParticles.isPlaying)
+            TrailParticles.Stop();
     }
 
     private int zoomToTweenId = -1;
@@ -71,8 +84,8 @@ public class BallCameraController : MonoBehaviour
 
     }
 
-    void Update()
+    void Reset()
     {
-
+        HideTrailParticles();
     }
 }
