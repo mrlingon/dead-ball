@@ -33,7 +33,7 @@ public class FMODPlayerScript : MonoBehaviour
 
     void PlayerisCharging()
     {
-        playerHoldDrag.StartDrag += () =>
+        playerHoldDrag.StartDrag += (_) =>
         {
             playerCharge.start();
             //playerCharge.release();
@@ -44,11 +44,7 @@ public class FMODPlayerScript : MonoBehaviour
 
     void PlayerIsJumping()
     {
-<<<<<<< Updated upstream
-        playerHoldDrag.Released += (drag) =>
-=======
         playerHoldDrag.Released += (_, drag) =>
->>>>>>> Stashed changes
         {
             //Sätt Drag Velocity till ett värde mellan 0 och ett baserat på hur hårt man sparkar bollen
             float p = math.length(drag) / GameManager.Instance.Player.DragPower.MaxPower;

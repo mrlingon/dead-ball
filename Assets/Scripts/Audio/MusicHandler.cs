@@ -29,13 +29,10 @@ public class MusicHandler : MonoBehaviour
         InitializeEvents();
         InitializeParameters();
 
-<<<<<<< Updated upstream
-=======
         GameManager.Instance.OnCatchedBall += () => isGrabbed = true;
         GameManager.Instance.OnReleasedBall += () => isGrabbed = false;
         GameManager.Instance.Scores.OnKillAdded += (i) => murderCount = GameManager.Instance.Scores.Kills * 3;
 
->>>>>>> Stashed changes
         Music.start();
     }
 
