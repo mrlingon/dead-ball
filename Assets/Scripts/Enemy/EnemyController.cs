@@ -163,10 +163,10 @@ public class EnemyController : MonoBehaviour
 
     public void ExitHasBallState()
     {
+        currentState = EnemyState.RUN_SPAWN;
 
         Timers.SetTimeout(1000, () =>
         {
-            currentState = EnemyState.RUN_SPAWN;
             if (!Rigidbody || !Collider) return; // If we got destroyed during timeout 
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.simulated = true;
