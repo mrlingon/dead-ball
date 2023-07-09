@@ -155,20 +155,37 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private bool atGoal = false;
+
     void HasBall()
     {
         flock.goalTransform = shootPosition;
-        flock.MoveIndependently();
+
+        if (!atGoal)
+        {
+            flock.goalTransform = shootPosition;
+            flock.MoveIndependently();
+        }
 
         if (math.distance(flock.goalTransform, new Vector2(transform.position.x, transform.position.y)) < 0.3f)
         {
-            ball.SetFrozen(false);
+            atGoal = true;
 
-            float3 dir = new float3(team == 1 ? -1 : 1, 0, 0f);
-            ball.ApplyForce(dir * 25);
-            GameManager.Instance.EnemyShootBall();
+            Timers.SetTimeout(666, () =>
+            {
+                if (currentState != EnemyState.HAS_BALL)
+                {
+                    return;
+                }
 
-            ExitHasBallState();
+                ball.SetFrozen(false);
+
+                float3 dir = new float3(team == 1 ? -1 : 1, 0, 0f);
+                ball.ApplyForce(dir * 25);
+                GameManager.Instance.EnemyShootBall();
+
+                ExitHasBallState();
+            });
         }
     }
 
@@ -182,6 +199,7 @@ public class EnemyController : MonoBehaviour
         Collider.enabled = false;
 
         GetComponent<EnemyDeath>().PlayDeathSound();
+        GetComponent<EnemyWallah>().stopOnDeath();
 
         Animator.SetTrigger("Death");
         Animator.ResetTrigger("Running");
@@ -195,6 +213,7 @@ public class EnemyController : MonoBehaviour
     public void EnterHasBallState()
     {
         currentState = EnemyState.HAS_BALL;
+        atGoal = false;
         Rigidbody.simulated = false;
         Collider.enabled = false;
     }
@@ -203,6 +222,7 @@ public class EnemyController : MonoBehaviour
     {
         currentState = EnemyState.RUN_SPAWN;
         ball.canBeGrabbed = false;
+        atGoal = false;
 
         Timers.SetTimeout(ball.grabCooldown, () =>
         {

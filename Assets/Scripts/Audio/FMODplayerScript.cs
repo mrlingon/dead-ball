@@ -8,8 +8,8 @@ public class FMODPlayerScript : MonoBehaviour
 {
     public FMODUnity.EventReference Jump;
     FMOD.Studio.EventInstance playerJump;
-    public FMODUnity.EventReference Drag;
-    FMOD.Studio.EventInstance playerCharge;
+    //public FMODUnity.EventReference Drag;
+    //FMOD.Studio.EventInstance playerCharge;
     public PlayerController playerController;
     public PlayerHoldDrag playerHoldDrag;
 
@@ -26,12 +26,12 @@ public class FMODPlayerScript : MonoBehaviour
     void Update()
     {
         PlayerIsJumping();
-        PlayerisCharging();
+        //PlayerisCharging();
     }
 
 
 
-    void PlayerisCharging()
+    /*void PlayerisCharging()
     {
         playerHoldDrag.StartDrag += (_) =>
         {
@@ -40,7 +40,7 @@ public class FMODPlayerScript : MonoBehaviour
         };
 
 
-    }
+    }*/
 
     void PlayerIsJumping()
     {
@@ -59,7 +59,7 @@ public class FMODPlayerScript : MonoBehaviour
     void InitializeEvents()
     {
         playerJump = FMODUnity.RuntimeManager.CreateInstance(Jump);
-        playerCharge = FMODUnity.RuntimeManager.CreateInstance(Drag);
+        //playerCharge = FMODUnity.RuntimeManager.CreateInstance(Drag);
 
     }
 

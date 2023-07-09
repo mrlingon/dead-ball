@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chonky
   m_EditorClassIdentifier: 
   enemyName: Zlatan
-  size: 2
+  size: 1.65
   health: 10
   strength: 10
   chaseSpeed: 5

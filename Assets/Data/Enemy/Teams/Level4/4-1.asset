@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 4-1
   m_EditorClassIdentifier: 
   color: {r: 0.13679248, g: 0.16472821, b: 1, a: 1}
-  teamName: Newbies
+  teamName: TERALAN
   enemies:
   - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
   - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}

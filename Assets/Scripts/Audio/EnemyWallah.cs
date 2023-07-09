@@ -25,7 +25,6 @@ public class EnemyWallah : MonoBehaviour
 
         InitializeEvents();
         InitializeParameters();
-        stopOnDeath();
 
         ballSensor = GetComponentInChildren<BallSensor>();
         if (ballSensor)
@@ -75,18 +74,10 @@ public class EnemyWallah : MonoBehaviour
             Wallah.setParameterByIDWithLabel(enemyStateID, "Has Ball");
     }
 
-    void stopOnDeath()
+    public void stopOnDeath()
     {
-        GameManager.Instance.Ball.KilledEnemy += (go) =>
-        {
-            if (go == gameObject)
-            {
                 Wallah.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 Wallah.release();
-            }
-
-        };
-
 
     }
 }

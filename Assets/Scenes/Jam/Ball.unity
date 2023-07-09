@@ -6698,7 +6698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7756c9f4b92b1e143a0729d32ecdbc89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Height: 2.13
+  Height: 0
   PlayerHeight: 1.4
   Gravity: 9.8
   SpinSpeed: 50
@@ -8502,6 +8502,12 @@ MonoBehaviour:
     teamTwo: {fileID: 11400000, guid: 284e9f9f92a2f0e498701cd20f4d2251, type: 2}
   - teamOne: {fileID: 11400000, guid: 832c1eb9f9c88684c9fde5b805f7f5ee, type: 2}
     teamTwo: {fileID: 11400000, guid: afb5b6a5a6fa9c540b3183000e686f2d, type: 2}
+  - teamOne: {fileID: 11400000, guid: eb81b9dd4e196c04eb1ff254bdee2146, type: 2}
+    teamTwo: {fileID: 11400000, guid: e854ddf3f27998246bbc3f50433cc8b7, type: 2}
+  - teamOne: {fileID: 11400000, guid: cdf11e064724cd44bb3485d8a42b25c7, type: 2}
+    teamTwo: {fileID: 11400000, guid: e1477cf77b92f2b4194126da09b638fc, type: 2}
+  - teamOne: {fileID: 11400000, guid: bcc900823b57b9c4ebec5928b2398484, type: 2}
+    teamTwo: {fileID: 11400000, guid: bc2b1e940717d61419b823b46dfeb7cf, type: 2}
   ballCameraController: {fileID: 1181822138}
   ball: {fileID: 875394094}
   enemyInstantiator: {fileID: 554416647}
@@ -8675,6 +8681,7 @@ MonoBehaviour:
   Ball: {fileID: 875394094}
   PlayerHoldDrag: {fileID: 1894918455}
   DragPower: {fileID: 1894918456}
+  TrackingIndicatorPrefab: {fileID: 3684488333011132726, guid: ffdf0bf06f07db6478a591f694ca645a, type: 3}
 --- !u!114 &1894918454
 MonoBehaviour:
   m_ObjectHideFlags: 0

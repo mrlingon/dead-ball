@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 963802d436219f844a8522df724e3066, type: 3}
   m_Name: 5-2
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 1, b: 0.9241462, a: 1}
-  teamName: 
+  color: {r: 1, g: 0.020420859, b: 0, a: 1}
+  teamName: DENMARK
   enemies:
   - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
   - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
