@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 963802d436219f844a8522df724e3066, type: 3}
   m_Name: 2-1
   m_EditorClassIdentifier: 
-  color: {r: 0.9811321, g: 0.28230685, b: 0.4377807, a: 0}
+  color: {r: 1, g: 0.051886797, b: 0.2649459, a: 1}
   teamName: Newbies
   enemies:
   - {fileID: 11400000, guid: 9605b85a9571671458678c7879c97460, type: 2}

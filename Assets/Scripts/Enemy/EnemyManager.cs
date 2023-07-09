@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ElRaccoone.Timers;
 using NaughtyAttributes;
 using UnityEngine;
@@ -16,17 +17,14 @@ public class EnemyManager : MonoBehaviour
     {
         ball.KilledEnemy += (go) =>
         {
-            Timers.SetTimeout(1000, () =>
+            var enemy = enemies.Find(ec => ec.gameObject == go);
+            enemies.Remove(enemy);
+            enemy.TriggerDeath();
+            //Destroy(enemy.gameObject);
+            if (enemies.Count == 0)
             {
-                var enemy = enemies.Find(ec => ec.gameObject == go);
-                enemies.Remove(enemy);
-                Destroy(enemy.gameObject);
-                if (enemies.Count == 0)
-                {
-                    AllEnemiesDead?.Invoke();
-                }
+                AllEnemiesDead?.Invoke();
             }
-            );
         };
 
         if (TryGetComponent<EnemyInstantiator>(out var enemyInstantiator))
@@ -44,7 +42,7 @@ public class EnemyManager : MonoBehaviour
         var hasBall = EnemyHasBall();
         if (hasBall)
         {
-            foreach (EnemyController enemy in enemies)
+            foreach (EnemyController enemy in enemies.Where(x => x.isDying == false))
             {
                 if (enemy.currentState != EnemyController.EnemyState.HAS_BALL)
                 {
@@ -54,7 +52,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    void Reset()
+    public void Reset()
     {
         foreach (var enemy in enemies)
         {
