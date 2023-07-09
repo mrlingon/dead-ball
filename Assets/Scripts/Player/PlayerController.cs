@@ -1,4 +1,5 @@
 using System;
+using ElRaccoone.Timers;
 using NaughtyAttributes;
 using Unity.Mathematics;
 using UnityEngine;
@@ -109,6 +110,19 @@ public class PlayerController : MonoBehaviour
             PlayerHoldDrag.Reset();
             ReleasePowerLeft = 1.0f;
         };
+
+        GameManager.Instance.LevelManager.LevelCompleted += (level, level_rank) =>
+        {
+            SetInitialRotation(0.333f);
+        };
+
+        GameManager.Instance.LevelManager.LevelSetUp += (level, level_rank) =>
+        {
+            SetInitialRotation(0f);
+            Timers.SetTimeout(400, () => {
+                LookAtCameraRotationAnimation(2f);
+            });
+        };
     }
 
     private bool showingTrailParticles = false;
@@ -144,6 +158,20 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.BallCamera?.HideTrailParticles();
             ShowingTrailParticles?.Invoke(false);
         }
+    }
+
+    public void SetInitialRotation(float time = 0.333f)
+    {
+        LeanTween.rotate(Ball.ModelParent.transform.gameObject, new Vector3(0, 90, -180),time).setEase(LeanTweenType.easeOutCubic);
+    }
+
+    public void LookAtCameraRotationAnimation(float time = 0.333f)
+    {
+        GameManager.Instance.BallCamera?.ShowTrailParticles();
+        GameManager.Instance.BallCamera?.Shake(0.012f, 1f, time + 0.333f);
+        LeanTween.rotateZ(Ball.ModelParent.transform.gameObject, 26, time).setEase(LeanTweenType.easeOutCubic).setOnComplete(() => {
+            GameManager.Instance.BallCamera?.HideTrailParticles();
+        });
     }
 
     public float GetReleaseProgress()

@@ -15,6 +15,10 @@ public class FmodballPlayer : MonoBehaviour
         BallLand = FMODUnity.RuntimeManager.CreateInstance(Land);
         ballPhysicsBody = ball.GetComponent<BallPhysicsBody>();
 
+        GameManager.Instance.Ball.HitWall += () =>
+        {
+            BallLand.start();
+        };
     }
     void ballLand()
     {
@@ -32,7 +36,7 @@ public class FmodballPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         ballLand();
     }
 }

@@ -72,7 +72,7 @@ public class BallPhysicsBody : MonoBehaviour
     public bool IsAirborne => !IsGrounded();
 
     public event Action<GameObject, bool> HitEnemy;
-
+    public event Action HitWall;
     public event Action<GameObject> KilledEnemy;
 
     public bool Frozen { get; private set; } = false;
@@ -136,6 +136,7 @@ public class BallPhysicsBody : MonoBehaviour
             if (collision.gameObject.CompareTag("Ground"))
             {
                 HeightForce = 0;
+                HitWall?.Invoke();
             }
         };
 
