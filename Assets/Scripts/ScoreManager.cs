@@ -31,6 +31,8 @@ public class ScoreManager : MonoBehaviour
 
     public event Action<int> OnKillAdded;
 
+    public int lastGameScore = 0;
+
     public void AddCombo()
     {
         trackingCombo = true;

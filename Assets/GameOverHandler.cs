@@ -16,12 +16,6 @@ public class gameOverHandler : MonoBehaviour
 
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -41,9 +35,15 @@ public class gameOverHandler : MonoBehaviour
 
 
 
+
         _restartButton.RegisterCallback<ClickEvent>(evt => RestartGame());
         _exitButton.RegisterCallback<ClickEvent>(evt => QuitGame());
 
+    }
+
+    void Start()
+    {
+        _score.text = GameManager.Instance.Scores.lastGameScore.ToString();
     }
 
     private void PrintClickMessage()
