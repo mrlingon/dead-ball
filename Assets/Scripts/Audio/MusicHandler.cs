@@ -29,6 +29,10 @@ public class MusicHandler : MonoBehaviour
         InitializeEvents();
         InitializeParameters();
 
+        GameManager.Instance.OnCatchedBall += () => isGrabbed = true;
+        GameManager.Instance.OnReleasedBall += () => isGrabbed = false;
+        GameManager.Instance.Scores.OnKillAdded += (i) => murderCount = GameManager.Instance.Scores.Kills;
+
         Music.start();
     }
 
@@ -78,6 +82,6 @@ public class MusicHandler : MonoBehaviour
             checkIsGrabbed = !checkIsGrabbed;
         }
 
-            
+
     }
 }

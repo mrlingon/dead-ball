@@ -277,6 +277,7 @@ MonoBehaviour:
   SpriteRenderer: {fileID: 6091245607779595633}
   ball: {fileID: 0}
   shootPosition: {x: 0, y: 0}
+  team: 0
 --- !u!50 &-4457583277160563778
 Rigidbody2D:
   serializedVersion: 4
@@ -374,20 +375,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e48b7903923934eaaa3f9133fd8efd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CryingEvent:
+  WallahEvent:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  LaughingEvent:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -449849879
+      Data2: 1185254582
+      Data3: 35760256
+      Data4: 1865217930
+    Path: event:/Enemies/EnemyWallah
 --- !u!114 &3189494697414898392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,11 +397,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -346270566
-      Data2: 1183828457
-      Data3: 2108371591
-      Data4: 292126980
-    Path: event:/Enemies/Wallahs
+      Data1: -449849879
+      Data2: 1185254582
+      Data3: 35760256
+      Data4: 1865217930
+    Path: event:/Enemies/EnemyWallah
   Event: 
   PlayEvent: 11
   StopEvent: 2
