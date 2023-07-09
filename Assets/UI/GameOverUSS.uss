@@ -1,0 +1,41 @@
+Button:hover {
+    transition-duration: 250ms;
+    transition-timing-function: ease-in-out;
+    transition-property: scale;
+    width: 20%;
+    scale: 1.2 1.2;
+}
+
+Button:active {
+    background-color: rgb(62, 142, 65);
+    box-shadow: 0 5px rgb(102, 102, 102);
+    transition-property: scale;
+    transition-duration: 25ms;
+    scale: 0.9 0.9;
+    transition-timing-function: linear;
+}
+
+Button {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: rgb(1, 111, 3);
+    -unity-background-image-tint-color: rgb(1, 139, 4);
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    -unity-text-outline-width: 0.05px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    font-size: 18px;
+}
+
+VisualElement {
+    transition-property: opacity;
+    transition-duration: 250ms;
+    transition-timing-function: ease-in-out;
+    opacity: 1;
+}
