@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyDeath : MonoBehaviour
@@ -21,15 +22,8 @@ public class EnemyDeath : MonoBehaviour
 
     void PlayDeathSound()
     {
-        GameManager.Instance.Ball.KilledEnemy += (go) =>
-        {
-            if (go == gameObject)
-            {
                 death = FMODUnity.RuntimeManager.CreateInstance(DeathEvent);
                 death.start();
                 death.release();
-            }
-        };
-        
     }
 }
