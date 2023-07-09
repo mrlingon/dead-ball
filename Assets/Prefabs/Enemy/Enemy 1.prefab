@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 5559853843871097783}
   - component: {fileID: 1893190016287948582}
   - component: {fileID: -5983507099316141690}
-  - component: {fileID: 3189494697414898392}
+  - component: {fileID: -5211566245909639397}
   m_Layer: 6
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -369,13 +369,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7093265360175481408}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2e48b7903923934eaaa3f9133fd8efd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CryingEvent:
     Guid:
+<<<<<<< Updated upstream
       Data1: 0
       Data2: 0
       Data3: 0
@@ -389,6 +390,14 @@ MonoBehaviour:
       Data4: 0
     Path: 
 --- !u!114 &3189494697414898392
+=======
+      Data1: -449849879
+      Data2: 1185254582
+      Data3: 35760256
+      Data4: 1865217930
+    Path: event:/Enemies/EnemyWallah
+--- !u!114 &-5211566245909639397
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -403,14 +412,22 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
+<<<<<<< Updated upstream
       Data1: -346270566
       Data2: 1183828457
       Data3: 2108371591
       Data4: 292126980
     Path: event:/Enemies/Wallahs
+=======
+      Data1: 2032583245
+      Data2: 1294777971
+      Data3: -749534795
+      Data4: -1292282901
+    Path: event:/Enemies/Death
+>>>>>>> Stashed changes
   Event: 
-  PlayEvent: 11
-  StopEvent: 2
+  PlayEvent: 2
+  StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
