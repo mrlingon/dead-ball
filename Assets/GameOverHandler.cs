@@ -20,6 +20,8 @@ public class gameOverHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.B)) GameManager.Instance.SceneLoader.LoadScene(SceneLoader.GAME_SCENE);
     }
 
     private void OnEnable()

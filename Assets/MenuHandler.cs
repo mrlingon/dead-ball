@@ -28,6 +28,8 @@ public class menuHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.B)) ToggleSettings();
+
     }
 
     private void OnEnable()
@@ -50,7 +52,6 @@ public class menuHandler : MonoBehaviour
 
         _startButton.RegisterCallback<ClickEvent>(evt => PrintClickMessage());
         _howToButton.RegisterCallback<ClickEvent>(evt => ToggleSettings());
-        _backButton.RegisterCallback<ClickEvent>(evt => ToggleSettings());
         _exitButton.RegisterCallback<ClickEvent>(evt => QuitGame());
 
     }
