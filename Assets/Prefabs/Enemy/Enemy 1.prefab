@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2123022768566747108}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.53, z: 0}
+  m_LocalPosition: {x: 0, y: 1.414, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -273,13 +273,16 @@ PolygonCollider2D:
       - {x: -0.75063145, y: 0.6469102}
       - {x: -0.7807739, y: 0.26934266}
       - {x: -0.84063643, y: -0.10562351}
-      - {x: -0.587798, y: -1.5996304}
-      - {x: 0.31238216, y: -1.7802445}
-      - {x: 0.4734146, y: -1.2457727}
-      - {x: 0.54131925, y: -0.8617207}
-      - {x: 0.6801349, y: -0.44367713}
-      - {x: 0.742224, y: 0.16095144}
-      - {x: 0.6917096, y: 0.6478181}
+      - {x: -1.0390742, y: -0.79226226}
+      - {x: -0.7039815, y: -1.7932694}
+      - {x: -0.06937653, y: -1.8988085}
+      - {x: 0.97075546, y: -1.8673823}
+      - {x: 1.1794949, y: -1.5781583}
+      - {x: 1.0446503, y: -1.0811794}
+      - {x: 0.9479615, y: -0.6487176}
+      - {x: 1.0577314, y: -0.06608075}
+      - {x: 0.9552271, y: 0.6644133}
+      - {x: 0.87566686, y: 1.2965093}
   m_UseDelaunayMesh: 0
 --- !u!1 &7093265360175481408
 GameObject:
@@ -294,9 +297,9 @@ GameObject:
   - component: {fileID: 1815678806822259406}
   - component: {fileID: -4457583277160563778}
   - component: {fileID: 5559853843871097783}
-  - component: {fileID: 1893190016287948582}
   - component: {fileID: -5983507099316141690}
   - component: {fileID: 3179998142110819457}
+  - component: {fileID: 5562282356902012920}
   m_Layer: 6
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -408,51 +411,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplier: 3
---- !u!61 &1893190016287948582
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093265360175481408}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.063562095, y: 0.1906566}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.2472011, y: 0.8736683}
-  m_EdgeRadius: 0
 --- !u!114 &-5983507099316141690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,6 +450,41 @@ MonoBehaviour:
       Data3: -749534795
       Data4: -1292282901
     Path: event:/Enemies/Death
+--- !u!70 &5562282356902012920
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093265360175481408}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.11618207, y: 0.21300621}
+  m_Size: {x: 1.7877206, y: 1.0325365}
+  m_Direction: 1
 --- !u!1 &7300034625192971650
 GameObject:
   m_ObjectHideFlags: 0

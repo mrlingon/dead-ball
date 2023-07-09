@@ -173,7 +173,7 @@ public class BallPhysicsBody : MonoBehaviour
                     Rigidbody.velocity *= CollisionPenalty;
                     HeightForce *= CollisionPenalty;
 
-                    GameManager.Instance.GameField?.SplatterPaint(new float2(transform.position.x, transform.position.y), 1.2f, 8, 15, 2, 6);
+                    GameManager.Instance.GameField?.SplatterPaint(new float2(transform.position.x, transform.position.y), 1.2f, 10, 15, 2, 7);
                     BloodTrail.ActivateTrail(1f, 2f);
                     Instantiate(BloodParticles, collision.transform.parent.position, Quaternion.identity);
                     KilledEnemy?.Invoke(collision.transform.parent.gameObject);

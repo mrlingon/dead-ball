@@ -81,13 +81,13 @@ public class PlayerController : MonoBehaviour
         {
             if (hit)
             {
-                GameManager.Instance.BallCamera?.Shake(0.008f, 1f, 0.444f);
+                GameManager.Instance.BallCamera?.Shake(0.012f, 1f, 0.666f);
                 GameManager.Instance.Scores.AddScore(1);
                 GameManager.Instance.Scores.AddKill();
             }
             else
             {
-                GameManager.Instance.BallCamera?.Shake(0.005f, 1f, 0.444f);
+                GameManager.Instance.BallCamera?.Shake(0.008f, 1f, 0.666f);
             }
         };
 
@@ -164,12 +164,12 @@ public class PlayerController : MonoBehaviour
         if (GameManager.Instance.BallIsCatched && ReleaseAction.WasPressedThisFrame())
         {
             ReleasePowerLeft -= ReleaseKeyPower;
-            GameManager.Instance.BallCamera?.Shake(0.005f, 1f, 0.444f);
+            GameManager.Instance.BallCamera?.Shake(0.005f, 1f, 0.666f);
 
             if (ReleasePowerLeft <= 0.0f)
             {
                 GameManager.Instance.CatchedOrReleasedBall(true);
-                GameManager.Instance.BallCamera?.Shake(0.008f, 1f, 0.444f);
+                GameManager.Instance.BallCamera?.Shake(0.008f, 1f, 0.666f);
             }
         }
 
