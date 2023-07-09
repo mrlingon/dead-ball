@@ -1971,7 +1971,6 @@ MonoBehaviour:
   ShadowPivot: {fileID: 181627794}
   BloodParticles: {fileID: -375752755888349104, guid: 2d4766bce327d124a975cfa1bc462daa, type: 3}
   Debugging: 1
-  canBeGrabbed: 1
 --- !u!50 &875394095
 Rigidbody2D:
   serializedVersion: 4
@@ -4246,7 +4245,6 @@ MonoBehaviour:
   ball: {fileID: 875394094}
   enemyInstantiator: {fileID: 554416647}
   enemyManager: {fileID: 554416648}
-  startLevel: 1
   levelTransitionTime: 2500
 --- !u!1 &1782127066
 GameObject:
@@ -4535,7 +4533,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894918452}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c0a32337e3bf204d8ac0269f91fa3e0, type: 3}
   m_Name: 
