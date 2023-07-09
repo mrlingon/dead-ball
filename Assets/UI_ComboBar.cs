@@ -28,6 +28,11 @@ public class UI_ComboBar : MonoBehaviour
 
         LeanTween.scale(gameObject, originalScale * 1.1f, 1.0f).setLoopPingPong().setEaseInOutSine();
 
+        GameManager.Instance.LevelManager.LevelSetUp += (level, level_rank) =>
+        {
+            Toggle(false);
+        };
+
         GameManager.Instance.Scores.OnComboAdded += (combo) =>
         {
             Toggle(true);

@@ -181,6 +181,8 @@ public class EnemyController : MonoBehaviour
         Rigidbody.simulated = false;
         Collider.enabled = false;
 
+        GetComponent<EnemyDeath>().PlayDeathSound();
+
         Animator.SetTrigger("Death");
         Animator.ResetTrigger("Running");
 

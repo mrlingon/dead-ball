@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2-2
   m_EditorClassIdentifier: 
   color: {r: 0, g: 1, b: 0.96000004, a: 1}
-  teamName: 
+  teamName: Pros
   enemies:
   - {fileID: 11400000, guid: 9605b85a9571671458678c7879c97460, type: 2}
   - {fileID: 11400000, guid: 7247c4a77d4d3834fa60c974e3db19fc, type: 2}
