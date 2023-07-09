@@ -21,6 +21,7 @@ public class LevelManager : MonoBehaviour
     public EnemyInstantiator enemyInstantiator;
     public EnemyManager enemyManager;
 
+    public int startLevel = 1;
     public int currentLevel { get; private set; } = 0;
 
     public int levelTransitionTime = 2500;
@@ -31,6 +32,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        currentLevel = startLevel - 1;
         Timers.SetTimeout(1000, () => StartLevel(levels[currentLevel]));
         enemyManager.AllEnemiesDead += NextLevel;
     }

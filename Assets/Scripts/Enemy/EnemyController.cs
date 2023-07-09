@@ -131,7 +131,7 @@ public class EnemyController : MonoBehaviour
         float dist = Vector2.Distance(ball.transform.position, transform.position);
 
         const float CatchDistance = 3f;
-        if (dist <= CatchDistance && !ball.Frozen && !ball.IsAirborne)
+        if (dist <= CatchDistance * enemyData.size && !ball.Frozen && !ball.IsAirborne)
         {
             EnterHasBallState();
             GameManager.Instance.CatchedOrReleasedBall(released: false, this);
