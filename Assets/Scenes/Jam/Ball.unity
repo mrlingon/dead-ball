@@ -6755,7 +6755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7756c9f4b92b1e143a0729d32ecdbc89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Height: 2.13
+  Height: 0
   PlayerHeight: 1.4
   Gravity: 9.8
   SpinSpeed: 50
